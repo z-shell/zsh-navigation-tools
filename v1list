@@ -1,5 +1,6 @@
 # $1 - output variable name
 # $2, $3, ... - elements of the list
+# $VLIST_BLOCKED_ELEMENTS - array of indexes (1-based) that cannot be selected
 #
 # Copy this file into /usr/share/zsh/[-version-]/functions
 # and add 'autoload v1list` to .zshrc
@@ -151,11 +152,14 @@ while (( 1 )); do
             check_if_next_page
             ;;
         ($'\n')
-            # Save the currently highlighted element in the result variable
-            _vlist_status_msg "Selecting element #$current"
-            zcurses refresh
-            eval "$result_var=$current"
-            break
+            # Is that element selectable?
+            if [[ ${VLIST_BLOCKED_ELEMENTS[(r)$current]} != $current ]]; then
+                # Save current element in the result variable
+                _vlist_status_msg "Selecting element #$current"
+                zcurses refresh
+                eval "$result_var=$current"
+                break
+            fi
             ;;
         (q)
             _vlist_status_msg "Quit (no selection)"
