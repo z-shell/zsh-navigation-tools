@@ -1,6 +1,11 @@
 # $1 - output variable name
 # $2, $3, ... - elements of the list
-# Copy this file (name: vlist) into /usr/share/zsh/**/functions
+#
+# Copy this file into /usr/share/zsh/[-version-]/functions
+# and add 'autoload v1list` to .zshrc
+#
+# This function outputs a list of elements that can be
+# navigated with keyboard. Uses curses library
 
 emulate -L zsh
 

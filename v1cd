@@ -1,4 +1,9 @@
-# Copy this file into /usr/share/zsh/**/functions
+# Copy this file into /usr/share/zsh/[-version-]/functions
+# and add 'autoload v1cd` to .zshrc
+#
+# This function allows to choose a directory from pushd stack
+#
+# Uses v1list
 
 emulate -L zsh
 

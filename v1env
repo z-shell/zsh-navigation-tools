@@ -1,4 +1,10 @@
-# Copy this file into /usr/share/zsh/**/functions
+# Copy this file into /usr/share/zsh/[-version-]/functions
+# and add 'autoload v1env` to .zshrc
+#
+# This function allows to choose an environment variable
+# for edition with vared
+#
+# Uses v1list
 
 emulate -L zsh
 
