@@ -48,6 +48,7 @@ _vlist_list() {
     integer y=1
 
     zcurses clear main
+    zcurses border main
 
     for (( i=start_idx; i<=end_idx; i++ )); do
         zcurses move main $y 2
@@ -104,7 +105,6 @@ integer last_element="$#"
 
 zcurses init
 zcurses addwin main "$term_height" "$term_width" 0 0
-zcurses border main
 
 #
 # Listening for input
