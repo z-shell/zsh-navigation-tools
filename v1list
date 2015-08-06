@@ -148,7 +148,7 @@ while (( 1 )); do
             [ "$current" -lt 1 ] && current=1;
             check_if_previous_page
             ;;
-        (NPAGE)
+        (NPAGE|" ")
             current=current+page_size
             [ "$current" -gt "$last_element" ] && current=last_element;
             check_if_next_page
