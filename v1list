@@ -1,6 +1,6 @@
 # $1 - output variable name
 # $2, $3, ... - elements of the list
-# $VLIST_BLOCKED_ELEMENTS - array of indexes (1-based) that cannot be selected
+# $VLIST_NONSELECTABLE_ELEMENTS - array of indexes (1-based) that cannot be selected
 #
 # Copy this file into /usr/share/zsh/[-version-]/functions
 # and add 'autoload v1list` to .zshrc
@@ -154,7 +154,7 @@ while (( 1 )); do
             ;;
         ($'\n')
             # Is that element selectable?
-            if [[ ${VLIST_BLOCKED_ELEMENTS[(r)$current]} != $current ]]; then
+            if [[ ${VLIST_NONSELECTABLE_ELEMENTS[(r)$current]} != $current ]]; then
                 # Save current element in the result variable
                 _vlist_status_msg "Selecting element #$current"
                 zcurses refresh
