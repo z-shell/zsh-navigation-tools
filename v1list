@@ -50,6 +50,7 @@ _vlist_list() {
     zcurses clear main
     zcurses border main
 
+    integer i
     for (( i=start_idx; i<=end_idx; i++ )); do
         zcurses move main $y 2
 
