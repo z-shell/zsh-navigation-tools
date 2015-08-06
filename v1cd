@@ -12,6 +12,7 @@ local IFS="
 "
 
 local list
+local list2
 local result
 local selected
 
