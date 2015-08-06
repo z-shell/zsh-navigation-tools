@@ -1,0 +1,24 @@
+# Copy this file into /usr/share/zsh/**/functions
+
+emulate -L zsh
+
+zmodload zsh/curses
+local IFS="
+"
+
+local list
+local result
+local selected
+
+list=( `dirs -p` )
+list2=( `dirs -pl` )
+vlist result "${list[@]}"
+
+if [ "$result" -gt 0 ]; then
+    selected="$list2[$result]"
+    echo "You have selected $selected"
+    setopt NO_AUTO_PUSHD
+    cd "$selected"
+    setopt AUTO_PUSHD
+fi
+
