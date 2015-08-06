@@ -12,7 +12,7 @@ local selected
 
 list=( `dirs -p` )
 list2=( `dirs -pl` )
-vlist result "${list[@]}"
+v1list result "${list[@]}"
 
 if [ "$result" -gt 0 ]; then
     selected="$list2[$result]"

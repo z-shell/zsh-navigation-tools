@@ -12,7 +12,7 @@ local result
 local selected
 
 list=( `env` )
-vlist result "$list[@]"
+v1list result "$list[@]"
 
 if [ "$result" -gt 0 ]; then
     selected="$list[$result]"
