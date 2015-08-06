@@ -1,0 +1,66 @@
+# Copy this file into /usr/share/zsh/[-version-]/functions
+# and add 'autoload v1kill` to .zshrc
+#
+# This function allows to choose a process and a signal to send to it
+#
+# Uses v1list
+
+emulate -L zsh
+
+zmodload zsh/curses
+
+setopt localoptions
+setopt extendedglob
+
+local IFS="
+"
+
+typeset -A signals
+signals=(
+     1       "1  - HUP"
+     2       "2  - INT"
+     3       "3  - QUIT"
+     6       "6  - ABRT"
+     9       "9  - KILL"
+     14      "14 - ALRM"
+     15      "15 - TERM"
+)
+
+local list
+local result
+local selected
+local signal
+local -a signal_names
+
+typeset -a VLIST_NONSELECTABLE_ELEMENTS
+VLIST_NONSELECTABLE_ELEMENTS=( 1 )
+
+# Ask of PID
+list=( `ps -A` )
+v1list result "$list[@]"
+
+# Got answer? (could be Ctrl-C or 'q')
+if [ "$result" -gt 0 ]; then
+    selected="$list[$result]"
+    selected="${selected## #}"
+    pid="${selected%% *}"
+
+    # Now ask of signal
+    signal_names=( ${(vin)signals} )
+    v1list result "Select signal:" "$signal_names[@]"
+
+    if [ "$result" -gt 0 ]; then
+        # "Select signal:" nonselectable entry was
+        # added so now substract 1 from returned index
+        # Not relying on any typeset -i for output
+        # variable, thus the (( ))
+        (( result -- ))
+        selected="$signal_names[$result]"
+        signal="${(k)signals[(r)$selected]}"
+
+        # Will change so that the command actually
+        # executes when function is more tested
+        echo "Would execute:" kill -"$signal" "$pid"
+    fi
+fi
+
