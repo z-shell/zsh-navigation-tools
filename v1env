@@ -1,0 +1,23 @@
+# Copy this file into /usr/share/zsh/**/functions
+
+emulate -L zsh
+
+zmodload zsh/curses
+
+local IFS="
+"
+
+local list
+local result
+local selected
+
+list=( `env` )
+vlist result "$list[@]"
+
+if [ "$result" -gt 0 ]; then
+    selected="$list[$result]"
+    selected="${selected%=*}"
+    echo "Editing \`$selected':"
+    vared "$selected"
+fi
+
