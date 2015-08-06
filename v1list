@@ -11,7 +11,7 @@ emulate -L zsh
 
 zmodload zsh/curses
 
-local TRAPS=`trap`
+setopt localtraps
 trap "return" TERM INT QUIT
 trap "_vlist_exit" EXIT
 
@@ -21,9 +21,6 @@ _vlist_exit() {
     zcurses delwin main
     zcurses refresh
     zcurses end
-    trap "" TERM INT QUIT
-    trap "" EXIT
-    trap "$TRAPS"
 }
 
 # Outputs a message in the bottom of the screen
