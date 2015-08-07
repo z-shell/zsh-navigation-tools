@@ -9,6 +9,6 @@ v1env does the same for environment. User is presented with a browsable list of 
 ## Installation
 Copy all v1* files to /usr/share/zsh/[-version-]/functions/ and then add:
 
-**autoload v1list v1cd v1env v1kill v1panelize v1options v1aliases**
+**autoload v1list v1cd v1env v1kill v1panelize v1options v1aliases v1functions**
 
 to ~/.zshrc
