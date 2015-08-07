@@ -22,6 +22,8 @@ local option
 local state
 
 VLIST_REMEMBER_LIST=1
+unset VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
+unset VLIST_CURRENT_IDX_OF_THE_LIST
 
 while (( 1 )); do
     list=( `setopt` )
