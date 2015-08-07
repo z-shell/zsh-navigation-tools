@@ -1,0 +1,31 @@
+# Copy this file into /usr/share/zsh/[-version-]/functions
+# and add 'autoload v1env` to .zshrc
+#
+# This function allows to choose an environment variable
+# for edition with vared
+#
+# Uses v1list
+
+emulate -L zsh
+
+zmodload zsh/curses
+
+local IFS="
+"
+
+local list
+local result
+local selected
+
+VLIST_REMEMBER_LIST=0
+
+list=( ${(kin)aliases} )
+v1list result "$list[@]"
+
+if [ "$result" -gt 0 ]; then
+    selected="$list[$result]"
+    echo "Editing \`$selected':"
+    vared aliases\[$selected\]
+fi
+
+# vim: set filetype=zsh:
