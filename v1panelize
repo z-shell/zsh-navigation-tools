@@ -25,3 +25,4 @@ if [ "$result" -gt 0 ]; then
     echo "You have selected $selected"
 fi
 
+# vim: set filetype=zsh:

@@ -64,3 +64,4 @@ if [ "$result" -gt 0 ]; then
     fi
 fi
 
+# vim: set filetype=zsh:

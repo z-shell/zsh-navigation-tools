@@ -28,3 +28,4 @@ if [ "$result" -gt 0 ]; then
     setopt AUTO_PUSHD
 fi
 
+# vim: set filetype=zsh:

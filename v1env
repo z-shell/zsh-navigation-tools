@@ -27,3 +27,4 @@ if [ "$result" -gt 0 ]; then
     vared "$selected"
 fi
 
+# vim: set filetype=zsh:
