@@ -1,0 +1,46 @@
+# Copy this file into /usr/share/zsh/[-version-]/functions
+# and add 'autoload v1options` to .zshrc
+#
+# This function allows to browse and toggle shell's options
+#
+# Uses v1list
+
+emulate -L zsh
+
+zmodload zsh/curses
+local IFS="
+"
+
+# TODO restore options
+unsetopt localoptions
+setopt kshoptionprint
+
+local list
+local result
+local selected
+local option
+local state
+
+while (( 1 )); do
+    list=( `setopt` )
+    v1list result "${list[@]}"
+
+    if [ "$result" -gt 0 ]; then
+        selected="$list[$result]"
+        option="${selected%% *}"
+        state="${selected##* }"
+
+        # Toggle the option
+        if [ "$state" = "on" ]; then
+            echo "Setting |$option| to off"
+            unsetopt "$option"
+        else
+            echo "Setting |$option| to on"
+            setopt "$option"
+        fi
+    else
+        break
+    fi
+done
+
+# vim: set filetype=zsh:
