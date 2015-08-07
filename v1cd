@@ -16,6 +16,8 @@ local list2
 local result
 local selected
 
+VLIST_REMEMBER_LIST=0
+
 list=( `dirs -p` )
 list2=( `dirs -pl` )
 v1list result "${list[@]}"

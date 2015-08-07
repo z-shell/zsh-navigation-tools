@@ -17,6 +17,8 @@ local list
 local result
 local selected
 
+VLIST_REMEMBER_LIST=0
+
 list=( `"$@"` )
 v1list result "${list[@]}"
 

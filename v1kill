@@ -32,6 +32,8 @@ local selected
 local signal
 local -a signal_names
 
+VLIST_REMEMBER_LIST=0
+
 typeset -a VLIST_NONSELECTABLE_ELEMENTS
 VLIST_NONSELECTABLE_ELEMENTS=( 1 )
 
