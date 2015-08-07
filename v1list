@@ -159,6 +159,15 @@ while (( 1 )); do
             [ "$current" -gt "$last_element" ] && current=last_element;
             check_if_next_page
             ;;
+        (HOME)
+            current=1
+            _from_what_idx_list_is_shown=1
+            ;;
+        (END)
+            current=last_element
+            _from_what_idx_list_is_shown=last_element-page_size+1
+            [ "$_from_what_idx_list_is_shown" -lt 1 ] && _from_what_idx_list_is_shown=1;
+            ;;
         ($'\n')
             # Is that element selectable?
             if [[ ${VLIST_NONSELECTABLE_ELEMENTS[(r)$current]} != $current ]]; then
