@@ -18,7 +18,7 @@ local selected
 
 VLIST_REMEMBER_LIST=0
 
-list=( ${(kin)aliases} )
+list=( ${(ki)aliases} )
 v1list result "$list[@]"
 
 if [ "$result" -gt 0 ]; then
