@@ -1,8 +1,7 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v1env` to .zshrc
+# and add 'autoload v1aliases` to .zshrc
 #
-# This function allows to choose an environment variable
-# for edition with vared
+# This function allows to choose an alias for edition with vared
 #
 # Uses v1list
 
