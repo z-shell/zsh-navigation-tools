@@ -5,7 +5,7 @@
 #
 # Uses v1list
 
-emulate -L zsh
+#emulate -L zsh
 
 zmodload zsh/curses
 local IFS="
