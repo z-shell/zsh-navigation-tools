@@ -19,6 +19,7 @@ trap "_vlist_exit" EXIT
 # Cleanup before any exit
 _vlist_exit() {
     unset _from_what_idx_list_is_shown
+    zcurses delwin inner
     zcurses delwin main
     zcurses refresh
     zcurses end
@@ -26,9 +27,10 @@ _vlist_exit() {
 
 # Outputs a message in the bottom of the screen
 _vlist_status_msg() {
-    zcurses move main $(( term_height - 2 )) 2
+    # -1 for border, -1 for 0-based indexing
+    zcurses move main $(( term_height - 1 - 1 )) 2
     zcurses string main "                        "
-    zcurses move main $(( term_height - 2 )) 2
+    zcurses move main $(( term_height - 1 - 1 )) 2
     zcurses string main "$1"
 }
 
@@ -45,18 +47,18 @@ _vlist_list() {
     integer start_idx=_from_what_idx_list_is_shown
     integer end_idx=start_idx+page_size-1
     [ "$end_idx" -gt "$#list" ] && end_idx="$#list"
-    integer y=1
+    integer y=0
 
-    zcurses clear main
     zcurses border main
+    zcurses clear inner
 
     integer i
     for (( i=start_idx; i<=end_idx; i++ )); do
-        zcurses move main $y 2
+        zcurses move inner $y 1
 
-        [ "$i" = "$highlight" ] && zcurses attr main +reverse
-        zcurses string main "$list[$i]"
-        [ "$i" = "$highlight" ] && zcurses attr main -reverse
+        [ "$i" = "$highlight" ] && zcurses attr inner +reverse
+        zcurses string inner "$list[$i]"
+        [ "$i" = "$highlight" ] && zcurses attr inner -reverse
 
         y+=1
 
@@ -96,11 +98,13 @@ check_if_next_page() {
 
 integer term_width=$(stty size | cut -f2 -d " ")
 integer term_height=$(stty size | cut -f1 -d " ")
+integer inner_width=term_width-2
+integer inner_height=term_height-3
 integer page_size=term_height-3
 integer _from_what_idx_list_is_shown=1
 integer current=1
 
-# Ability to remember state between calls - code block 1/3
+# Ability to remember the list between calls - code block 1/3
 if [ "$VLIST_REMEMBER_STATE" -gt 0 ]; then
     [ ! -z "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" ] && _from_what_idx_list_is_shown="$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN"
     [ ! -z "$VLIST_CURRENT_IDX_OF_THE_LIST" ] && current="$VLIST_CURRENT_IDX_OF_THE_LIST"
@@ -113,6 +117,7 @@ integer last_element="$#"
 
 zcurses init
 zcurses addwin main "$term_height" "$term_width" 0 0
+zcurses addwin inner "$inner_height" "$inner_width" 1 1
 
 #
 # Listening for input
@@ -121,7 +126,7 @@ zcurses addwin main "$term_height" "$term_width" 0 0
 while (( 1 )); do
     # Output the list
     _vlist_list "$current" "$page_size" "$@"
-    zcurses refresh
+    zcurses refresh main inner
 
     # Wait for input
     zcurses input main key keypad mouse
@@ -133,7 +138,7 @@ while (( 1 )); do
         final_key="$keypad"
     else
         _vlist_status_msg "Inproper input detected"
-        zcurses refresh
+        zcurses refresh main inner
     fi
 
     case "$final_key" in
@@ -173,10 +178,10 @@ while (( 1 )); do
             if [[ ${VLIST_NONSELECTABLE_ELEMENTS[(r)$current]} != $current ]]; then
                 # Save current element in the result variable
                 _vlist_status_msg "Selecting element #$current"
-                zcurses refresh
+                zcurses refresh main inner
                 eval "$result_var=$current"
 
-                # Ability to remember state between calls - code block 2/3
+                # Ability to remember the list between calls - code block 2/3
                 if [ "$VLIST_REMEMBER_STATE" -gt 0 ]; then
                     VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN="$_from_what_idx_list_is_shown"
                     VLIST_CURRENT_IDX_OF_THE_LIST="$current"
@@ -186,9 +191,9 @@ while (( 1 )); do
             ;;
         (q)
             _vlist_status_msg "Quit (no selection)"
-            zcurses refresh
+            zcurses refresh main inner
 
-            # Ability to remember state between calls - code block 3/3
+            # Ability to remember the list between calls - code block 3/3
             if [ "$VLIST_REMEMBER_STATE" -gt 0 ]; then
                 VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN="$_from_what_idx_list_is_shown"
                 VLIST_CURRENT_IDX_OF_THE_LIST="$current"
@@ -196,7 +201,7 @@ while (( 1 )); do
             break
         (*)
             _vlist_status_msg "Inproper input detected"
-            zcurses refresh
+            zcurses refresh main inner
             ;;
     esac
 done
