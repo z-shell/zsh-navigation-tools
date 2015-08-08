@@ -21,7 +21,7 @@ local selected
 local option
 local state
 
-VLIST_REMEMBER_LIST=1
+VLIST_REMEMBER_STATE=1
 unset VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
 unset VLIST_CURRENT_IDX_OF_THE_LIST
 
@@ -47,6 +47,6 @@ while (( 1 )); do
     fi
 done
 
-VLIST_REMEMBER_LIST=0
+VLIST_REMEMBER_STATE=0
 
 # vim: set filetype=zsh:

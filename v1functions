@@ -16,7 +16,7 @@ local list
 local result
 local selected
 
-VLIST_REMEMBER_LIST=0
+VLIST_REMEMBER_STATE=0
 
 list=( ${(ki)functions} )
 v1list result "$list[@]"
