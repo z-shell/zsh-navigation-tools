@@ -1,0 +1,29 @@
+# Copy this file into /usr/share/zsh/[-version-]/functions
+# and add 'autoload v1history` to .zshrc
+#
+# This function allows to browse Z shell's history and use the
+# entries
+#
+# Uses v1list
+
+emulate -L zsh
+
+zmodload zsh/curses
+local IFS="
+"
+
+local list
+local result
+local selected
+
+VLIST_REMEMBER_STATE=0
+
+list=( `history -rn 1000` )
+v1list result "${list[@]}"
+
+if [ "$result" -gt 0 ]; then
+    selected="$list[$result]"
+    print -zr "$selected"
+fi
+
+# vim: set filetype=zsh:
