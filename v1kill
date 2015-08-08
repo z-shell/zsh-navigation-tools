@@ -24,6 +24,8 @@ signals=(
      9       "9  - KILL"
      14      "14 - ALRM"
      15      "15 - TERM"
+     17      "17 - STOP"
+     19      "19 - CONT"
 )
 
 local list
