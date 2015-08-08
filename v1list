@@ -41,6 +41,7 @@ _vlist_list() {
     integer page_height="$2"
     integer page_width="$3"
     shift 3
+    integer max_text_len=page_width-2
 
     local -a list
     list=( "$@" )
@@ -57,8 +58,13 @@ _vlist_list() {
     for (( i=start_idx; i<=end_idx; i++ )); do
         zcurses move inner $y 1
 
+        local text="$list[$i]"
+        text="${text///^[}"
+        integer text_len="${#text}"
+        [ "$text_len" -gt "$max_text_len" ] && text="${text[1,$max_text_len]}"
+
         [ "$i" = "$highlight" ] && zcurses attr inner +reverse
-        zcurses string inner "$list[$i]"
+        zcurses string inner "$text"
         [ "$i" = "$highlight" ] && zcurses attr inner -reverse
 
         y+=1
