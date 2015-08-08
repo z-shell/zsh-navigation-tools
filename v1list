@@ -131,6 +131,16 @@ zcurses addwin inner "$inner_height" "$inner_width" 1 1
 # Listening for input
 #
 
+local key keypad mouse
+
+# Clear input buffer
+zcurses timeout main 0
+zcurses input main key keypad mouse
+zcurses timeout main -1
+key=""
+keypad=""
+mouse=""
+
 while (( 1 )); do
     # Output the list
     _vlist_list "$current" "$page_height" "$page_width" "$@"
