@@ -27,6 +27,7 @@ unset VLIST_CURRENT_IDX_OF_THE_LIST
 
 while (( 1 )); do
     list=( `setopt` )
+    list=( ${(i)list} )
     v1list result "${list[@]}"
 
     if [ "$result" -gt 0 ]; then

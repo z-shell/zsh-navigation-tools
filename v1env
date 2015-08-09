@@ -20,6 +20,7 @@ local selected
 VLIST_REMEMBER_STATE=0
 
 list=( `env` )
+list=( ${(i)list} )
 v1list result "$list[@]"
 
 if [ "$result" -gt 0 ]; then
