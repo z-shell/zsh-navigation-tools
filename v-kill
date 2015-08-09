@@ -1,9 +1,9 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v1kill` to .zshrc
+# and add 'autoload v-kill` to .zshrc
 #
 # This function allows to choose a process and a signal to send to it
 #
-# Uses v1list
+# Uses v-list
 
 emulate -L zsh
 
@@ -41,7 +41,7 @@ VLIST_NONSELECTABLE_ELEMENTS=( 1 )
 
 # Ask of PID
 list=( `ps -A` )
-v1list result "$list[@]"
+v-list result "$list[@]"
 
 # Got answer? (could be Ctrl-C or 'q')
 if [ "$result" -gt 0 ]; then
@@ -51,7 +51,7 @@ if [ "$result" -gt 0 ]; then
 
     # Now ask of signal
     signal_names=( ${(vin)signals} )
-    v1list result "Select signal:" "$signal_names[@]"
+    v-list result "Select signal:" "$signal_names[@]"
 
     if [ "$result" -gt 0 ]; then
         # "Select signal:" nonselectable entry was

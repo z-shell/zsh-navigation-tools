@@ -1,9 +1,9 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v1cd` to .zshrc
+# and add 'autoload v-cd` to .zshrc
 #
 # This function allows to choose a directory from pushd stack
 #
-# Uses v1list
+# Uses v-list
 
 emulate -L zsh
 
@@ -20,7 +20,7 @@ VLIST_REMEMBER_STATE=0
 
 list=( `dirs -p` )
 list2=( `dirs -pl` )
-v1list result "${list[@]}"
+v-list result "${list[@]}"
 
 if [ "$result" -gt 0 ]; then
     selected="$list2[$result]"

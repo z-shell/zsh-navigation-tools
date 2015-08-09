@@ -1,9 +1,9 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v1options` to .zshrc
+# and add 'autoload v-options` to .zshrc
 #
 # This function allows to browse and toggle shell's options
 #
-# Uses v1list
+# Uses v-list
 
 #emulate -L zsh
 
@@ -28,7 +28,7 @@ unset VLIST_CURRENT_IDX_OF_THE_LIST
 while (( 1 )); do
     list=( `setopt` )
     list=( ${(i)list} )
-    v1list result "${list[@]}"
+    v-list result "${list[@]}"
 
     if [ "$result" -gt 0 ]; then
         selected="$list[$result]"

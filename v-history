@@ -1,14 +1,14 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v1aliases` to .zshrc
+# and add 'autoload v-history` to .zshrc
 #
-# This function allows to choose an alias for edition with vared
+# This function allows to browse Z shell's history and use the
+# entries
 #
-# Uses v1list
+# Uses v-list
 
 emulate -L zsh
 
 zmodload zsh/curses
-
 local IFS="
 "
 
@@ -18,13 +18,12 @@ local selected
 
 VLIST_REMEMBER_STATE=0
 
-list=( ${(ki)aliases} )
-v1list result "$list[@]"
+list=( `history -rn 1000` )
+v-list result "${list[@]}"
 
 if [ "$result" -gt 0 ]; then
     selected="$list[$result]"
-    echo "Editing \`$selected':"
-    vared aliases\[$selected\]
+    print -zr "$selected"
 fi
 
 # vim: set filetype=zsh:

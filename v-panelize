@@ -1,11 +1,11 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v1panelize` to .zshrc
+# and add 'autoload v-panelize` to .zshrc
 #
 # This function somewhat reminds the panelize feature from Midnight Commander
 # It allows browsing output of arbitrary command. Example usage:
-# v1panelize ls /usr/local/bin
+# v-panelize ls /usr/local/bin
 #
-# Uses v1list
+# Uses v-list
 
 emulate -L zsh
 
@@ -20,7 +20,7 @@ local selected
 VLIST_REMEMBER_STATE=0
 
 list=( `"$@"` )
-v1list result "${list[@]}"
+v-list result "${list[@]}"
 
 if [ "$result" -gt 0 ]; then
     selected="$list[$result]"
