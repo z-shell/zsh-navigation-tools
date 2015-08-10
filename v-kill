@@ -33,6 +33,7 @@ local result
 local selected
 local signal
 local -a signal_names
+local title
 
 VLIST_REMEMBER_STATE=0
 
