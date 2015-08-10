@@ -20,7 +20,8 @@ local selected
 VLIST_REMEMBER_STATE=0
 
 list=( `env` )
-list=( ${(i)list} )
+list=( "${(@M)list:#*$1*}" )
+list=( "${(@i)list}" )
 v-list result "$list[@]"
 
 if [ "$result" -gt 0 ]; then

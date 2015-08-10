@@ -18,7 +18,9 @@ local selected
 
 VLIST_REMEMBER_STATE=0
 
-list=( ${(ki)aliases} )
+list=( "${(@k)aliases}" )
+list=( "${(@M)list:#*$1*}" )
+list=( "${(@i)list}" )
 v-list result "$list[@]"
 
 if [ "$result" -gt 0 ]; then

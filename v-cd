@@ -12,18 +12,18 @@ local IFS="
 "
 
 local list
-local list2
 local result
 local selected
 
 VLIST_REMEMBER_STATE=0
 
 list=( `dirs -p` )
-list2=( `dirs -pl` )
+list=( "${(@M)list:#*$1*}" )
 v-list result "${list[@]}"
 
 if [ "$result" -gt 0 ]; then
-    selected="$list2[$result]"
+    selected="$list[$result]"
+    selected="${selected/#\~/$HOME}"
     echo "You have selected $selected"
     setopt NO_AUTO_PUSHD
     cd "$selected"

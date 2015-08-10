@@ -41,6 +41,9 @@ VLIST_NONSELECTABLE_ELEMENTS=( 1 )
 
 # Ask of PID
 list=( `ps -A` )
+title="${list[1]}"
+shift list
+list=( "$title" "${(@M)list:#*$1*}" )
 v-list result "$list[@]"
 
 # Got answer? (could be Ctrl-C or 'q')
