@@ -19,9 +19,9 @@ trap "_vlist_exit" EXIT
 # Cleanup before any exit
 _vlist_exit() {
     unset _from_what_idx_list_is_shown
-    zcurses delwin inner
-    zcurses delwin main
-    zcurses refresh
+    zcurses 2>/dev/null delwin inner
+    zcurses 2>/dev/null delwin main
+    zcurses 2>/dev/null refresh
     zcurses end
 }
 
@@ -102,6 +102,12 @@ _vlist_check_if_next_page() {
 #
 # Main code
 #
+
+# Check if there is proper input
+if [ "$#" -lt 2 ]; then
+    echo "Usage: v-list result_variable element_1 ..."
+    return 1
+fi
 
 integer term_width=$(stty size | cut -f2 -d " ")
 integer term_height=$(stty size | cut -f1 -d " ")
