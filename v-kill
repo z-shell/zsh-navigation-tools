@@ -68,7 +68,7 @@ if [ "$result" -gt 0 ]; then
 
         # Will change so that the command actually
         # executes when function is more tested
-        echo "Would execute:" kill -"$signal" "$pid"
+        print -zr "kill -$signal $pid"
     fi
 fi
 
