@@ -109,9 +109,13 @@ if [ "$#" -lt 2 ]; then
     return 1
 fi
 
-local term_size=$( stty size )
-integer term_height="${term_size% *}"
-integer term_width="${term_size#* }"
+integer term_height="$LINES"
+integer term_width="$COLUMNS"
+if [[ "$term_height" -lt 1 || "$term_width" -lt 1 ]]; then
+    local stty_out=$( stty size )
+    term_height="${stty_out% *}"
+    term_width="${stty_out#* }"
+fi
 integer inner_height=term_height-3
 integer inner_width=term_width-2
 integer page_height=inner_height
