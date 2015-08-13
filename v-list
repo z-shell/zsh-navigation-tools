@@ -109,8 +109,9 @@ if [ "$#" -lt 2 ]; then
     return 1
 fi
 
-integer term_width=$(stty size | cut -f2 -d " ")
-integer term_height=$(stty size | cut -f1 -d " ")
+local term_size=$( stty size )
+integer term_width="${term_size#* }"
+integer term_height="${term_size% *}"
 integer inner_width=term_width-2
 integer inner_height=term_height-3
 integer page_width=inner_width
