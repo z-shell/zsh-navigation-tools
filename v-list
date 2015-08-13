@@ -110,12 +110,12 @@ if [ "$#" -lt 2 ]; then
 fi
 
 local term_size=$( stty size )
-integer term_width="${term_size#* }"
 integer term_height="${term_size% *}"
-integer inner_width=term_width-2
+integer term_width="${term_size#* }"
 integer inner_height=term_height-3
-integer page_width=inner_width
+integer inner_width=term_width-2
 integer page_height=inner_height
+integer page_width=inner_width
 integer _from_what_idx_list_is_shown=1
 integer current=1
 
