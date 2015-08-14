@@ -18,7 +18,7 @@ local selected
 
 VLIST_REMEMBER_STATE=0
 
-list=( `history -rn 1000` )
+list=( `history -rn 1` )
 list=( "${(@M)list:#*$1*}" )
 
 if [ "$#list" -eq 0 ]; then
