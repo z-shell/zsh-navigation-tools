@@ -45,6 +45,12 @@ list=( `ps -A` )
 title="${list[1]}"
 shift list
 list=( "$title" "${(@M)list:#*$1*}" )
+
+if [ "$#list" -eq 1 ]; then
+    echo "No matching processes"
+    return 1
+fi
+
 v-list result "$list[@]"
 
 # Got answer? (could be Ctrl-C or 'q')

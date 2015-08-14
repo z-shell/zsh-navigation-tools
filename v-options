@@ -28,6 +28,12 @@ unset VLIST_CURRENT_IDX_OF_THE_LIST
 while (( 1 )); do
     list=( `setopt` )
     list=( "${(@M)list:#*$1*}" )
+
+    if [ "$#list" -eq 0 ]; then
+        echo "No matching options"
+        break
+    fi
+
     list=( "${(@i)list}" )
     v-list result "${list[@]}"
 

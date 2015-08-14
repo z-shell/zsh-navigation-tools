@@ -20,6 +20,12 @@ VLIST_REMEMBER_STATE=0
 
 list=( "${(@k)aliases}" )
 list=( "${(@M)list:#*$1*}" )
+
+if [ "$#list" -eq 0 ]; then
+    echo "No matching aliases"
+    return 1
+fi
+
 list=( "${(@i)list}" )
 v-list result "$list[@]"
 

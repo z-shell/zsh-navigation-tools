@@ -21,6 +21,12 @@ VLIST_REMEMBER_STATE=0
 
 list=( `env` )
 list=( "${(@M)list:#*$1*}" )
+
+if [ "$#list" -eq 0 ]; then
+    echo "No matching variables"
+    return 1
+fi
+
 list=( "${(@i)list}" )
 v-list result "$list[@]"
 
