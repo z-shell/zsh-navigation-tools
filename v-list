@@ -69,6 +69,8 @@ local result_var="$1"
 shift
 eval "$result_var=-1"
 integer last_element="$#"
+local action final_key
+integer result
 
 zcurses init
 zcurses addwin main "$term_height" "$term_width" 0 0
