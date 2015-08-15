@@ -2,6 +2,9 @@ emulate -L zsh
 
 zmodload zsh/curses
 
+setopt localoptions
+setopt typesetsilent
+
 # Variables from this file are still in the scope
 _vlist_check_if_previous_page() {
     if [ "$current" -lt "$from_what_idx_list_is_shown" ]; then
