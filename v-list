@@ -70,7 +70,7 @@ shift
 eval "$result_var=-1"
 integer last_element="$#"
 local action final_key
-integer result
+integer _result
 
 zcurses init
 zcurses addwin main "$term_height" "$term_width" 0 0
@@ -111,11 +111,11 @@ while (( 1 )); do
         zcurses refresh main inner
     fi
 
-    v-list-input result action VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN \
+    v-list-input _result action VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN \
                 VLIST_CURRENT_IDX_OF_THE_LIST "$last_element" "$final_key"
 
     if [ "$action" = "SELECT" ]; then
-        eval "$result_var=\"$result\""
+        eval "$result_var=\"$_result\""
         break
     elif [ "$action" = "QUIT" ]; then
         break
