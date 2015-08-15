@@ -1,6 +1,3 @@
-# $1 - result variable
-# $2 - action variable
-
 emulate -L zsh
 
 zmodload zsh/curses
@@ -34,15 +31,11 @@ _vlist_check_if_next_page() {
     fi
 }
 
-local result_var="$1"
-eval "$result_var=-1"
-
-local action_var="$2"
-eval "$action_var=''"
-
-local start_idx_var="$3"
-local current_idx_var="$4"
-integer last_element="$5"
+typeset -ga reply
+reply=( -1 '' )
+local start_idx_var="$1"
+local current_idx_var="$2"
+integer last_element="$3"
 
 eval "integer from_what_idx_list_is_shown=\"$start_idx_var\""
 eval "integer current=\"$current_idx_var\""
@@ -51,7 +44,7 @@ eval "integer current=\"$current_idx_var\""
 # Listening for input
 #
 
-case "$6" in
+case "$4" in
     (UP|k)
         # Are there any elements before the current one?
         [ "$current" -gt 1 ] && current=current-1;
@@ -87,12 +80,11 @@ case "$6" in
         # Is that element selectable?
         if [[ ${VLIST_NONSELECTABLE_ELEMENTS[(r)$current]} != $current ]]; then
             # Save current element in the result variable
-            eval "$result_var=$current"
-            eval "$action_var=SELECT"
+            reply=( $current SELECT )
         fi
         ;;
     (q)
-            eval "$action_var=QUIT"
+            reply=( -1 QUIT )
         ;;
     (*)
         ;;

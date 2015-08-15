@@ -29,7 +29,6 @@ signals=(
 )
 
 local list
-local result
 local selected
 local signal
 local -a signal_names
@@ -51,25 +50,25 @@ if [ "$#list" -eq 1 ]; then
     return 1
 fi
 
-v-list result "$list[@]"
+v-list "$list[@]"
 
 # Got answer? (could be Ctrl-C or 'q')
-if [ "$result" -gt 0 ]; then
-    selected="$list[$result]"
+if [ "$REPLY" -gt 0 ]; then
+    selected="$list[$REPLY]"
     selected="${selected## #}"
     pid="${selected%% *}"
 
     # Now ask of signal
     signal_names=( ${(vin)signals} )
-    v-list result "Select signal:" "$signal_names[@]"
+    v-list "Select signal:" "$signal_names[@]"
 
-    if [ "$result" -gt 0 ]; then
+    if [ "$REPLY" -gt 0 ]; then
         # "Select signal:" nonselectable entry was
         # added so now substract 1 from returned index
         # Not relying on any typeset -i for output
         # variable, thus the (( ))
-        (( result -- ))
-        selected="$signal_names[$result]"
+        (( REPLY -- ))
+        selected="$signal_names[$REPLY]"
         signal="${(k)signals[(r)$selected]}"
 
         # Will change so that the command actually

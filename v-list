@@ -1,6 +1,6 @@
-# $1 - output variable name
-# $2, $3, ... - elements of the list
+# $1, $2, ... - elements of the list
 # $VLIST_NONSELECTABLE_ELEMENTS - array of indexes (1-based) that cannot be selected
+# $REPLY is the result variable - contains index (1-based) or -1 when no selection
 #
 # Copy this file into /usr/share/zsh/[-version-]/functions
 # and add 'autoload v-list` to .zshrc
@@ -65,12 +65,12 @@ if [ "$VLIST_REMEMBER_STATE" -eq 0 ]; then
     VLIST_CURRENT_IDX_OF_THE_LIST=1
 fi
 
-local result_var="$1"
-shift
-eval "$result_var=-1"
 integer last_element="$#"
 local action final_key
-integer _result
+integer result
+
+typeset -g REPLY
+REPLY=-1
 
 zcurses init
 zcurses addwin main "$term_height" "$term_width" 0 0
@@ -111,11 +111,13 @@ while (( 1 )); do
         zcurses refresh main inner
     fi
 
-    v-list-input _result action VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN \
-                VLIST_CURRENT_IDX_OF_THE_LIST "$last_element" "$final_key"
+    v-list-input VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN VLIST_CURRENT_IDX_OF_THE_LIST "$last_element" "$final_key"
+
+    result="$reply[1]"
+    action="$reply[2]"
 
     if [ "$action" = "SELECT" ]; then
-        eval "$result_var=\"$_result\""
+        REPLY="$result"
         break
     elif [ "$action" = "QUIT" ]; then
         break

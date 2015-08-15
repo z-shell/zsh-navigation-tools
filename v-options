@@ -16,7 +16,6 @@ unsetopt localoptions
 setopt kshoptionprint
 
 local list
-local result
 local selected
 local option
 local state
@@ -37,10 +36,10 @@ while (( 1 )); do
     fi
 
     list=( "${(@i)list}" )
-    v-list result "${list[@]}"
+    v-list "${list[@]}"
 
-    if [ "$result" -gt 0 ]; then
-        selected="$list[$result]"
+    if [ "$REPLY" -gt 0 ]; then
+        selected="$list[$REPLY]"
         option="${selected%% *}"
         state="${selected##* }"
 

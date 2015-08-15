@@ -13,7 +13,6 @@ local IFS="
 "
 
 local list
-local result
 local selected
 
 VLIST_REMEMBER_STATE=0
@@ -27,10 +26,10 @@ if [ "$#list" -eq 0 ]; then
 fi
 
 list=( "${(@i)list}" )
-v-list result "$list[@]"
+v-list "$list[@]"
 
-if [ "$result" -gt 0 ]; then
-    selected="$list[$result]"
+if [ "$REPLY" -gt 0 ]; then
+    selected="$list[$REPLY]"
     echo "Editing \`$selected':"
     vared aliases\[$selected\]
 fi

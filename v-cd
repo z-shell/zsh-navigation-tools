@@ -12,7 +12,6 @@ local IFS="
 "
 
 local list
-local result
 local selected
 
 VLIST_REMEMBER_STATE=0
@@ -32,10 +31,10 @@ else
     [ "$#list" -eq 0 ] && return 1
 fi
 
-v-list result "${list[@]}"
+v-list "${list[@]}"
 
-if [ "$result" -gt 0 ]; then
-    selected="$list[$result]"
+if [ "$REPLY" -gt 0 ]; then
+    selected="$list[$REPLY]"
     selected="${selected/#\~/$HOME}"
     echo "You have selected $selected"
     setopt NO_AUTO_PUSHD

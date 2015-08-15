@@ -14,16 +14,15 @@ local IFS="
 "
 
 local list
-local result
 local selected
 
 VLIST_REMEMBER_STATE=0
 
 list=( `"$@"` )
-v-list result "${list[@]}"
+v-list "${list[@]}"
 
-if [ "$result" -gt 0 ]; then
-    selected="$list[$result]"
+if [ "$REPLY" -gt 0 ]; then
+    selected="$list[$REPLY]"
     echo "You have selected $selected"
 fi
 
