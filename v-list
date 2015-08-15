@@ -43,7 +43,7 @@ _vlist_status_msg() {
 #
 
 # Check if there is proper input
-if [ "$#" -lt 2 ]; then
+if [ "$#" -lt 1 ]; then
     echo "Usage: v-list element_1 ..."
     return 1
 fi
