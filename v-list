@@ -1,6 +1,6 @@
 # $1, $2, ... - elements of the list
 # $VLIST_NONSELECTABLE_ELEMENTS - array of indexes (1-based) that cannot be selected
-# $REPLY is the result variable - contains index (1-based) or -1 when no selection
+# $REPLY is the output variable - contains index (1-based) or -1 when no selection
 #
 # Copy this file into /usr/share/zsh/[-version-]/functions
 # and add 'autoload v-list` to .zshrc
@@ -60,19 +60,20 @@ integer inner_width=term_width-2
 integer page_height=inner_height
 integer page_width=inner_width
 
+integer last_element="$#"
+local action
+local final_key
+integer selection
+
+typeset -g REPLY
+REPLY=-1
+
 # Ability to remember the list between calls
 # TO DO: -z
 if [ "$VLIST_REMEMBER_STATE" -eq 0 ]; then
     VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=1
     VLIST_CURRENT_IDX_OF_THE_LIST=1
 fi
-
-integer last_element="$#"
-local action final_key
-integer result
-
-typeset -g REPLY
-REPLY=-1
 
 zcurses init
 zcurses addwin main "$term_height" "$term_width" 0 0
@@ -96,6 +97,7 @@ while (( 1 )); do
     # Output the list
     v-list-draw "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
                     "$page_height" "$page_width" 0 1 inner "$@"
+
     zcurses border main
     _vlist_status_msg "Current #$VLIST_CURRENT_IDX_OF_THE_LIST (of #$last_element entries)"
     zcurses refresh main inner
@@ -115,11 +117,11 @@ while (( 1 )); do
 
     v-list-input VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN VLIST_CURRENT_IDX_OF_THE_LIST "$last_element" "$final_key"
 
-    result="$reply[1]"
+    selection="$reply[1]"
     action="$reply[2]"
 
     if [ "$action" = "SELECT" ]; then
-        REPLY="$result"
+        REPLY="$selection"
         break
     elif [ "$action" = "QUIT" ]; then
         break
