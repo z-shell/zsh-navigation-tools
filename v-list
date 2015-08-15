@@ -69,8 +69,7 @@ typeset -g REPLY
 REPLY=-1
 
 # Ability to remember the list between calls
-# TO DO: -z
-if [ "$VLIST_REMEMBER_STATE" -eq 0 ]; then
+if [[ -z "$VLIST_REMEMBER_STATE" || "$VLIST_REMEMBER_STATE" -eq 0 ]]; then
     VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=1
     VLIST_CURRENT_IDX_OF_THE_LIST=1
 fi
