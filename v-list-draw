@@ -1,0 +1,39 @@
+emulate -L zsh
+
+zmodload zsh/curses
+
+# Use only local scope
+integer highlight="$1"
+integer start_idx="$2"
+integer page_height="$3"
+integer page_width="$4"
+local y_offset="$5"
+local x_offset="$6"
+local window_name="$7"
+shift 7
+integer max_text_len=page_width-2
+
+local -a list
+list=( "$@" )
+
+integer end_idx=start_idx+page_height-1
+[ "$end_idx" -gt "$#list" ] && end_idx="$#list"
+integer y=y_offset
+
+integer i
+for (( i=start_idx; i<=end_idx; i++ )); do
+    zcurses move "$window_name" $y "$x_offset"
+
+    local text="$list[$i]"
+    text="${text///^[}"
+    integer text_len="${#text}"
+    [ "$text_len" -gt "$max_text_len" ] && text="${text[1,$max_text_len]}"
+
+    [ "$i" = "$highlight" ] && zcurses attr "$window_name" +reverse
+    zcurses string "$window_name" "$text"
+    [ "$i" = "$highlight" ] && zcurses attr "$window_name" -reverse
+
+    y+=1
+done
+
+# vim: set filetype=zsh:
