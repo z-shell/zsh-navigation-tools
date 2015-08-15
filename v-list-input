@@ -17,13 +17,17 @@ _vlist_check_if_previous_page() {
 # The last_shown_idx_of_the_list variable is local to this scope
 _vlist_check_if_next_page() {
     integer last_shown_idx_of_the_list=from_what_idx_list_is_shown+page_height-1
-    if [ "$last_shown_idx_of_the_list" -gt "$last_element" ]; then
-        last_shown_idx_of_the_list=last_element
+    if [ "$last_shown_idx_of_the_list" -ge "$last_element" ]; then
+        # Next page is not possible
+        return
     fi
 
     # Next page?
     if [ "$current" -gt "$last_shown_idx_of_the_list" ]; then
         from_what_idx_list_is_shown=from_what_idx_list_is_shown+page_height 
+        # Defensive code - if current > last_shown_idx_of_the_list,
+        # then (only by that argument) elements for next page should
+        # be available (at least one)
         if [ "$from_what_idx_list_is_shown" -gt "$last_element" ]; then
             from_what_idx_list_is_shown=last_element
         fi
