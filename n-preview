@@ -11,6 +11,9 @@ setopt localtraps
 trap "return" TERM INT QUIT
 trap "_vpreview_exit" EXIT
 
+# Drawing and input
+autoload n-list-draw n-list-input
+
 # Cleanup before any exit
 _vpreview_exit() {
     zcurses 2>/dev/null delwin files
