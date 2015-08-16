@@ -94,8 +94,7 @@ mouse=""
 
 while (( 1 )); do
     # Output the list
-    v-list-draw "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-                    "$page_height" "$page_width" 0 1 inner "$@"
+    v-list-draw "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" "$page_height" "$page_width" 0 1 inner "$@"
 
     zcurses border main
     _vlist_status_msg "Current #$VLIST_CURRENT_IDX_OF_THE_LIST (of #$last_element entries)"
@@ -114,10 +113,12 @@ while (( 1 )); do
         zcurses refresh main inner
     fi
 
-    v-list-input VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN VLIST_CURRENT_IDX_OF_THE_LIST "$last_element" "$final_key"
+    v-list-input "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" "$VLIST_CURRENT_IDX_OF_THE_LIST" "$last_element" "$final_key"
 
     selection="$reply[1]"
     action="$reply[2]"
+    VLIST_CURRENT_IDX_OF_THE_LIST="$reply[3]"
+    VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN="$reply[4]"
 
     if [ "$action" = "SELECT" ]; then
         REPLY="$selection"
