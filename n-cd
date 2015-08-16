@@ -3,7 +3,7 @@
 #
 # This function allows to choose a directory from pushd stack
 #
-# Uses v-list
+# Uses n-list
 
 emulate -L zsh
 
@@ -31,7 +31,7 @@ else
     [ "$#list" -eq 0 ] && return 1
 fi
 
-v-list "${list[@]}"
+n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$list[$REPLY]"

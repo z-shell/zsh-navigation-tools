@@ -3,7 +3,7 @@
 #
 # This function allows to browse and toggle shell's options
 #
-# Uses v-list
+# Uses n-list
 
 #emulate -L zsh
 
@@ -36,7 +36,7 @@ while (( 1 )); do
     fi
 
     list=( "${(@i)list}" )
-    v-list "${list[@]}"
+    n-list "${list[@]}"
 
     if [ "$REPLY" -gt 0 ]; then
         selected="$list[$REPLY]"

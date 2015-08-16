@@ -3,7 +3,7 @@
 # $REPLY is the output variable - contains index (1-based) or -1 when no selection
 #
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v-list` to .zshrc
+# and add 'autoload n-list` to .zshrc
 #
 # This function outputs a list of elements that can be
 # navigated with keyboard. Uses curses library
@@ -16,13 +16,13 @@ setopt localoptions
 setopt typesetsilent
 setopt localtraps
 trap "return" TERM INT QUIT
-trap "_vlist_exit" EXIT
+trap "_nlist_exit" EXIT
 
 # Drawing and input
-autoload v-list-draw v-list-input
+autoload n-list-draw n-list-input
 
 # Cleanup before any exit
-_vlist_exit() {
+_nlist_exit() {
     zcurses 2>/dev/null delwin inner
     zcurses 2>/dev/null delwin main
     zcurses 2>/dev/null refresh
@@ -30,7 +30,7 @@ _vlist_exit() {
 }
 
 # Outputs a message in the bottom of the screen
-_vlist_status_msg() {
+_nlist_status_msg() {
     # -1 for border, -1 for 0-based indexing
     zcurses move main $(( term_height - 1 - 1 )) 2
     zcurses string main "                                 "
@@ -44,7 +44,7 @@ _vlist_status_msg() {
 
 # Check if there is proper input
 if [ "$#" -lt 1 ]; then
-    echo "Usage: v-list element_1 ..."
+    echo "Usage: n-list element_1 ..."
     return 1
 fi
 
@@ -94,10 +94,10 @@ mouse=""
 
 while (( 1 )); do
     # Output the list
-    v-list-draw "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" "$page_height" "$page_width" 0 1 inner "$@"
+    n-list-draw "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" "$page_height" "$page_width" 0 1 inner "$@"
 
     zcurses border main
-    _vlist_status_msg "Current #$VLIST_CURRENT_IDX_OF_THE_LIST (of #$last_element entries)"
+    _nlist_status_msg "Current #$VLIST_CURRENT_IDX_OF_THE_LIST (of #$last_element entries)"
     zcurses refresh main inner
 
     # Wait for input
@@ -109,11 +109,11 @@ while (( 1 )); do
     elif [ ! -z "$keypad" ]; then
         final_key="$keypad"
     else
-        _vlist_status_msg "Inproper input detected"
+        _nlist_status_msg "Inproper input detected"
         zcurses refresh main inner
     fi
 
-    v-list-input "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
+    n-list-input "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
                     "$page_height" "$page_width" "$last_element" "$final_key"
 
     selection="$reply[1]"

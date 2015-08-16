@@ -3,7 +3,7 @@
 #
 # This function allows to choose a function for edition with vared
 #
-# Uses v-list
+# Uses n-list
 
 emulate -L zsh
 
@@ -26,7 +26,7 @@ if [ "$#list" -eq 0 ]; then
 fi
 
 list=( "${(@i)list}" )
-v-list "$list[@]"
+n-list "$list[@]"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$list[$REPLY]"

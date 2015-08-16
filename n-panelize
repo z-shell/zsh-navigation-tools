@@ -5,7 +5,7 @@
 # It allows browsing output of arbitrary command. Example usage:
 # v-panelize ls /usr/local/bin
 #
-# Uses v-list
+# Uses n-list
 
 emulate -L zsh
 
@@ -19,7 +19,7 @@ local selected
 VLIST_REMEMBER_STATE=0
 
 list=( `"$@"` )
-v-list "${list[@]}"
+n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$list[$REPLY]"

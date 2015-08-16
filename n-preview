@@ -95,11 +95,11 @@ integer last_element_2=0
 
 while (( 1 )); do
     # Output the lists
-    v-list-draw "$current_1" "$_from_what_idx_list_is_shown_1" \
+    n-list-draw "$current_1" "$_from_what_idx_list_is_shown_1" \
                     "$files_page_height" "$files_page_width" 1 2 files "$filenames[@]"
 
     if [ "$#body" -gt 1 ]; then
-        v-list-draw "$current_2" "$_from_what_idx_list_is_shown_2" \
+        n-list-draw "$current_2" "$_from_what_idx_list_is_shown_2" \
                         "$body_page_height" "$body_page_width" 1 2 body "$body[@]"
     fi
 
@@ -124,7 +124,7 @@ while (( 1 )); do
 
     if [ "$active_window" -eq 1 ]; then
         zcurses clear files
-        v-list-input "$current_1" "$_from_what_idx_list_is_shown_1" "$files_page_height" \
+        n-list-input "$current_1" "$_from_what_idx_list_is_shown_1" "$files_page_height" \
             "$files_page_width" "$last_element_1" "$final_key"
 
         selection="$reply[1]"
@@ -147,7 +147,7 @@ while (( 1 )); do
         fi
     elif [ "$active_window" -eq 2 ]; then
         zcurses clear body
-        v-list-input "$current_2" "$_from_what_idx_list_is_shown_2" "$body_page_height" \
+        n-list-input "$current_2" "$_from_what_idx_list_is_shown_2" "$body_page_height" \
             "$body_page_width" "$last_element_2" "$final_key"
 
         selection="$reply[1]"

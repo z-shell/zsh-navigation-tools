@@ -1,10 +1,9 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v-env` to .zshrc
+# and add 'autoload v-aliases` to .zshrc
 #
-# This function allows to choose an environment variable
-# for edition with vared
+# This function allows to choose an alias for edition with vared
 #
-# Uses v-list
+# Uses n-list
 
 emulate -L zsh
 
@@ -18,22 +17,21 @@ local selected
 
 VLIST_REMEMBER_STATE=0
 
-list=( `env` )
+list=( "${(@k)aliases}" )
 list=( "${(@M)list:#*$1*}" )
 
 if [ "$#list" -eq 0 ]; then
-    echo "No matching variables"
+    echo "No matching aliases"
     return 1
 fi
 
 list=( "${(@i)list}" )
-v-list "$list[@]"
+n-list "$list[@]"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$list[$REPLY]"
-    selected="${selected%=*}"
     echo "Editing \`$selected':"
-    vared "$selected"
+    vared aliases\[$selected\]
 fi
 
 # vim: set filetype=zsh:
