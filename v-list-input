@@ -88,6 +88,9 @@ case "$6" in
     (q)
             reply=( -1 QUIT )
         ;;
+    ($'\t')
+            reply=( $current_idx LEAVE )
+        ;;
     (*)
         ;;
 esac
