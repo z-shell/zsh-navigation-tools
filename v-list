@@ -113,7 +113,7 @@ while (( 1 )); do
         zcurses refresh main inner
     fi
 
-    v-list-input "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" "$VLIST_CURRENT_IDX_OF_THE_LIST" "$last_element" "$final_key"
+    v-list-input "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" "$last_element" "$final_key"
 
     selection="$reply[1]"
     action="$reply[2]"

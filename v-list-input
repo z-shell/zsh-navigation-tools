@@ -36,8 +36,8 @@ _vlist_check_if_next_page() {
 
 typeset -ga reply
 reply=( -1 '' 1 1 )
-integer from_what_idx_list_is_shown="$1"
-integer current_idx="$2"
+integer current_idx="$1"
+integer from_what_idx_list_is_shown="$2"
 integer last_element="$3"
 
 #
