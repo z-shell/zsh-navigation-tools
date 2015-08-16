@@ -21,7 +21,7 @@ list=( "${(@M)list:#*$1*}" )
 
 [ "$#list" -eq 0 ] && echo "No matching directories"
 
-[ -f ~/.config/zvt/v-cd.conf ] && . ~/.config/zvt/v-cd.conf
+[ -f ~/.config/znt/n-cd.conf ] && . ~/.config/znt/n-cd.conf
 if [ "$#appended_dirs" -gt 1 ]; then
     typeset -a VLIST_NONSELECTABLE_ELEMENTS
     integer tmp_list_size="$#list"
