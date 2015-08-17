@@ -11,6 +11,6 @@ n-env does the same for environment. User is presented with a browsable list of 
 ## Installation
 Copy all n-* files to /usr/share/zsh/[-version-]/functions/ and then add:
 
-**autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history**
+**autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-preview**
 
 to ~/.zshrc
