@@ -7,6 +7,7 @@
 
 emulate -L zsh
 
+setopt localoptions extendedglob
 zmodload zsh/curses
 local IFS="
 "
@@ -17,7 +18,7 @@ local selected
 VLIST_REMEMBER_STATE=0
 
 list=( `dirs -p` )
-list=( "${(@M)list:#*$1*}" )
+list=( "${(@M)list:#(#i)*$1*}" )
 
 [ "$#list" -eq 0 ] && echo "No matching directories"
 
@@ -40,7 +41,6 @@ if [ "$REPLY" -gt 0 ]; then
     (( NCD_DONT_PUSHD )) && setopt NO_AUTO_PUSHD
     cd "$selected"
     (( NCD_DONT_PUSHD )) && setopt AUTO_PUSHD
-    # TODO use localoptions
 fi
 
 # vim: set filetype=zsh:

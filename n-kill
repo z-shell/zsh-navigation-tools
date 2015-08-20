@@ -43,7 +43,7 @@ VLIST_NONSELECTABLE_ELEMENTS=( 1 )
 list=( `ps -A` )
 title="${list[1]}"
 shift list
-list=( "$title" "${(@M)list:#*$1*}" )
+list=( "$title" "${(@M)list:#(#i)*$1*}" )
 
 if [ "$#list" -eq 1 ]; then
     echo "No matching processes"

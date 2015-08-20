@@ -7,6 +7,7 @@
 
 emulate -L zsh
 
+setopt localoptions extendedglob
 zmodload zsh/curses
 
 local IFS="
@@ -18,7 +19,7 @@ local selected
 VLIST_REMEMBER_STATE=0
 
 list=( "${(@k)aliases}" )
-list=( "${(@M)list:#*$1*}" )
+list=( "${(@M)list:#(#i)*$1*}" )
 
 if [ "$#list" -eq 0 ]; then
     echo "No matching aliases"
