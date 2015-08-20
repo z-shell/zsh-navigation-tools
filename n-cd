@@ -37,9 +37,10 @@ if [ "$REPLY" -gt 0 ]; then
     selected="$list[$REPLY]"
     selected="${selected/#\~/$HOME}"
     echo "You have selected $selected"
-    setopt NO_AUTO_PUSHD
+    (( NCD_DONT_PUSHD )) && setopt NO_AUTO_PUSHD
     cd "$selected"
-    setopt AUTO_PUSHD
+    (( NCD_DONT_PUSHD )) && setopt AUTO_PUSHD
+    # TODO use localoptions
 fi
 
 # vim: set filetype=zsh:
