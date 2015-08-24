@@ -11,6 +11,9 @@ setopt localtraps
 trap "return" TERM INT QUIT
 trap "_vpreview_exit" EXIT
 
+local IFS="
+"
+
 # Drawing and input
 autoload n-list-draw n-list-input
 
