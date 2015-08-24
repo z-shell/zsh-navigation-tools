@@ -105,7 +105,7 @@ while (( 1 )); do
     n-list-draw "$current_1" "$_from_what_idx_list_is_shown_1" \
                     "$files_page_height" "$files_page_width" 1 2 files "$filenames[@]"
 
-    if [ "$#body" -gt 1 ]; then
+    if [ "$#body" -ge 1 ]; then
         n-list-draw "$current_2" "$_from_what_idx_list_is_shown_2" \
                         "$body_page_height" "$body_page_width" 1 2 body "$body[@]"
     fi
