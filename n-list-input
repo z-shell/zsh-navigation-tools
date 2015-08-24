@@ -69,6 +69,16 @@ case "$6" in
         [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
         _nlist_check_if_next_page
         ;;
+    ()
+        current_idx=current_idx-page_height/2
+        [ "$current_idx" -lt 1 ] && current_idx=1;
+        _nlist_check_if_previous_page
+        ;;
+    ()
+        current_idx=current_idx+page_height/2
+        [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
+        _nlist_check_if_next_page
+        ;;
     (HOME|g)
         current_idx=1
         from_what_idx_list_is_shown=1
