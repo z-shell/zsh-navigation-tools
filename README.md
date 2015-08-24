@@ -14,3 +14,15 @@ Copy all n-* files to /usr/share/zsh/[-version-]/functions/ and then add:
 **autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-preview**
 
 to ~/.zshrc
+
+To avoid typing of the minus sign "-" the files can be simlinked to non-sign versions (zsh code):
+
+    cd /usr/share/zsh/{-version-}/functions/
+    IFS='$\n'
+    for i in n-*; do
+        sudo ln -s $i n${i#n-}
+    done
+
+After making simlinks add one other autoload line:
+
+    autoload nlist ncd nenv nkill npanelize noptions naliases nfunctions nhistory npreview
