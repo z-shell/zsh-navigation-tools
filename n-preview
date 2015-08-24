@@ -1,5 +1,11 @@
 # Copy this file into /usr/share/zsh/[-version-]/functions
 # and add 'autoload v-preview` to .zshrc
+#
+# This is partially a test if n-list-draw and n-list-input can be
+# used multiple times to create multiple lists. It might become
+# more usable if someone figures out how to implement syntax
+# highlighting or adds previewing of archives' contents, or other
+# features.
 
 emulate -L zsh
 
