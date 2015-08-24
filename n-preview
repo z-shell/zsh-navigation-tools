@@ -96,6 +96,8 @@ filenames=( `ls -1` )
 integer last_element_1="$#filenames"
 integer last_element_2=0
 
+local selection final_key
+
 while (( 1 )); do
     # Output the lists
     n-list-draw "$current_1" "$_from_what_idx_list_is_shown_1" \
