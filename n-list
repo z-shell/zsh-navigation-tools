@@ -12,9 +12,7 @@ emulate -L zsh
 
 zmodload zsh/curses
 
-setopt localoptions
-setopt typesetsilent
-setopt localtraps
+setopt localoptions typesetsilent localtraps extendedglob
 trap "return" TERM INT QUIT
 trap "_nlist_exit" EXIT
 
@@ -60,9 +58,8 @@ integer inner_width=term_width-2
 integer page_height=inner_height
 integer page_width=inner_width
 
-typeset -a input_list
-input_list=( "$@" )
-integer last_element="$#"
+typeset -a list
+integer last_element
 local action
 local final_key
 integer selection
@@ -73,7 +70,9 @@ REPLY=-1
 # Ability to remember the list between calls
 if [[ -z "$VLIST_REMEMBER_STATE" || "$VLIST_REMEMBER_STATE" -eq 0 ]]; then
     VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=1
-    VLIST_CURRENT_IDX_OF_THE_LIST=1
+    VLIST_CURRENT_IDX=1
+    VLIST_IS_SEARCH_MODE=0
+    VLIST_SEARCH_BUFFER=""
 fi
 
 zcurses init
@@ -95,11 +94,34 @@ keypad=""
 mouse=""
 
 while (( 1 )); do
+    list=( "$@" )
+    last_element="$#"
+
+    # Do searching (filtering with string)
+    if [ ! -z "$VLIST_SEARCH_BUFFER" ]; then
+        # First remove non-selectable elements
+        [ "$#VLIST_NONSELECTABLE_ELEMENTS" -gt 0 ] && for i in "${(nO)VLIST_NONSELECTABLE_ELEMENTS[@]}"; do
+            list[$i]=()
+        done
+
+        # Next do the filtering
+        list=( "${(@M)list:#(#i)*$VLIST_SEARCH_BUFFER*}" )
+        last_element="$#list"
+        [ "$VLIST_CURRENT_IDX" -gt "$last_element" ] && VLIST_CURRENT_IDX="$last_element"
+        [ "$VLIST_CURRENT_IDX" -eq 0 ] && VLIST_CURRENT_IDX=1
+        (( VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((VLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
+    fi
+
     # Output the list
-    n-list-draw "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" "$page_height" "$page_width" 0 1 inner "$@"
+    n-list-draw "$VLIST_CURRENT_IDX" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
+                "$page_height" "$page_width" 0 1 inner "$list[@]"
 
     zcurses border main
-    _nlist_status_msg "Current #$VLIST_CURRENT_IDX_OF_THE_LIST (of #$last_element entries)"
+    if [ "$VLIST_IS_SEARCH_MODE" = "1" ]; then
+        _nlist_status_msg "Filtering with: $VLIST_SEARCH_BUFFER"
+    else
+        _nlist_status_msg "Current #$VLIST_CURRENT_IDX (of #$last_element entries)"
+    fi
     zcurses refresh main inner
 
     # Wait for input
@@ -115,17 +137,20 @@ while (( 1 )); do
         zcurses refresh main inner
     fi
 
-    n-list-input "$VLIST_CURRENT_IDX_OF_THE_LIST" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-                    "$page_height" "$page_width" "$last_element" "$final_key"
+    n-list-input "$VLIST_CURRENT_IDX" "$VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
+                    "$page_height" "$page_width" "$last_element" "$final_key" \
+                    "$VLIST_IS_SEARCH_MODE" "$VLIST_SEARCH_BUFFER"
 
     selection="$reply[1]"
     action="$reply[2]"
-    VLIST_CURRENT_IDX_OF_THE_LIST="$reply[3]"
+    VLIST_CURRENT_IDX="$reply[3]"
     VLIST_FROM_WHAT_IDX_LIST_IS_SHOWN="$reply[4]"
+    VLIST_IS_SEARCH_MODE="$reply[5]"
+    VLIST_SEARCH_BUFFER="$reply[6]"
 
     if [ "$action" = "SELECT" ]; then
         REPLY="$selection"
-        reply=( "$input_list[@]" )
+        reply=( "$list[@]" )
         break
     elif [ "$action" = "QUIT" ]; then
         break
