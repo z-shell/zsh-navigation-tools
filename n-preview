@@ -99,7 +99,7 @@ integer last_element_1
 typeset -a body
 integer last_element_2
 
-filenames=( `ls -1` )
+filenames=( *(N) )
 filenames=( "${(@M)filenames:#(#i)*$1*}" )
 integer last_element_1="$#filenames"
 integer last_element_2=0
