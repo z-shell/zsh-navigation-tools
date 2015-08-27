@@ -39,7 +39,7 @@ while (( 1 )); do
     n-list "${list[@]}"
 
     if [ "$REPLY" -gt 0 ]; then
-        selected="$list[$REPLY]"
+        selected="$reply[$REPLY]"
         option="${selected%% *}"
         state="${selected##* }"
 

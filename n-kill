@@ -54,7 +54,7 @@ n-list "$list[@]"
 
 # Got answer? (could be Ctrl-C or 'q')
 if [ "$REPLY" -gt 0 ]; then
-    selected="$list[$REPLY]"
+    selected="$reply[$REPLY]"
     selected="${selected## #}"
     pid="${selected%% *}"
 
@@ -63,12 +63,7 @@ if [ "$REPLY" -gt 0 ]; then
     n-list "Select signal:" "$signal_names[@]"
 
     if [ "$REPLY" -gt 0 ]; then
-        # "Select signal:" nonselectable entry was
-        # added so now substract 1 from returned index
-        # Not relying on any typeset -i for output
-        # variable, thus the (( ))
-        (( REPLY -- ))
-        selected="$signal_names[$REPLY]"
+        selected="$reply[$REPLY]"
         signal="${(k)signals[(r)$selected]}"
 
         # Will change so that the command actually

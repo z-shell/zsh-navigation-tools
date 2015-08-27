@@ -60,6 +60,8 @@ integer inner_width=term_width-2
 integer page_height=inner_height
 integer page_width=inner_width
 
+typeset -a input_list
+input_list=( "$@" )
 integer last_element="$#"
 local action
 local final_key
@@ -123,6 +125,7 @@ while (( 1 )); do
 
     if [ "$action" = "SELECT" ]; then
         REPLY="$selection"
+        reply=( "$input_list[@]" )
         break
     elif [ "$action" = "QUIT" ]; then
         break

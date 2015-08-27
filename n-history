@@ -29,7 +29,7 @@ fi
 n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
-    selected="$list[$REPLY]"
+    selected="$reply[$REPLY]"
     print -zr "$selected"
 fi
 

@@ -30,7 +30,7 @@ list=( "${(@i)list}" )
 n-list "$list[@]"
 
 if [ "$REPLY" -gt 0 ]; then
-    selected="$list[$REPLY]"
+    selected="$reply[$REPLY]"
     echo "Editing \`$selected':"
     vared functions\[$selected\]
 fi
