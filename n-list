@@ -31,8 +31,7 @@ _nlist_exit() {
 _nlist_status_msg() {
     # -1 for border, -1 for 0-based indexing
     zcurses move main $(( term_height - 1 - 1 )) 2
-    zcurses string main "                                 "
-    zcurses move main $(( term_height - 1 - 1 )) 2
+    zcurses clear main eol
     zcurses string main "$1"
 }
 
