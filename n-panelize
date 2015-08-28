@@ -22,7 +22,7 @@ list=( `"$@"` )
 n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
-    selected="$list[$REPLY]"
+    selected="$reply[$REPLY]"
     echo "You have selected $selected"
 fi
 
