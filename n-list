@@ -154,6 +154,9 @@ while (( 1 )); do
         break
     elif [ "$action" = "QUIT" ]; then
         break
+    elif [ "$action" = "REDRAW" ]; then
+        zcurses clear main redraw
+        zcurses clear inner redraw
     fi
 done
 

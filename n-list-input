@@ -82,6 +82,9 @@ case "$key" in
     ($'\t')
             reply=( $current_idx LEAVE )
         ;;
+    ()
+        reply=( -1 REDRAW )
+        ;;
     (*)
         ;;
 esac
