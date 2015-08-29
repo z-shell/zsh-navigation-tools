@@ -18,6 +18,9 @@ local selected
 
 NLIST_REMEMBER_STATE=0
 
+# Read configuration
+[ -f ~/.config/znt/n-functions.conf ] && . ~/.config/znt/n-functions.conf
+
 list=( "${(@k)functions}" )
 list=( "${(@M)list:#(#i)*$1*}" )
 
@@ -32,7 +35,12 @@ n-list "$list[@]"
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[$REPLY]"
     echo "Editing \`$selected':"
-    vared functions\[$selected\]
+    if [ "$feditor" = "zed" ]; then
+        autoload zed
+        zed -f "$selected"
+    else
+        vared functions\[$selected\]
+    fi
 fi
 
 # vim: set filetype=zsh:
