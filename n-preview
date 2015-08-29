@@ -32,10 +32,8 @@ _vpreview_exit() {
 
 # Outputs a message in the bottom of the screen
 _vpreview_status_msg() {
-    # -1 for border, -1 for 0-based indexing
     zcurses move status 1 2
-    zcurses string status "                                 "
-    zcurses move status 1 2
+    zcurses clear status eol
     zcurses string status "$1"
 }
 
