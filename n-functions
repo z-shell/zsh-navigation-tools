@@ -34,11 +34,12 @@ n-list "$list[@]"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[$REPLY]"
-    echo "Editing \`$selected':"
     if [ "$feditor" = "zed" ]; then
+        echo "Editing \`$selected' (ESC ZZ or Ctrl-x-w to finish):"
         autoload zed
         zed -f "$selected"
     else
+        echo "Editing \`$selected':"
         vared functions\[$selected\]
     fi
 fi
