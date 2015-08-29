@@ -16,7 +16,7 @@ local IFS="
 local list
 local selected
 
-VLIST_REMEMBER_STATE=0
+NLIST_REMEMBER_STATE=0
 
 list=( "${(@k)functions}" )
 list=( "${(@M)list:#(#i)*$1*}" )

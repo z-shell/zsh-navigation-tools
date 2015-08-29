@@ -16,7 +16,7 @@ local IFS="
 local list
 local selected
 
-VLIST_REMEMBER_STATE=0
+NLIST_REMEMBER_STATE=0
 
 list=( `dirs -p` )
 list=( "${(@M)list:#(#i)*$1*}" )
@@ -25,9 +25,9 @@ list=( "${(@M)list:#(#i)*$1*}" )
 
 [ -f ~/.config/znt/n-cd.conf ] && . ~/.config/znt/n-cd.conf
 if [ "$#appended_dirs" -gt 1 ]; then
-    typeset -a VLIST_NONSELECTABLE_ELEMENTS
+    typeset -a NLIST_NONSELECTABLE_ELEMENTS
     integer tmp_list_size="$#list"
-    VLIST_NONSELECTABLE_ELEMENTS=( $(( tmp_list_size+1 )) $(( tmp_list_size+2 )) )
+    NLIST_NONSELECTABLE_ELEMENTS=( $(( tmp_list_size+1 )) $(( tmp_list_size+2 )) )
     list=( "$list[@]" "" "Hotlist:" "$appended_dirs[@]" )
 else
     [ "$#list" -eq 0 ] && return 1

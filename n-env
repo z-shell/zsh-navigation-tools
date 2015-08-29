@@ -17,7 +17,7 @@ local IFS="
 local list
 local selected
 
-VLIST_REMEMBER_STATE=0
+NLIST_REMEMBER_STATE=0
 
 list=( `env` )
 list=( "${(@M)list:#(#i)*$1*}" )
