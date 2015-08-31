@@ -63,9 +63,6 @@ local action
 local final_key
 integer selection
 
-typeset -g REPLY
-REPLY=-1
-
 # Ability to remember the list between calls
 if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 ]]; then
     NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=1
@@ -114,7 +111,7 @@ while (( 1 )); do
 
     # Output the list
     n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-                "$page_height" "$page_width" 0 1 inner "$list[@]"
+                "$page_height" "$page_width" 0 1 inner noansi "$list[@]"
 
     zcurses border main
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
@@ -153,6 +150,7 @@ while (( 1 )); do
         reply=( "$list[@]" )
         break
     elif [ "$action" = "QUIT" ]; then
+        REPLY=-1
         break
     elif [ "$action" = "REDRAW" ]; then
         zcurses clear main redraw

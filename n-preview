@@ -55,14 +55,14 @@ integer status_page_height=1
 integer status_page_width=term_width-2
 
 integer files_height=term_height-status_height
-integer files_width=term_width/4
+integer files_width=term_width/5
 integer files_page_height=files_height-2
 integer files_page_width=files_width-2
 
 integer body_height=term_height-status_height
-integer body_width=term_width-files_width
+integer body_width=term_width-files_width-1
 integer body_page_height=body_height-2
-integer body_page_width=body_width-2
+integer body_page_width=body_width
 
 integer _from_what_idx_list_is_shown_1=1
 integer current_1=1
@@ -70,26 +70,29 @@ integer current_1=1
 integer _from_what_idx_list_is_shown_2=1
 integer current_2=1
 
-integer active_window=1
+integer active_window=0
+
+local ansi_mode="ansi"
+[ -f ~/.config/znt/n-preview.conf ] && . ~/.config/znt/n-preview.conf
+type highlight 2>/dev/null 1>&2 || ansi_mode="noansi"
 
 zcurses init
 zcurses addwin status "$status_height" "$status_width" $(( term_height - status_height )) 0
 zcurses addwin files "$files_height" "$files_width" 0 0
-zcurses addwin body "$body_height" "$body_width" 0 "$files_width"
+zcurses addwin body "$body_height" "$body_width" 0 $(( files_width + 1 ))
 
 #
 # Listening for input
 #
 
-local key keypad mouse
+local key keypad
 
 # Clear input buffer
 zcurses timeout status 0
-zcurses input status key keypad mouse
+zcurses input status key keypad
 zcurses timeout status -1
 key=""
 keypad=""
-mouse=""
 
 typeset -a filenames
 integer last_element_1
@@ -107,21 +110,19 @@ local selection final_key
 while (( 1 )); do
     # Output the lists
     n-list-draw "$current_1" "$_from_what_idx_list_is_shown_1" \
-                    "$files_page_height" "$files_page_width" 1 2 files "$filenames[@]"
+                    "$files_page_height" "$files_page_width" 1 2 files noansi "$filenames[@]"
 
     if [ "$#body" -ge 1 ]; then
         n-list-draw "$current_2" "$_from_what_idx_list_is_shown_2" \
-                        "$body_page_height" "$body_page_width" 1 2 body "$body[@]"
+                        "$body_page_height" "$body_page_width" 1 0 body "$ansi_mode" "$body[@]"
     fi
 
-    zcurses border files
-    zcurses border body
+    [[ "$active_window" -eq 0 ]] && zcurses border files
     zcurses border status
-
     zcurses refresh files body status 
 
     # Wait for input
-    zcurses input status key keypad mouse
+    zcurses input status key keypad
 
     # Get the special (i.e. "keypad") key or regular key
     if [ ! -z "$key" ]; then
@@ -133,7 +134,7 @@ while (( 1 )); do
         zcurses refresh status 
     fi
 
-    if [ "$active_window" -eq 1 ]; then
+    if [ "$active_window" -eq 0 ]; then
         zcurses clear files
         n-list-input "$current_1" "$_from_what_idx_list_is_shown_1" "$files_page_height" \
             "$files_page_width" "$last_element_1" "$final_key"
@@ -146,17 +147,17 @@ while (( 1 )); do
         if [ "$action" = "SELECT" ]; then
             # Load new file and refresh the displaying window
             filename="$filenames[$selection]"
-            body=( "${(@f)"$(<$filename)"}" )
+            if [ "$ansi_mode" = "ansi" ]; then
+                body=( "${(@f)"$(highlight -q --force -O ansi $filename)"}" )
+            else
+                body=( "${(@f)"$(<$filename)"}" )
+            fi
             last_element_2="$#body"
             current_2=1
             _from_what_idx_list_is_shown_2=1
             zcurses clear body
-        elif [ "$action" = "QUIT" ]; then
-            break
-        elif [ "$action" = "LEAVE" ]; then
-            active_window=2
         fi
-    elif [ "$active_window" -eq 2 ]; then
+    elif [ "$active_window" -eq 1 ]; then
         zcurses clear body
         n-list-input "$current_2" "$_from_what_idx_list_is_shown_2" "$body_page_height" \
             "$body_page_width" "$last_element_2" "$final_key"
@@ -166,11 +167,16 @@ while (( 1 )); do
         current_2="$reply[3]"
         _from_what_idx_list_is_shown_2="$reply[4]"
 
-        if [ "$action" = "QUIT" ]; then
+    fi
+
+    if [ "$action" = "LEAVE" ]; then
+        active_window=1-active_window
+    elif [ "$action" = "QUIT" ]; then
             break
-        elif [ "$action" = "LEAVE" ]; then
-            active_window=1
-        fi
+    elif [ "$action" = "REDRAW" ]; then
+        zcurses clear files redraw
+        zcurses clear body redraw
+        zcurses clear status redraw
     fi
 done
 

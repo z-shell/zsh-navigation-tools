@@ -5,16 +5,83 @@ zmodload zsh/curses
 setopt localoptions
 setopt typesetsilent
 
-# Use only local scope
+_nlist_expand_tabs() {
+    local chunk="$1"
+    integer before_len="$2"
+    REPLY=""
+    local tab=$'\t'
+
+    while [ ! -z "$chunk" ]; do
+        up_to_tab="${chunk%%$tab*}"
+        if [ "$up_to_tab" != "$chunk" ]; then
+            local remaining="${chunk[$#up_to_tab+2,-1]}"
+            integer left_len="$#up_to_tab"
+            integer tabs_count_all=$(( (before_len+left_len)/8 ))
+            integer all_text_len=$(( (tabs_count_all+1)*8 ))
+            integer chunk_padded_len=$(( all_text_len - before_len ))
+            REPLY+="${(r:$chunk_padded_len:: :)up_to_tab}"
+
+            before_len+=chunk_padded_len
+            chunk="$remaining"
+        else
+            REPLY+="$chunk"
+            break
+        fi
+    done
+}
+
+_nlist_print_with_ansi() {
+    local win="$1"
+    local text="$2"
+    integer max_text_len="$3"
+    integer text_len=0
+    local regex=$'([^\x1b]*)\x1b\\[([0-9]{1,2};)?([0-9]{1,2})?m(.*)'
+
+    # 1 - non-escaped text, 2 - first number in the escaped text, with ;
+    # 3 - second number, 4 - text after whole escape text
+
+    local out
+    integer do_break=0
+    typeset -a c
+    c=( black red green yellow blue magenta cyan white )
+
+    while [[ ! -z "$text" && "$do_break" -eq 0 ]]; do
+        if [[ "$text" -regex-match "$regex" ]]; then
+            text="$match[4]"
+            if [[ "$match[3]" -ge 30 && "$match[3]" -le 37 ]]; then
+                zcurses attr "$win" $c[$(( match[3] - 29 ))]/black
+            elif [[ ! -z "$match[3]" && "$match[3]" -eq 0 ]]; then
+                zcurses attr "$win" white/black
+            fi
+
+            out="$match[1]"
+        else
+            out="$text"
+            do_break=1
+        fi
+
+        _nlist_expand_tabs "$out" "$text_len"
+        out="$REPLY"
+
+        text_len+="$#out"
+        [[ "$text_len" -gt "$max_text_len" ]] && out="${out[1,-1*(text_len-max_text_len+1)]}"
+        zcurses string "$win" "$out"
+    done
+    zcurses attr "$win" white/black
+}
+
 integer highlight="$1"
 integer start_idx="$2"
 integer page_height="$3"
 integer page_width="$4"
 local y_offset="$5"
 local x_offset="$6"
-local window_name="$7"
-shift 7
-integer max_text_len=page_width-2
+local win="$7"
+local ansi_mode="$8"
+shift 8
+integer max_text_len=page_width
+
+[ "$ansi_mode" = "ansi" ] && zmodload zsh/regex
 
 local -a list
 list=( "$@" )
@@ -25,16 +92,22 @@ integer y=y_offset
 
 integer i
 for (( i=start_idx; i<=end_idx; i++ )); do
-    zcurses move "$window_name" $y "$x_offset"
+    zcurses move "$win" $y "$x_offset"
 
     local text="$list[$i]"
-    text="${text///^[}"
-    integer text_len="${#text}"
-    [ "$text_len" -gt "$max_text_len" ] && text="${text[1,$max_text_len]}"
 
-    [ "$i" = "$highlight" ] && zcurses attr "$window_name" +reverse
-    zcurses string "$window_name" "$text"
-    [ "$i" = "$highlight" ] && zcurses attr "$window_name" -reverse
+    [ "$i" = "$highlight" ] && zcurses attr "$win" +reverse
+    if [ "$ansi_mode" != "ansi" ]; then
+        _nlist_expand_tabs "$list[$i]"
+        text="$REPLY"
+        integer text_len="${#text}"
+
+        [ "$text_len" -gt "$max_text_len" ] && text="${text[1,$max_text_len]}"
+        zcurses string "$win" "$text"
+    else
+        _nlist_print_with_ansi "$win" "$text" "$max_text_len"
+    fi
+    [ "$i" = "$highlight" ] && zcurses attr "$win" -reverse
 
     y+=1
 done
