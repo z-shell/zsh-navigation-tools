@@ -83,7 +83,7 @@ local x_offset="$6"
 local win="$7"
 local ansi_mode="$8"
 shift 8
-integer max_text_len=page_width
+integer max_text_len=page_width-x_offset
 
 [ "$ansi_mode" = "ansi" ] && zmodload zsh/regex
 
