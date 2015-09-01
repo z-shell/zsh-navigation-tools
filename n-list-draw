@@ -1,6 +1,7 @@
 emulate -L zsh
 
 zmodload zsh/curses
+zmodload zsh/regex
 
 setopt localoptions
 setopt typesetsilent
@@ -85,7 +86,6 @@ local ansi_mode="$8"
 shift 8
 integer max_text_len=page_width-x_offset
 
-[ "$ansi_mode" = "ansi" ] && zmodload zsh/regex
 
 local -a list
 list=( "$@" )
