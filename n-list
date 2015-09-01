@@ -107,11 +107,19 @@ while (( 1 )); do
         [ "$NLIST_CURRENT_IDX" -gt "$last_element" ] && NLIST_CURRENT_IDX="$last_element"
         [ "$NLIST_CURRENT_IDX" -eq 0 ] && NLIST_CURRENT_IDX=1
         (( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((NLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
-    fi
 
-    # Output the list
-    n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-                "$page_height" "$page_width" 0 1 inner noansi "$list[@]"
+        # Output colored list
+        typeset -a col_list
+        local red=$'\x1b'"[00;31m" reset=$'\x1b'"[00;00m"
+        col_list=( "${(@)list//(#bi)($NLIST_SEARCH_BUFFER)/$red${match[1]}$reset}" )
+
+        n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
+            "$page_height" "$page_width" 0 1 inner ansi "$col_list[@]"
+    else
+        # Output the list
+        n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
+            "$page_height" "$page_width" 0 1 inner noansi "$list[@]"
+    fi
 
     zcurses border main
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
