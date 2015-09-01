@@ -21,6 +21,7 @@ autoload n-list-draw n-list-input
 
 # Cleanup before any exit
 _nlist_exit() {
+    [[ "$REPLY" = <-> ]] || REPLY="-1"
     zcurses 2>/dev/null delwin inner
     zcurses 2>/dev/null delwin main
     zcurses 2>/dev/null refresh
