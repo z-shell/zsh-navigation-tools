@@ -102,6 +102,9 @@ integer last_element_2
 
 filenames=( *(N) )
 filenames=( "${(@M)filenames:#(#i)*$1*}" )
+
+local NLIST_GREP_STRING="$1"
+
 integer last_element_1="$#filenames"
 integer last_element_2=0
 

@@ -26,6 +26,8 @@ NLIST_CURRENT_IDX=1
 NLIST_IS_SEARCH_MODE=0
 NLIST_SEARCH_BUFFER=""
 
+local NLIST_GREP_STRING="$1"
+
 while (( 1 )); do
     list=( `setopt` )
     list=( "${(@M)list:#*$1*}" )

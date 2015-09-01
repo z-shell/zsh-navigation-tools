@@ -21,6 +21,8 @@ NLIST_REMEMBER_STATE=0
 list=( `history -rn 1` )
 list=( "${(@M)list:#(#i)*$1*}" )
 
+local NLIST_GREP_STRING="$1"
+
 if [ "$#list" -eq 0 ]; then
     echo "No matching history entries"
     return 1

@@ -24,6 +24,8 @@ NLIST_REMEMBER_STATE=0
 list=( "${(@k)functions}" )
 list=( "${(@M)list:#(#i)*$1*}" )
 
+local NLIST_GREP_STRING="$1"
+
 if [ "$#list" -eq 0 ]; then
     echo "No matching functions"
     return 1

@@ -125,8 +125,11 @@ while (( 1 )); do
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
         _nlist_status_msg "Filtering with: $NLIST_SEARCH_BUFFER"
     else
-        _nlist_status_msg "Current #$NLIST_CURRENT_IDX (of #$last_element entries)"
+        local _txt=""
+        [ ! -z "$NLIST_GREP_STRING" ] && _txt=" [$NLIST_GREP_STRING]"
+        _nlist_status_msg "Current #$NLIST_CURRENT_IDX (of #$last_element entries)$_txt"
     fi
+
     zcurses refresh main inner
 
     # Wait for input

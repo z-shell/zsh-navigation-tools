@@ -21,6 +21,8 @@ NLIST_REMEMBER_STATE=0
 list=( `dirs -p` )
 list=( "${(@M)list:#(#i)*$1*}" )
 
+local NLIST_GREP_STRING="$1"
+
 [ "$#list" -eq 0 ] && echo "No matching directories"
 
 [ -f ~/.config/znt/n-cd.conf ] && . ~/.config/znt/n-cd.conf
