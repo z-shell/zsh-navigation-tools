@@ -118,7 +118,7 @@ while (( 1 )); do
     else
         # Output the list
         n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-            "$page_height" "$page_width" 0 1 inner noansi "$list[@]"
+            "$page_height" "$page_width" 0 1 inner ansi "$list[@]"
     fi
 
     zcurses border main
