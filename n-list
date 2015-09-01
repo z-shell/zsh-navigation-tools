@@ -111,7 +111,7 @@ while (( 1 )); do
 
         # Output colored list
         typeset -a col_list
-        local red=$'\x1b'"[00;31m" reset=$'\x1b'"[00;00m"
+        local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
         col_list=( "${(@)list//(#bi)($NLIST_SEARCH_BUFFER)/$red${match[1]}$reset}" )
 
         n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
