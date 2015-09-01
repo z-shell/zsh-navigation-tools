@@ -41,31 +41,35 @@ _nlist_print_with_ansi() {
     # 3 - second number, 4 - text after whole escape text
 
     local out
-    integer do_break=0
+    integer no_match=0
     typeset -a c
     c=( black red green yellow blue magenta cyan white )
 
-    while [[ ! -z "$text" && "$do_break" -eq 0 ]]; do
+    while [[ ! -z "$text" && "$no_match" -eq 0 ]]; do
         if [[ "$text" -regex-match "$regex" ]]; then
             text="$match[4]"
+            out="$match[1]"
+        else
+            out="$text"
+            no_match=1
+        fi
+
+        if [ ! -z "$out" ]; then
+            _nlist_expand_tabs "$out" "$text_len"
+            out="$REPLY"
+
+            text_len+="$#out"
+            [[ "$text_len" -gt "$max_text_len" ]] && out="${out[1,-1*(text_len-max_text_len+1)]}"
+            zcurses string "$win" "$out"
+        fi
+
+        if [ "$no_match" -eq 0 ]; then
             if [[ "$match[3]" -ge 30 && "$match[3]" -le 37 ]]; then
                 zcurses attr "$win" $c[$(( match[3] - 29 ))]/black
             elif [[ ! -z "$match[3]" && "$match[3]" -eq 0 ]]; then
                 zcurses attr "$win" white/black
             fi
-
-            out="$match[1]"
-        else
-            out="$text"
-            do_break=1
         fi
-
-        _nlist_expand_tabs "$out" "$text_len"
-        out="$REPLY"
-
-        text_len+="$#out"
-        [[ "$text_len" -gt "$max_text_len" ]] && out="${out[1,-1*(text_len-max_text_len+1)]}"
-        zcurses string "$win" "$out"
     done
     zcurses attr "$win" white/black
 }
