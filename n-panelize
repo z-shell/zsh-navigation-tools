@@ -18,6 +18,12 @@ local selected
 
 NLIST_REMEMBER_STATE=0
 
+# Check if there is proper input
+if [ "$#" -lt 1 ]; then
+    echo "Usage: n-panelize command ..."
+    return 1
+fi
+
 list=( `"$@"` )
 n-list "${list[@]}"
 
