@@ -62,6 +62,8 @@ if [ "$REPLY" -gt 0 ]; then
 
     # Now ask of signal
     signal_names=( ${(vin)signals} )
+    typeset -a NLIST_HOP_INDEXES
+    NLIST_HOP_INDEXES=( 3 6 8 )
     n-list $'\x1b[00;31mSelect signal:\x1b[00;00m' "$signal_names[@]"
 
     if [ "$REPLY" -gt 0 ]; then
