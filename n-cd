@@ -27,9 +27,10 @@ local NLIST_GREP_STRING="$1"
 
 [ -f ~/.config/znt/n-cd.conf ] && . ~/.config/znt/n-cd.conf
 if [ "$#appended_dirs" -gt 1 ]; then
-    typeset -a NLIST_NONSELECTABLE_ELEMENTS
+    typeset -a NLIST_NONSELECTABLE_ELEMENTS NLIST_HOP_INDEXES
     integer tmp_list_size="$#list"
     NLIST_NONSELECTABLE_ELEMENTS=( $(( tmp_list_size+1 )) $(( tmp_list_size+2 )) )
+    NLIST_HOP_INDEXES=( $(( tmp_list_size+3 )) )
     list=( "$list[@]" "" $'\x1b[00;31m'"Hotlist:"$'\x1b[00;00m' "$appended_dirs[@]" )
 else
     [ "$#list" -eq 0 ] && return 1
