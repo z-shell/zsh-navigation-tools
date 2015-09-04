@@ -94,7 +94,7 @@ case "$key" in
             fi
         done
         ;;
-    (p)
+    (N)
         for idx in "${(nO)NLIST_HOP_INDEXES[@]}"; do
             if [ "$idx" -lt "$current_idx" ]; then
                 current_idx=$idx
