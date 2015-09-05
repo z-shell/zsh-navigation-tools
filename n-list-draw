@@ -86,7 +86,9 @@ local ansi_mode="$8"
 shift 8
 integer max_text_len=page_width-x_offset
 
-[ "$ansi_mode" = "ansi" ] && zcurses attr "$win" white/black
+[ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
+[ "$bold" = "0" ] && bold="" || bold="+bold"
+[ "$ansi_mode" = "ansi" ] && zcurses attr "$win" $bold white/black
 
 local -a list
 list=( "$@" )
