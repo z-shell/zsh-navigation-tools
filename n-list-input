@@ -86,7 +86,7 @@ case "$key" in
         reply=( -1 REDRAW )
         ;;
     (\])
-        for idx in "${(n)NLIST_HOP_INDEXES[@]}"; do
+        [ -z "$NLIST_SEARCH_BUFFER" ] && for idx in "${(n)NLIST_HOP_INDEXES[@]}"; do
             if [ "$idx" -gt "$current_idx" ]; then
                 current_idx=$idx
                 _nlist_compute_first_to_show_idx
@@ -95,7 +95,7 @@ case "$key" in
         done
         ;;
     (\[)
-        for idx in "${(nO)NLIST_HOP_INDEXES[@]}"; do
+        [ -z "$NLIST_SEARCH_BUFFER" ] && for idx in "${(nO)NLIST_HOP_INDEXES[@]}"; do
             if [ "$idx" -lt "$current_idx" ]; then
                 current_idx=$idx
                 _nlist_compute_first_to_show_idx
