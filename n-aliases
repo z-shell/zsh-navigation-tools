@@ -34,6 +34,7 @@ n-list "$list[@]"
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[$REPLY]"
     echo "Editing \`$selected':"
+    print -rs "vared aliases\\[$selected\\]"
     vared aliases\[$selected\]
 fi
 
