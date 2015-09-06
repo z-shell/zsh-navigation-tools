@@ -137,7 +137,7 @@ case "$key" in
     ($'\n')
         search=0
         ;;
-    ($'\b'|||BACKSPACE)
+    ($'\b'||BACKSPACE)
         buffer="${buffer%?}"
         ;;
 esac
