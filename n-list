@@ -113,7 +113,7 @@ while (( 1 )); do
         list=( "${(@M)list:#(#i)*$NLIST_SEARCH_BUFFER*}" )
         last_element="$#list"
         [ "$NLIST_CURRENT_IDX" -gt "$last_element" ] && NLIST_CURRENT_IDX="$last_element"
-        [ "$NLIST_CURRENT_IDX" -eq 0 ] && NLIST_CURRENT_IDX=1
+        [[ "$NLIST_CURRENT_IDX" -eq 0 && "$last_element" -ne 0 ]] && NLIST_CURRENT_IDX=1
         (( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((NLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
 
         # Output colored list
