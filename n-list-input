@@ -131,7 +131,7 @@ esac
 else
 
 case "$key" in
-    ([a-zA-Z0-9/\[\]\.,\-_])
+    ([a-zA-Z0-9/\[\]\.,\-_ ])
         buffer+="$key"
         ;;
     ($'\n')
