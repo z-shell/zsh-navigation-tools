@@ -59,17 +59,24 @@ integer page_height=inner_height
 integer page_width=inner_width
 
 typeset -a list
-integer last_element
+integer last_element=$#
 local action
 local final_key
 integer selection
 
 # Ability to remember the list between calls
-if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 ]]; then
+if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REMEMBER_STATE" -eq 2 ]]; then
     NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=1
     NLIST_CURRENT_IDX=1
     NLIST_IS_SEARCH_MODE=0
     NLIST_SEARCH_BUFFER=""
+
+    NLIST_USER_CURRENT_IDX=0
+    [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)1]} != 1 ]] && NLIST_USER_CURRENT_IDX=1
+    NLIST_USER_LAST_ELEMENT=$(( last_element - $#NLIST_NONSELECTABLE_ELEMENTS ))
+
+    # 2 is init once, then remember
+    [ "$NLIST_REMEMBER_STATE" -eq 2 ] && NLIST_REMEMBER_STATE=1
 fi
 
 zcurses init
@@ -125,10 +132,12 @@ while (( 1 )); do
     zcurses border main
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
         _nlist_status_msg "Filtering with: $NLIST_SEARCH_BUFFER"
-    else
+    elif [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)$NLIST_CURRENT_IDX]} != $NLIST_CURRENT_IDX ]]; then
         local _txt=""
         [ ! -z "$NLIST_GREP_STRING" ] && _txt=" [$NLIST_GREP_STRING]"
-        _nlist_status_msg "Current #$NLIST_CURRENT_IDX (of #$last_element entries)$_txt"
+        _nlist_status_msg "Current #$NLIST_USER_CURRENT_IDX (of #$NLIST_USER_LAST_ELEMENT entries)$_txt"
+    else
+        _nlist_status_msg ""
     fi
 
     zcurses refresh main inner
@@ -156,6 +165,8 @@ while (( 1 )); do
     NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN="$reply[4]"
     NLIST_IS_SEARCH_MODE="$reply[5]"
     NLIST_SEARCH_BUFFER="$reply[6]"
+    NLIST_USER_CURRENT_IDX="$reply[7]"
+    NLIST_USER_LAST_ELEMENT="$reply[8]"
 
     if [ "$action" = "SELECT" ]; then
         REPLY="$selection"

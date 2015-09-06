@@ -20,11 +20,8 @@ local selected
 local option
 local state
 
-NLIST_REMEMBER_STATE=1
-NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=1
-NLIST_CURRENT_IDX=1
-NLIST_IS_SEARCH_MODE=0
-NLIST_SEARCH_BUFFER=""
+# 0 - don't remember, 1 - remember, 2 - init once, then remember
+NLIST_REMEMBER_STATE=2
 
 local NLIST_GREP_STRING="$1"
 

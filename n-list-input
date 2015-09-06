@@ -10,6 +10,24 @@ _nlist_compute_first_to_show_idx() {
     from_what_idx_list_is_shown=0+((current_idx-1)/page_height)*page_height+1
 }
 
+_nlist_compute_user_vars_difference() {
+        if [[ "${(t)NLIST_NONSELECTABLE_ELEMENTS}" != "array" &&
+                "${(t)NLIST_NONSELECTABLE_ELEMENTS}" != "array-local" ||
+                ! -z "$buffer" ]]
+        then
+            last_element_difference=0
+            current_difference=0
+        else
+            last_element_difference=$#NLIST_NONSELECTABLE_ELEMENTS
+            current_difference=0
+            for idx in "${(n)NLIST_NONSELECTABLE_ELEMENTS[@]}"; do
+                [ "$idx" -le "$current_idx" ] && current_difference+=1 || break
+            done
+        fi
+}
+
+integer current_difference
+integer last_element_difference
 typeset -ga reply
 reply=( -1 '' 1 1 )
 integer current_idx="$1"
@@ -20,6 +38,7 @@ integer last_element="$5"
 local key="$6"
 integer search="$7"
 local buffer="$8"
+
 #
 # Listening for input
 #
@@ -127,9 +146,13 @@ reply=( -1 SEARCH )
 
 fi
 
+_nlist_compute_user_vars_difference
+
 reply[3]="$current_idx"
 reply[4]="$from_what_idx_list_is_shown"
 reply[5]="$search"
 reply[6]="$buffer"
+reply[7]=$(( current_idx - current_difference ))
+reply[8]=$(( last_element - last_element_difference ))
 
 # vim: set filetype=zsh:
