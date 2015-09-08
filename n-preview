@@ -74,7 +74,15 @@ integer active_window=0
 
 local ansi_mode="ansi"
 [ -f ~/.config/znt/n-preview.conf ] && . ~/.config/znt/n-preview.conf
-type highlight 2>/dev/null 1>&2 || ansi_mode="noansi"
+typeset -a hcmd
+if type highlight 2>/dev/null 1>&2; then
+    hcmd=( highlight -q --force -O ansi )
+elif type source-highlight 2>/dev/null 1>&2; then
+    # Warning: source-highlight can have problems
+    hcmd=( source-highlight --failsafe -fesc -o STDOUT -i )
+else
+    ansi_mode="noansi"
+fi
 
 zcurses init
 zcurses addwin status "$status_height" "$status_width" $(( term_height - status_height )) 0
@@ -151,7 +159,7 @@ while (( 1 )); do
             # Load new file and refresh the displaying window
             filename="$filenames[$selection]"
             if [ "$ansi_mode" = "ansi" ]; then
-                body=( "${(@f)"$(highlight -q --force -O ansi $filename)"}" )
+                body=( "${(@f)"$( "$hcmd[@]" "$filename" )"}" )
             else
                 body=( "${(@f)"$(<$filename)"}" )
             fi
