@@ -39,6 +39,8 @@ NLIST_REMEMBER_STATE=0
 typeset -a NLIST_NONSELECTABLE_ELEMENTS
 NLIST_NONSELECTABLE_ELEMENTS=( 1 )
 
+type ps 2>/dev/null 1>&2 || { echo "Error: \`ps' not found"; return 1 }
+
 # Ask of PID
 list=( `ps -o pid,uid,command -A` )
 title=$'\x1b[00;31m'"${list[1]}"$'\x1b[00;00m'
