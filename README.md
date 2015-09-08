@@ -1,6 +1,6 @@
 # Zsh Navigation Tools
 
-Video: [https://youtu.be/PLLLip9qJZ8](https://youtu.be/PLLLip9qJZ8)
+Video: [https://youtu.be/j_pcCWz9MsM](https://youtu.be/j_pcCWz9MsM)
 
 A tool generating a selectable curses-based list of elements that has access to current ZSH session, i.e. has broad capabilities to work together with it. That's n-list. The files n-cd, n-env, n-kill, etc. are applications of the tool. Feature highlights include grepping, incremental searching and various integrations with ZSH.
 
