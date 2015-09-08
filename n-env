@@ -34,7 +34,7 @@ n-list "$list[@]"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[$REPLY]"
-    selected="${selected%=*}"
+    selected="${selected%%=*}"
     echo "Editing \`$selected':"
     print -rs "vared \"$selected\""
     vared "$selected"
