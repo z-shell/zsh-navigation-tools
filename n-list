@@ -84,6 +84,8 @@ zcurses delwin main 2>/dev/null
 zcurses delwin inner 2>/dev/null
 zcurses addwin main "$term_height" "$term_width" 0 0
 zcurses addwin inner "$inner_height" "$inner_width" 1 1
+zcurses bg main white/black
+zcurses bg inner white/black
 
 #
 # Listening for input
