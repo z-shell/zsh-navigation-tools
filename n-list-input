@@ -140,6 +140,9 @@ case "$key" in
     ($'\b'||BACKSPACE)
         buffer="${buffer%?}"
         ;;
+    ()
+        [ $buffer = "${buffer% *}" ] && buffer="" || buffer="${buffer% *}"
+        ;;
 esac
 
 reply=( -1 SEARCH )
