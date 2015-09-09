@@ -25,6 +25,8 @@ if [ "$#" -lt 1 ]; then
 fi
 
 list=( `"$@"` )
+[ "$?" -ne 0 ] && return $?
+
 n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
