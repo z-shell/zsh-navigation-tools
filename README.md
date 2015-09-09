@@ -2,7 +2,7 @@
 
 Videos: [https://youtu.be/j_pcCWz9MsM](https://youtu.be/j_pcCWz9MsM) [https://youtu.be/DZHnSNV4FIo](https://youtu.be/DZHnSNV4FIo)
 
-A tool generating a selectable curses-based list of elements that has access to current ZSH session, i.e. has broad capabilities to work together with it. That's n-list. The files n-cd, n-env, n-kill, etc. are applications of the tool. Feature highlights include grepping, incremental searching and various integrations with ZSH.
+A tool generating a selectable curses-based list of elements that has access to current ZSH session, i.e. has broad capabilities to work together with it. That's n-list. The files n-cd, n-env, n-kill, etc. are applications of the tool. Feature highlights include incremental searching, ANSI coloring, grepping and various integrations with ZSH.
 
 This is an alternative approach to idea of visual shell, when compared to Midnight Commander. Here the command line is the main way the shell is used. From that mode of operation, user call tools that do not require mouse or typing, only navigating. 
 
