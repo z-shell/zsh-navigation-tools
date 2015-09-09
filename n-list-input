@@ -141,7 +141,7 @@ case "$key" in
         buffer="${buffer%?}"
         ;;
     ()
-        [ $buffer = "${buffer% *}" ] && buffer="" || buffer="${buffer% *}"
+        [ "$buffer" = "${buffer% *}" ] && buffer="" || buffer="${buffer% *}"
         ;;
 esac
 
