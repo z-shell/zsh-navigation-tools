@@ -19,9 +19,7 @@ To avoid typing of the minus sign "-" the files can be simlinked to non-sign ver
 
     cd /usr/share/zsh/site-functions/
     IFS='$\n'
-    for i in n-*; do
-        sudo ln -s $i n${i#n-}
-    done
+    for i in n-*; do sudo ln -s "$i" "n${i#n-}"; done
 
 After making simlinks add one other autoload line:
 
