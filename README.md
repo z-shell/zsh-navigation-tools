@@ -9,7 +9,7 @@ This is an alternative approach to idea of visual shell, when compared to Midnig
 ZNT can be compared to IDEs, integrated development environments. Typically, when user searches for occurences of a symbol throughout the project, what IDE does is that it provides a list that can be navigated.
 
 ## Installation
-Copy all n-\* files to /usr/share/zsh/[-version-]/functions/ and then add:
+Copy all n-\* files to /usr/share/zsh/site-functions/ and then add:
 
     autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-preview
 
@@ -17,7 +17,7 @@ to ~/.zshrc.
 
 To avoid typing of the minus sign "-" the files can be simlinked to non-sign versions (zsh code):
 
-    cd /usr/share/zsh/{-version-}/functions/
+    cd /usr/share/zsh/site-functions/
     IFS='$\n'
     for i in n-*; do
         sudo ln -s $i n${i#n-}
