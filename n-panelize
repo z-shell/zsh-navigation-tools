@@ -1,5 +1,5 @@
-# Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v-panelize` to .zshrc
+# Copy this file into /usr/share/zsh/site-functions/
+# and add 'autoload n-panelize` to .zshrc
 #
 # This function somewhat reminds the panelize feature from Midnight Commander
 # It allows browsing output of arbitrary command. Example usage:

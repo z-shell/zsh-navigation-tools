@@ -1,5 +1,5 @@
-# Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v-aliases` to .zshrc
+# Copy this file into /usr/share/zsh/site-functions/
+# and add 'autoload n-aliases` to .zshrc
 #
 # This function allows to choose an alias for edition with vared
 #

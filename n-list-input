@@ -1,3 +1,6 @@
+# Copy this file into /usr/share/zsh/site-functions/
+# and add 'autoload n-list-input` to .zshrc
+
 emulate -L zsh
 
 zmodload zsh/curses

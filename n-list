@@ -2,7 +2,7 @@
 # $NLIST_NONSELECTABLE_ELEMENTS - array of indexes (1-based) that cannot be selected
 # $REPLY is the output variable - contains index (1-based) or -1 when no selection
 #
-# Copy this file into /usr/share/zsh/[-version-]/functions
+# Copy this file into /usr/share/zsh/site-functions/
 # and add 'autoload n-list` to .zshrc
 #
 # This function outputs a list of elements that can be

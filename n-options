@@ -1,5 +1,5 @@
-# Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v-options` to .zshrc
+# Copy this file into /usr/share/zsh/site-functions/
+# and add 'autoload n-options` to .zshrc
 #
 # This function allows to browse and toggle shell's options
 # Currently there is a flaw that the option changed can make

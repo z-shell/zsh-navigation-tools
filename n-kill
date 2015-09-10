@@ -1,5 +1,5 @@
-# Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v-kill` to .zshrc
+# Copy this file into /usr/share/zsh/site-functions/
+# and add 'autoload n-kill` to .zshrc
 #
 # This function allows to choose a process and a signal to send to it
 #

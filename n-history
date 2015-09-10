@@ -1,5 +1,5 @@
-# Copy this file into /usr/share/zsh/[-version-]/functions
-# and add 'autoload v-history` to .zshrc
+# Copy this file into /usr/share/zsh/site-functions/
+# and add 'autoload n-history` to .zshrc
 #
 # This function allows to browse Z shell's history and use the
 # entries
