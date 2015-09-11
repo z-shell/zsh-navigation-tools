@@ -60,7 +60,7 @@ integer files_page_height=files_height-2
 integer files_page_width=files_width-2
 
 integer body_height=term_height-status_height
-integer body_width=term_width-files_width-1
+integer body_width=term_width-files_width
 integer body_page_height=body_height-2
 integer body_page_width=body_width
 
@@ -88,7 +88,10 @@ fi
 zcurses init
 zcurses addwin status "$status_height" "$status_width" $(( term_height - status_height )) 0
 zcurses addwin files "$files_height" "$files_width" 0 0
-zcurses addwin body "$body_height" "$body_width" 0 $(( files_width + 1 ))
+zcurses addwin body "$body_height" "$body_width" 0 "$files_width"
+zcurses bg status white/black
+zcurses bg files white/black
+zcurses bg body white/black
 
 #
 # Listening for input
