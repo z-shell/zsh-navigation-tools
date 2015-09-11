@@ -70,6 +70,7 @@ if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REM
     NLIST_CURRENT_IDX=1
     NLIST_IS_SEARCH_MODE=0
     NLIST_SEARCH_BUFFER=""
+    NLIST_TEXT_OFFSET=0
 
     NLIST_USER_CURRENT_IDX=0
     [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)1]} != 1 ]] && NLIST_USER_CURRENT_IDX=1
@@ -124,11 +125,11 @@ while (( 1 )); do
         col_list=( "${(@)list//(#bi)($NLIST_SEARCH_BUFFER)/$red${match[1]}$reset}" )
 
         n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-            "$page_height" "$page_width" 0 1 inner ansi "$col_list[@]"
+            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi "$col_list[@]"
     else
         # Output the list
         n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-            "$page_height" "$page_width" 0 1 inner ansi "$list[@]"
+            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi "$list[@]"
     fi
 
     zcurses border main
@@ -158,17 +159,18 @@ while (( 1 )); do
     fi
 
     n-list-input "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-                    "$page_height" "$page_width" "$last_element" "$final_key" \
-                    "$NLIST_IS_SEARCH_MODE" "$NLIST_SEARCH_BUFFER"
+                    "$page_height" "$page_width" "$last_element" "$NLIST_TEXT_OFFSET" \
+                    "$final_key" "$NLIST_IS_SEARCH_MODE" "$NLIST_SEARCH_BUFFER"
 
     selection="$reply[1]"
     action="$reply[2]"
     NLIST_CURRENT_IDX="$reply[3]"
     NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN="$reply[4]"
-    NLIST_IS_SEARCH_MODE="$reply[5]"
-    NLIST_SEARCH_BUFFER="$reply[6]"
-    NLIST_USER_CURRENT_IDX="$reply[7]"
-    NLIST_USER_LAST_ELEMENT="$reply[8]"
+    NLIST_TEXT_OFFSET="$reply[5]"
+    NLIST_IS_SEARCH_MODE="$reply[6]"
+    NLIST_SEARCH_BUFFER="$reply[7]"
+    NLIST_USER_CURRENT_IDX="$reply[8]"
+    NLIST_USER_LAST_ELEMENT="$reply[9]"
 
     if [ "$action" = "SELECT" ]; then
         REPLY="$selection"

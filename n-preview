@@ -69,6 +69,7 @@ integer current_1=1
 
 integer _from_what_idx_list_is_shown_2=1
 integer current_2=1
+integer hscroll_2=0
 
 integer active_window=0
 
@@ -121,11 +122,11 @@ local selection final_key
 while (( 1 )); do
     # Output the lists
     n-list-draw "$current_1" "$_from_what_idx_list_is_shown_1" \
-                    "$files_page_height" "$files_page_width" 1 2 files noansi "$filenames[@]"
+                    "$files_page_height" "$files_page_width" 1 2 0 files noansi "$filenames[@]"
 
     if [ "$#body" -ge 1 ]; then
         n-list-draw "$current_2" "$_from_what_idx_list_is_shown_2" \
-                        "$body_page_height" "$body_page_width" 1 0 body "$ansi_mode" "$body[@]"
+                        "$body_page_height" "$body_page_width" 1 0 "$hscroll_2" body "$ansi_mode" "$body[@]"
     fi
 
     [[ "$active_window" -eq 0 ]] && zcurses border files
@@ -148,7 +149,7 @@ while (( 1 )); do
     if [ "$active_window" -eq 0 ]; then
         zcurses clear files
         n-list-input "$current_1" "$_from_what_idx_list_is_shown_1" "$files_page_height" \
-            "$files_page_width" "$last_element_1" "$final_key"
+            "$files_page_width" "$last_element_1" 0 "$final_key"
 
         selection="$reply[1]"
         action="$reply[2]"
@@ -171,12 +172,13 @@ while (( 1 )); do
     elif [ "$active_window" -eq 1 ]; then
         zcurses clear body
         n-list-input "$current_2" "$_from_what_idx_list_is_shown_2" "$body_page_height" \
-            "$body_page_width" "$last_element_2" "$final_key"
+            "$body_page_width" "$last_element_2" "$hscroll_2" "$final_key"
 
         selection="$reply[1]"
         action="$reply[2]"
         current_2="$reply[3]"
         _from_what_idx_list_is_shown_2="$reply[4]"
+        hscroll_2="$reply[5]"
 
     fi
 

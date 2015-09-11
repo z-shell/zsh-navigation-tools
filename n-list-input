@@ -38,9 +38,10 @@ integer from_what_idx_list_is_shown="$2"
 integer page_height="$3"
 integer page_width="$4"
 integer last_element="$5"
-local key="$6"
-integer search="$7"
-local buffer="$8"
+integer hscroll="$6"
+local key="$7"
+integer search="$8"
+local buffer="$9"
 
 #
 # Listening for input
@@ -127,6 +128,13 @@ case "$key" in
             fi
         done
         ;;
+    ('<'|'{')
+        hscroll=hscroll-7
+        [ "$hscroll" -lt 0 ] && hscroll=0
+        ;;
+    ('>'|'}')
+        hscroll+=7
+        ;;
     (*)
         ;;
 esac
@@ -156,9 +164,10 @@ _nlist_compute_user_vars_difference
 
 reply[3]="$current_idx"
 reply[4]="$from_what_idx_list_is_shown"
-reply[5]="$search"
-reply[6]="$buffer"
-reply[7]=$(( current_idx - current_difference ))
-reply[8]=$(( last_element - last_element_difference ))
+reply[5]="$hscroll"
+reply[6]="$search"
+reply[7]="$buffer"
+reply[8]=$(( current_idx - current_difference ))
+reply[9]=$(( last_element - last_element_difference ))
 
 # vim: set filetype=zsh:

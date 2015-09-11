@@ -34,10 +34,12 @@ _nlist_expand_tabs() {
     done
 }
 
+
 _nlist_print_with_ansi() {
     local win="$1"
     local text="$2"
-    integer max_text_len="$3"
+    integer text_offset="$3"
+    integer max_text_len="$4"
     integer text_len=0
     local regex=$'([^\x1b]*)\x1b\\[([0-9]{1,2};)?([0-9]{1,2})?m(.*)'
 
@@ -51,7 +53,9 @@ _nlist_print_with_ansi() {
 
     while [[ ! -z "$text" && "$no_match" -eq 0 ]]; do
         if [[ "$text" -regex-match "$regex" ]]; then
+            # Text for further processing
             text="$match[4]"
+            # Text chunk to output now
             out="$match[1]"
         else
             out="$text"
@@ -62,9 +66,30 @@ _nlist_print_with_ansi() {
             _nlist_expand_tabs "$out" "$text_len"
             out="$REPLY"
 
+            # Input text length without the current chunk
+            integer nochunk_text_len=text_len
+            # Input text length up to current chunk
             text_len+="$#out"
-            [[ "$text_len" -gt "$max_text_len" ]] && out="${out[1,-1*(text_len-max_text_len+1)]}"
-            zcurses string "$win" "$out"
+
+            # Should start displaying with this chunk?
+            # I.e. stop skipping left part of the input text?
+            if [ "$text_len" -gt "$text_offset" ]; then
+                integer to_skip_from_chunk=text_offset-nochunk_text_len
+
+                # LEFT - is chunk off the left skip boundary? +1 for 1-based index in string
+                [ "$to_skip_from_chunk" -gt 0 ] && out="${out[to_skip_from_chunk+1,-1]}"
+
+                integer remaining_text_len=text_len-text_offset
+                integer remaining_nochunk_text_len=nochunk_text_len-text_offset
+
+                # RIGHT - is text off the screen?
+                if [ "$remaining_text_len" -gt "$max_text_len" ]; then
+                    integer to_display_from_chunk=max_text_len-remaining_nochunk_text_len
+                    [ "$to_display_from_chunk" -gt 0 ] && out="${out[1,to_display_from_chunk]}" || out=""
+                fi
+                
+                [ ! -z "$out" ] && zcurses string "$win" "$out"
+            fi
         fi
 
         if [ "$no_match" -eq 0 ]; then
@@ -84,9 +109,10 @@ integer page_height="$3"
 integer page_width="$4"
 local y_offset="$5"
 local x_offset="$6"
-local win="$7"
-local ansi_mode="$8"
-shift 8
+local text_offset="$7"
+local win="$8"
+local ansi_mode="$9"
+shift 9
 integer max_text_len=page_width-x_offset
 
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
@@ -108,6 +134,7 @@ for (( i=start_idx; i<=end_idx; i++ )); do
 
     [ "$i" = "$highlight" ] && zcurses attr "$win" +reverse
     if [ "$ansi_mode" != "ansi" ]; then
+        # TODO horizontal scroll
         _nlist_expand_tabs "$list[$i]"
         text="$REPLY"
         integer text_len="${#text}"
@@ -115,7 +142,7 @@ for (( i=start_idx; i<=end_idx; i++ )); do
         [ "$text_len" -gt "$max_text_len" ] && text="${text[1,$max_text_len]}"
         zcurses string "$win" "$text"
     else
-        _nlist_print_with_ansi "$win" "$text" "$max_text_len"
+        _nlist_print_with_ansi "$win" "$text" "$text_offset" "$max_text_len"
     fi
     [ "$i" = "$highlight" ] && zcurses attr "$win" -reverse
 
