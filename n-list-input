@@ -16,7 +16,7 @@ _nlist_compute_first_to_show_idx() {
 _nlist_compute_user_vars_difference() {
         if [[ "${(t)NLIST_NONSELECTABLE_ELEMENTS}" != "array" &&
                 "${(t)NLIST_NONSELECTABLE_ELEMENTS}" != "array-local" ||
-                ! -z "$buffer" ]]
+                -n "$buffer" ]]
         then
             last_element_difference=0
             current_difference=0

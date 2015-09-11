@@ -15,7 +15,7 @@ _nlist_expand_tabs() {
     REPLY=""
     local tab=$'\t'
 
-    while [ ! -z "$chunk" ]; do
+    while [ -n "$chunk" ]; do
         up_to_tab="${chunk%%$tab*}"
         if [ "$up_to_tab" != "$chunk" ]; then
             local remaining="${chunk[$#up_to_tab+2,-1]}"
@@ -51,7 +51,7 @@ _nlist_print_with_ansi() {
     typeset -a c
     c=( black red green yellow blue magenta cyan white )
 
-    while [[ ! -z "$text" && "$no_match" -eq 0 ]]; do
+    while [[ -n "$text" && "$no_match" -eq 0 ]]; do
         if [[ "$text" -regex-match "$regex" ]]; then
             # Text for further processing
             text="$match[4]"
@@ -62,7 +62,7 @@ _nlist_print_with_ansi() {
             no_match=1
         fi
 
-        if [ ! -z "$out" ]; then
+        if [ -n "$out" ]; then
             _nlist_expand_tabs "$out" "$text_len"
             out="$REPLY"
 
@@ -88,14 +88,14 @@ _nlist_print_with_ansi() {
                     [ "$to_display_from_chunk" -gt 0 ] && out="${out[1,to_display_from_chunk]}" || out=""
                 fi
                 
-                [ ! -z "$out" ] && zcurses string "$win" "$out"
+                [ -n "$out" ] && zcurses string "$win" "$out"
             fi
         fi
 
         if [ "$no_match" -eq 0 ]; then
             if [[ "$match[3]" -ge 30 && "$match[3]" -le 37 ]]; then
                 zcurses attr "$win" $c[$(( match[3] - 29 ))]/black
-            elif [[ ! -z "$match[3]" && "$match[3]" -eq 0 ]]; then
+            elif [[ -n "$match[3]" && "$match[3]" -eq 0 ]]; then
                 zcurses attr "$win" white/black
             fi
         fi

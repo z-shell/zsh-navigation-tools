@@ -140,9 +140,9 @@ while (( 1 )); do
     zcurses input status key keypad
 
     # Get the special (i.e. "keypad") key or regular key
-    if [ ! -z "$key" ]; then
+    if [ -n "$key" ]; then
         final_key="$key" 
-    elif [ ! -z "$keypad" ]; then
+    elif [ -n "$keypad" ]; then
         final_key="$keypad"
     else
         _vpreview_status_msg "Inproper input detected"
