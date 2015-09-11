@@ -23,11 +23,11 @@ local state
 # 0 - don't remember, 1 - remember, 2 - init once, then remember
 NLIST_REMEMBER_STATE=2
 
-local NLIST_GREP_STRING="$1"
+local NLIST_GREP_STRING="${1:=}"
 
 while (( 1 )); do
     list=( `setopt` )
-    list=( "${(M)list[@]:#*$1*}" )
+    list=( "${(M)list[@]:#*${1:=}*}" )
 
     if [ "$#list" -eq 0 ]; then
         echo "No matching options"
@@ -45,7 +45,14 @@ while (( 1 )); do
         [[ -o ksharrays ]] && selected="${reply[$(( REPLY - 1 ))]}" || selected="${reply[$REPLY]}"
         option="${selected%% *}"
         state="${selected##* }"
-        state="${state%$reset}"
+
+        if [[ -o globsubst ]]; then
+            unsetopt globsubst
+            state="${state%$reset}"
+            setopt globsubst
+        else
+            state="${state%$reset}"
+        fi
 
         # Toggle the option
         if [ "$state" = "on" ]; then
