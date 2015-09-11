@@ -10,9 +10,10 @@
 
 emulate -LR zsh
 
+setopt localoptions typesetsilent localtraps extendedglob noshortloops
+
 zmodload zsh/curses
 
-setopt localoptions typesetsilent localtraps extendedglob
 trap "return" TERM INT QUIT
 trap "_nlist_exit" EXIT
 
