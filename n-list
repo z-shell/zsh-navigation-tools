@@ -8,7 +8,7 @@
 # This function outputs a list of elements that can be
 # navigated with keyboard. Uses curses library
 
-emulate -L zsh
+emulate -LR zsh
 
 zmodload zsh/curses
 

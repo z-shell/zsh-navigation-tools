@@ -2,8 +2,6 @@
 # and add 'autoload n-options` to .zshrc
 #
 # This function allows to browse and toggle shell's options
-# Currently there is a flaw that the option changed can make
-# n-options stop working
 #
 # Uses n-list
 
@@ -29,7 +27,7 @@ local NLIST_GREP_STRING="$1"
 
 while (( 1 )); do
     list=( `setopt` )
-    list=( "${(@M)list:#*$1*}" )
+    list=( "${(M)list[@]:#*$1*}" )
 
     if [ "$#list" -eq 0 ]; then
         echo "No matching options"
@@ -37,13 +35,14 @@ while (( 1 )); do
     fi
 
     local red=$'\x1b[00;31m' yellow=$'\x1b[00;32m' reset=$'\x1b[00;00m'
-    list=( "${(@)list/ off/${red} off$reset}" )
-    list=( "${(@)list/ on/${yellow} on$reset}" )
-    list=( "${(@i)list}" )
+    list=( "${list[@]/ off/${red} off$reset}" )
+    list=( "${list[@]/ on/${yellow} on$reset}" )
+    list=( "${(i)list[@]}" )
+
     n-list "${list[@]}"
 
     if [ "$REPLY" -gt 0 ]; then
-        selected="$reply[$REPLY]"
+        [[ -o ksharrays ]] && selected="${reply[$(( REPLY - 1 ))]}" || selected="${reply[$REPLY]}"
         option="${selected%% *}"
         state="${selected##* }"
         state="${state%$reset}"
