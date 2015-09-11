@@ -34,9 +34,9 @@ while (( 1 )); do
         break
     fi
 
-    local red=$'\x1b[00;31m' yellow=$'\x1b[00;32m' reset=$'\x1b[00;00m'
+    local red=$'\x1b[00;31m' green=$'\x1b[00;32m' reset=$'\x1b[00;00m'
     list=( "${list[@]/ off/${red} off$reset}" )
-    list=( "${list[@]/ on/${yellow} on$reset}" )
+    list=( "${list[@]/ on/${green} on$reset}" )
     list=( "${(i)list[@]}" )
 
     n-list "${list[@]}"
