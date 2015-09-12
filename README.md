@@ -27,6 +27,8 @@ After making simlinks add one other autoload line:
 
     autoload nlist ncd nenv nkill npanelize noptions naliases nfunctions nhistory npreview
 
+Don't forget to copy [configuration files](https://github.com/psprint/zsh-navigation-tools/tree/master/.config/znt). They should go to `~/.config/znt`.
+
 ## Introduction
 
 The tools are:
