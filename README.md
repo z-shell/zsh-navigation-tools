@@ -15,7 +15,7 @@ Copy all n-\* files to **/usr/share/zsh/site-functions/** (or **/usr/local/share
 
 to ~/.zshrc.
 
-To avoid typing of the minus sign "-" the files can be simlinked to non-sign versions (zsh code):
+To avoid typing of the minus sign "-" no-sign version can be simlinked (zsh code):
 
 ```zsh
 cd /usr/share/zsh/site-functions/
