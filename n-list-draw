@@ -12,6 +12,7 @@ _nlist_expand_tabs() {
     integer before_len="$2"
     REPLY=""
     local tab=$'\t'
+    local up_to_tab
 
     while [ -n "$chunk" ]; do
         up_to_tab="${chunk%%$tab*}"
