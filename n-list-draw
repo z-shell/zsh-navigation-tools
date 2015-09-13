@@ -4,10 +4,8 @@
 emulate -L zsh
 
 zmodload zsh/curses
-zmodload zsh/regex
 
-setopt localoptions
-setopt typesetsilent
+setopt localoptions typesetsilent extendedglob
 
 _nlist_expand_tabs() {
     local chunk="$1"
@@ -41,7 +39,6 @@ _nlist_print_with_ansi() {
     integer text_offset="$3"
     integer max_text_len="$4"
     integer text_len=0
-    local regex=$'([^\x1b]*)\x1b\\[([0-9]{1,2};)?([0-9]{1,2})?m(.*)'
 
     # 1 - non-escaped text, 2 - first number in the escaped text, with ;
     # 3 - second number, 4 - text after whole escape text
@@ -52,7 +49,7 @@ _nlist_print_with_ansi() {
     c=( black red green yellow blue magenta cyan white )
 
     while [[ -n "$text" && "$no_match" -eq 0 ]]; do
-        if [[ "$text" -regex-match "$regex" ]]; then
+        if [[ "$text" = (#b)([^$'\x1b']#)$'\x1b'\[([0-9][0-9]\;|)([0-9][0-9]|)m(*) ]]; then
             # Text for further processing
             text="$match[4]"
             # Text chunk to output now
