@@ -18,6 +18,8 @@ trap "_vpreview_exit" EXIT
 local IFS="
 "
 
+[ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
+
 # Drawing and input
 autoload n-list-draw n-list-input
 

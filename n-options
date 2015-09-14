@@ -8,8 +8,11 @@
 #emulate -L zsh
 
 zmodload zsh/curses
+
 local IFS="
 "
+
+[ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
 
 # TODO restore options
 unsetopt localoptions
