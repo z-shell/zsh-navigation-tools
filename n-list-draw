@@ -44,7 +44,7 @@ _nlist_print_with_ansi() {
     # 1 - non-escaped text, 2 - first number in the escaped text, with ;
     # 3 - second number, 4 - text after whole escape text
 
-    local out
+    local out col
     integer no_match=0
     typeset -a c
     c=( black red green yellow blue magenta cyan white )
@@ -55,6 +55,8 @@ _nlist_print_with_ansi() {
             text="$match[4]"
             # Text chunk to output now
             out="$match[1]"
+            # Save color
+            col="$match[3]"
         else
             out="$text"
             no_match=1
@@ -91,9 +93,9 @@ _nlist_print_with_ansi() {
         fi
 
         if [ "$no_match" -eq 0 ]; then
-            if [[ "$match[3]" -ge 30 && "$match[3]" -le 37 ]]; then
-                zcurses attr "$win" $c[$(( match[3] - 29 ))]/black
-            elif [[ -n "$match[3]" && "$match[3]" -eq 0 ]]; then
+            if [[ "$col" -ge 30 && "$col" -le 37 ]]; then
+                zcurses attr "$win" $c[$(( col - 29 ))]/black
+            elif [[ -n "$col" && "$col" -eq 0 ]]; then
                 zcurses attr "$win" white/black
             fi
         fi
