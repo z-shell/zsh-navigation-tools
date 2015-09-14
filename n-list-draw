@@ -11,21 +11,17 @@ _nlist_expand_tabs() {
     local chunk="$1"
     integer before_len="$2"
     REPLY=""
-    local tab=$'\t'
-    local up_to_tab
 
     while [ -n "$chunk" ]; do
-        up_to_tab="${chunk%%$tab*}"
-        if [ "$up_to_tab" != "$chunk" ]; then
-            local remaining="${chunk[$#up_to_tab+2,-1]}"
-            integer left_len="$#up_to_tab"
+        if [[ "$chunk" = (#b)([^$'\t']#)$'\t'(*) ]]; then
+            integer left_len="${#match[1]}"
             integer tabs_count_all=$(( (before_len+left_len)/8 ))
             integer all_text_len=$(( (tabs_count_all+1)*8 ))
             integer chunk_padded_len=$(( all_text_len - before_len ))
-            REPLY+="${(r:$chunk_padded_len:: :)up_to_tab}"
+            REPLY+="${(r:$chunk_padded_len:: :)match[1]}"
 
             before_len+=chunk_padded_len
-            chunk="$remaining"
+            chunk="$match[2]"
         else
             REPLY+="$chunk"
             break
