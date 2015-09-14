@@ -102,45 +102,39 @@ _nlist_print_with_ansi() {
 }
 
 integer highlight="$1"
-integer start_idx="$2"
-integer page_height="$3"
-integer page_width="$4"
-local y_offset="$5"
-local x_offset="$6"
-local text_offset="$7"
-local win="$8"
-local ansi_mode="$9"
-shift 9
+integer page_height="$2"
+integer page_width="$3"
+local y_offset="$4"
+local x_offset="$5"
+local text_offset="$6"
+local win="$7"
+local ansi_mode="$8"
+shift 8
 integer max_text_len=page_width-x_offset
 
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
 [ "$bold" = "0" ] && bold="" || bold="+bold"
 [ "$ansi_mode" = "ansi" ] && zcurses attr "$win" $bold white/black
 
-local -a list
-list=( "$@" )
-
-integer end_idx=start_idx+page_height-1
-[ "$end_idx" -gt "$#list" ] && end_idx="$#list"
+integer end_idx=1+page_height-1
+[ "$end_idx" -gt "$#" ] && end_idx="$#"
 integer y=y_offset
 
 integer i
-for (( i=start_idx; i<=end_idx; i++ )); do
+for (( i=1; i<=end_idx; i++ )); do
     zcurses move "$win" $y "$x_offset"
-
-    local text="$list[$i]"
 
     [ "$i" = "$highlight" ] && zcurses attr "$win" +reverse
     if [ "$ansi_mode" != "ansi" ]; then
         # TODO horizontal scroll
-        _nlist_expand_tabs "$list[$i]"
-        text="$REPLY"
+        _nlist_expand_tabs "$@[i]"
+        local text="$REPLY"
         integer text_len="${#text}"
 
         [ "$text_len" -gt "$max_text_len" ] && text="${text[1,$max_text_len]}"
         zcurses string "$win" "$text"
     else
-        _nlist_print_with_ansi "$win" "$text" "$text_offset" "$max_text_len"
+        _nlist_print_with_ansi "$win" "$@[i]" "$text_offset" "$max_text_len"
     fi
     [ "$i" = "$highlight" ] && zcurses attr "$win" -reverse
 

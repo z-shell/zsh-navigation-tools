@@ -125,12 +125,20 @@ while (( 1 )); do
         local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
         col_list=( "${(@)list//(#bi)($NLIST_SEARCH_BUFFER)/$red${match[1]}$reset}" )
 
-        n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi "$col_list[@]"
+        integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
+        [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
+
+        n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
+            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
+            "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
     else
+        integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
+        [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
+
         # Output the list
-        n-list-draw "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
-            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi "$list[@]"
+        n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
+            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
+            "${(@)list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
     fi
 
     zcurses border main
