@@ -91,7 +91,6 @@ _nlist_print_with_ansi() {
             fi
         fi
     done
-    zcurses attr "$win" white/black
 }
 
 integer highlight="$1"
@@ -133,4 +132,5 @@ for (( i=1; i<=end_idx; i++ )); do
     y+=1
 done
 
+zcurses attr "$win" white/black
 # vim: set filetype=zsh:
