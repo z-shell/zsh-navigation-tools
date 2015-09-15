@@ -32,7 +32,7 @@ _nlist_expand_tabs() {
 
 _nlist_print_with_ansi() {
     local win="$1" text="$2" out col
-    integer text_offset="$3" max_text_len="$4" text_len=0 no_match=0 nochunk_text_len to_skip_from_chunk to_display_from_chunk remaining_text_len remaining_nochunk_text_len
+    integer text_offset="$3" max_text_len="$4" text_len=0 no_match=0 nochunk_text_len to_skip_from_chunk to_display_from_chunk
 
     # 1 - non-escaped text, 2 - first number in the escaped text, with ;
     # 3 - second number, 4 - text after whole escape text
@@ -70,12 +70,9 @@ _nlist_print_with_ansi() {
                 # LEFT - is chunk off the left skip boundary? +1 for 1-based index in string
                 (( to_skip_from_chunk > 0 )) && out="${out[to_skip_from_chunk+1,-1]}"
 
-                remaining_text_len=text_len-text_offset
-                remaining_nochunk_text_len=nochunk_text_len-text_offset
-
                 # RIGHT - is text off the screen?
-                if (( remaining_text_len > max_text_len )); then
-                    to_display_from_chunk=max_text_len-remaining_nochunk_text_len
+                if (( text_len-text_offset > max_text_len )); then
+                    to_display_from_chunk=max_text_len-(nochunk_text_len-text_offset)
                     (( to_display_from_chunk > 0 )) && out="${out[1,to_display_from_chunk]}" || out=""
                 fi
                 
