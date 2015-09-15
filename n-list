@@ -59,11 +59,12 @@ integer inner_width=term_width-2
 integer page_height=inner_height
 integer page_width=inner_width
 
-typeset -a list
+typeset -a list col_list
 integer last_element=$#
 local action
 local final_key
 integer selection
+local prev_search_buffer=""
 
 # Ability to remember the list between calls
 if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REMEMBER_STATE" -eq 2 ]]; then
@@ -102,36 +103,51 @@ zcurses timeout main -1
 key=""
 keypad=""
 
-while (( 1 )); do
-    list=( "$@" )
-    last_element="$#"
+list=( "$@" )
+last_element="$#"
 
+while (( 1 )); do
     # Do searching (filtering with string)
     if [ -n "$NLIST_SEARCH_BUFFER" ]; then
-        # First remove non-selectable elements
-        [ "$#NLIST_NONSELECTABLE_ELEMENTS" -gt 0 ] && for i in "${(nO)NLIST_NONSELECTABLE_ELEMENTS[@]}"; do
-            list[$i]=()
-        done
+        # Compute new list, col_list ?
+        if [ "$NLIST_SEARCH_BUFFER" != "$prev_search_buffer" ]; then
+            prev_search_buffer="$NLIST_SEARCH_BUFFER"
 
-        # Next do the filtering
-        list=( "${(@M)list:#(#i)*$NLIST_SEARCH_BUFFER*}" )
-        last_element="$#list"
-        [ "$NLIST_CURRENT_IDX" -gt "$last_element" ] && NLIST_CURRENT_IDX="$last_element"
-        [[ "$NLIST_CURRENT_IDX" -eq 0 && "$last_element" -ne 0 ]] && NLIST_CURRENT_IDX=1
-        (( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((NLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
+            list=( "$@" )
+            last_element="$#"
 
-        # Output colored list
-        typeset -a col_list
-        local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
-        col_list=( "${(@)list//(#bi)($NLIST_SEARCH_BUFFER)/$red${match[1]}$reset}" )
+            # First remove non-selectable elements
+            [ "$#NLIST_NONSELECTABLE_ELEMENTS" -gt 0 ] && for i in "${(nO)NLIST_NONSELECTABLE_ELEMENTS[@]}"; do
+                list[$i]=()
+            done
+
+            # Next do the filtering
+            list=( "${(@M)list:#(#i)*$NLIST_SEARCH_BUFFER*}" )
+            last_element="$#list"
+            [ "$NLIST_CURRENT_IDX" -gt "$last_element" ] && NLIST_CURRENT_IDX="$last_element"
+            [[ "$NLIST_CURRENT_IDX" -eq 0 && "$last_element" -ne 0 ]] && NLIST_CURRENT_IDX=1
+            (( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((NLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
+
+            local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
+            col_list=( "${(@)list//(#bi)($NLIST_SEARCH_BUFFER)/$red${match[1]}$reset}" )
+        fi
 
         integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
         [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
 
+        # Output colored list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
             "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
             "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
     else
+        # There is no search, but there was in previous loop
+        # Enter non-search mode with fresh list array
+        if [ -n "$prev_search_buffer" ]; then
+            prev_search_buffer=""
+            list=( "$@" )
+            last_element="$#"
+        fi
+
         integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
         [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
 
