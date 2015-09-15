@@ -122,7 +122,7 @@ local NLIST_GREP_STRING="$1"
 integer last_element_1="$#filenames"
 integer last_element_2=0
 
-local selection final_key
+local selection action final_key
 
 while (( 1 )); do
     # Output the lists
@@ -171,7 +171,7 @@ while (( 1 )); do
 
         if [ "$action" = "SELECT" ]; then
             # Load new file and refresh the displaying window
-            filename="$filenames[$selection]"
+            local filename="$filenames[$selection]"
             if [ "$ansi_mode" = "ansi" ]; then
                 body=( "${(@f)"$( "$hcmd[@]" "$filename" )"}" )
             else

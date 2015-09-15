@@ -23,6 +23,7 @@ _nlist_compute_user_vars_difference() {
         else
             last_element_difference=$#NLIST_NONSELECTABLE_ELEMENTS
             current_difference=0
+            local idx
             for idx in "${(n)NLIST_NONSELECTABLE_ELEMENTS[@]}"; do
                 [ "$idx" -le "$current_idx" ] && current_difference+=1 || break
             done
