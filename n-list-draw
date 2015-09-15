@@ -55,12 +55,11 @@ _nlist_print_with_ansi() {
 
         if [ -n "$out" ]; then
             _nlist_expand_tabs "$out" "$text_len"
-            out="$REPLY"
 
             # Input text length without the current chunk
             nochunk_text_len=text_len
             # Input text length up to current chunk
-            text_len+="$#out"
+            text_len+="$#REPLY"
 
             # Should start displaying with this chunk?
             # I.e. stop skipping left part of the input text?
@@ -68,15 +67,15 @@ _nlist_print_with_ansi() {
                 to_skip_from_chunk=text_offset-nochunk_text_len
 
                 # LEFT - is chunk off the left skip boundary? +1 for 1-based index in string
-                (( to_skip_from_chunk > 0 )) && out="${out[to_skip_from_chunk+1,-1]}"
+                (( to_skip_from_chunk > 0 )) && REPLY="${REPLY[to_skip_from_chunk+1,-1]}"
 
                 # RIGHT - is text off the screen?
                 if (( text_len-text_offset > max_text_len )); then
                     to_chop_off_from_chunk=0+(text_len-text_offset)-max_text_len
-                    out="${out[1,-to_chop_off_from_chunk-1]}"
+                    REPLY="${REPLY[1,-to_chop_off_from_chunk-1]}"
                 fi
                 
-                [ -n "$out" ] && zcurses string "$win" "$out"
+                [ -n "$REPLY" ] && zcurses string "$win" "$REPLY"
             fi
         fi
 
