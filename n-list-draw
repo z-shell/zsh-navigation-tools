@@ -111,7 +111,8 @@ integer end_idx=1+page_height-1
 [ "$end_idx" -gt "$#" ] && end_idx="$#"
 integer y=y_offset
 
-integer i
+integer i text_len
+local text
 for (( i=1; i<=end_idx; i++ )); do
     zcurses move "$win" $y "$x_offset"
 
@@ -119,8 +120,8 @@ for (( i=1; i<=end_idx; i++ )); do
     if [ "$ansi_mode" != "ansi" ]; then
         # TODO horizontal scroll
         _nlist_expand_tabs "$@[i]"
-        local text="$REPLY"
-        integer text_len="${#text}"
+        text="$REPLY"
+        text_len="${#text}"
 
         [ "$text_len" -gt "$max_text_len" ] && text="${text[1,$max_text_len]}"
         zcurses string "$win" "$text"
