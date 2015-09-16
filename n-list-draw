@@ -41,13 +41,13 @@ _nlist_print_with_ansi() {
     c=( black red green yellow blue magenta cyan white )
 
     while [[ -n "$text" && "$no_match" -eq 0 ]]; do
-        if [[ "$text" = (#b)([^$'\x1b']#)$'\x1b'\[([0-9][0-9]\;|)([0-9][0-9]|)m(*) ]]; then
+        if [[ "$text" = (#b)([^$'\x1b']#)$'\x1b'\[(#B)([0-9][0-9]\;|)(#b)([0-9][0-9]|)m(*) ]]; then
             # Text for further processing
-            text="$match[4]"
+            text="$match[3]"
             # Text chunk to output now
             out="$match[1]"
             # Save color
-            col="$match[3]"
+            col="$match[2]"
         else
             out="$text"
             no_match=1
