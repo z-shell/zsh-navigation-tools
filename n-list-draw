@@ -14,14 +14,11 @@ _nlist_expand_tabs() {
 
     while [ -n "$chunk" ]; do
         [[ "$chunk" = (#b)([^$'\t']#)$'\t'(*) ]] && {
-            (( left_len=${#match[1]},
-                tabs_count_all=(before_len+left_len)/8,
-                all_text_len=(tabs_count_all+1)*8,
-                chunk_padded_len=all_text_len-before_len ))
+            (( all_text_len=((before_len+${#match[1]})/8+1)*8 ))
 
-            REPLY+="${(r:$chunk_padded_len:: :)match[1]}"
+            REPLY+="${(r:all_text_len-before_len:: :)match[1]}"
 
-            before_len+=chunk_padded_len
+            before_len+=all_text_len-before_len
             chunk="$match[2]"
         } || {
             REPLY+="$chunk"
