@@ -27,7 +27,13 @@ After making simlinks add one other autoload line:
 
     autoload nlist ncd nenv nkill npanelize noptions naliases nfunctions nhistory npreview
 
-Don't forget to copy [configuration files](https://github.com/psprint/zsh-navigation-tools/tree/master/.config/znt). They should go to `~/.config/znt`.
+Don't forget to copy [configuration files](https://github.com/psprint/zsh-navigation-tools/tree/master/.config/znt). They should go to `~/.config/znt`. Moreover, `n-cd` works together with option `AUTO_PUSHD` and you should have:
+
+```zsh
+setopt AUTO_PUSHD
+```
+
+in `.zshrc` (also recommend `PUSHD_IGNORE_DUPS`). Without the option `n-cd` will just work as incremental searcher of directory bookmarks.
 
 ## Introduction
 
