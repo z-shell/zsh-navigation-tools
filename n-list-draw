@@ -13,7 +13,7 @@ _nlist_expand_tabs() {
     REPLY=""
 
     while [ -n "$chunk" ]; do
-        if [[ "$chunk" = (#b)([^$'\t']#)$'\t'(*) ]]; then
+        [[ "$chunk" = (#b)([^$'\t']#)$'\t'(*) ]] && {
             (( left_len=${#match[1]},
                 tabs_count_all=(before_len+left_len)/8,
                 all_text_len=(tabs_count_all+1)*8,
@@ -23,10 +23,10 @@ _nlist_expand_tabs() {
 
             before_len+=chunk_padded_len
             chunk="$match[2]"
-        else
+        } || {
             REPLY+="$chunk"
             break
-        fi
+        }
     done
 }
 
