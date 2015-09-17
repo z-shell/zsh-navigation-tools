@@ -98,7 +98,7 @@ _nlist_print_with_ansi() {
         if (( no_match == 0 )); then
             if (( col >= 30 && col <= 37 )); then
                 zcurses attr "$win" $c[col-29]/black
-            elif [[ -n "$col" && "$col" -eq 0 ]]; then
+            elif [[ "$col" -eq 0 ]]; then
                 zcurses attr "$win" white/black
             fi
         fi
