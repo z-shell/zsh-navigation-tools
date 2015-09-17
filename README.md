@@ -23,7 +23,7 @@ To avoid typing of the minus sign "-" no-sign version can be simlinked (zsh code
 
 ```zsh
 cd /usr/share/zsh/site-functions/
-IFS='$\n'
+IFS=$'\n'
 for i in n-*; do sudo ln -s "$i" "n${i#n-}"; done
 ```
 
