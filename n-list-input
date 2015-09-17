@@ -143,9 +143,6 @@ esac
 else
 
 case "$key" in
-    ([a-zA-Z0-9/\[\]\.,\-_ ])
-        buffer+="$key"
-        ;;
     ($'\n')
         search=0
         ;;
@@ -154,6 +151,9 @@ case "$key" in
         ;;
     ()
         [ "$buffer" = "${buffer% *}" ] && buffer="" || buffer="${buffer% *}"
+        ;;
+    (*)
+        buffer+="$key"
         ;;
 esac
 
