@@ -157,7 +157,6 @@ while (( 1 )); do
             "${(@)list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
     fi
 
-    zcurses border main
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
         _nlist_status_msg "Filtering with: $NLIST_SEARCH_BUFFER"
     elif [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)$NLIST_CURRENT_IDX]} != $NLIST_CURRENT_IDX ]]; then
@@ -168,6 +167,7 @@ while (( 1 )); do
         _nlist_status_msg ""
     fi
 
+    zcurses border main
     zcurses refresh main inner
 
     # Wait for input
