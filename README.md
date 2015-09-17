@@ -63,3 +63,20 @@ All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
 - `g, G` - beginning and end of the list
 - `Ctrl-w` (in incremental search) - delete whole word
 
+## Programming
+
+The function n-list is used as follows:
+
+```zsh
+n-list {element1} [element2] ... [elementN]
+```
+
+This is all that is needed to be done to have the features like ANSI coloring,
+incremental search, horizontal scroll (grepping is done outside n-list, see the
+tools for how it can be done). To set up non-selectable entries add their
+indexes into array NLIST_NONSELECTABLE_ELEMENTS:
+
+```zsh
+typeset -a NLIST_NONSELECTABLE_ELEMENTS
+NLIST_NONSELECTABLE_ELEMENTS=( 1 )
+```
