@@ -2,6 +2,10 @@
 
 Videos: [https://youtu.be/kznhIdLFrbk](https://youtu.be/kznhIdLFrbk) [https://youtu.be/JfQd7B0kKPM](https://youtu.be/JfQd7B0kKPM)
 
+Screenshot (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
+
+![n-preview](http://imageshack.com/a/img540/4401/Xfb7nN.png)
+
 A tool generating a selectable curses-based list of elements that has access to current ZSH session, i.e. has broad capabilities to work together with it. That's `n-list`. The files `n-cd`, `n-env`, `n-kill`, etc. are applications of the tool. Feature highlights include incremental searching, ANSI coloring, grepping and various integrations with ZSH.
 
 This is an alternative approach to idea of visual shell, when compared to Midnight Commander. Here the command line is the main way the shell is used. From that mode of operation, user call tools that do not require mouse or typing, only navigating. 
