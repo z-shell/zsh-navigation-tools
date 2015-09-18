@@ -80,3 +80,9 @@ indexes into array NLIST_NONSELECTABLE_ELEMENTS:
 typeset -a NLIST_NONSELECTABLE_ELEMENTS
 NLIST_NONSELECTABLE_ELEMENTS=( 1 )
 ```
+
+Result is stored as $reply[REPLY]. The returned array might be different from
+input arguments as `n-list` can process them via incremental search. $REPLY is
+the index in that possibly processed array. If $REPLY equals -1 it means that no
+selection have been made (user quitted via 'q' key).
+
