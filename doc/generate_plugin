@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+local PLUGIN_FILE="doc/zshnavigationtools.plugin.zsh"
+
+[ -d doc ] || cd ..
+
+rm -vf "$PLUGIN_FILE"
+echo "# The preamble comments apply when using ZNT as autoload functions" >>"$PLUGIN_FILE"
+
+for i in n-*; do
+    echo "$i() {" >>"$PLUGIN_FILE"
+    cat "$i" >>"$PLUGIN_FILE"
+    echo "}" >>"$PLUGIN_FILE"
+    echo "alias n${i#n-}=$i" >>"$PLUGIN_FILE"
+    echo >>"$PLUGIN_FILE"
+done
