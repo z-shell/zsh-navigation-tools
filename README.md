@@ -13,7 +13,7 @@ This is an alternative approach to idea of visual shell, when compared to Midnig
 ZNT can be compared to IDEs, integrated development environments. Typically, when user searches for occurences of a symbol throughout the project, what IDE does is that it provides a list that can be navigated.
 
 ## Installation
-Copy all n-\* files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
+Copy (or link) all n-\* files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
     autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-preview
 
