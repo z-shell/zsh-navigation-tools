@@ -12,7 +12,7 @@ echo -n "# " >>"$PLUGIN_FILE"
 git show-ref master | head -1 >>"$PLUGIN_FILE"
 echo >>"$PLUGIN_FILE"
 
-for i in n-*; do
+for i in n-*(on); do
     echo "$i() {" >>"$PLUGIN_FILE"
     cat "$i" >>"$PLUGIN_FILE"
     echo "}" >>"$PLUGIN_FILE"
