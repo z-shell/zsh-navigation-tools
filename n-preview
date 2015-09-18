@@ -3,13 +3,13 @@
 #
 # This is partially a test if n-list-draw and n-list-input can be
 # used multiple times to create multiple lists. It might become
-# more usable if someone figures out how to implement syntax
-# highlighting or adds previewing of archives' contents, or other
-# features.
+# more usable if someone adds more features like previewing of
+# archive contents.
 
 emulate -L zsh
 
 zmodload zsh/curses
+zmodload zsh/zprof
 
 setopt localoptions typesetsilent localtraps extendedglob
 trap "return" TERM INT QUIT
@@ -30,6 +30,8 @@ _vpreview_exit() {
     zcurses 2>/dev/null delwin status
     zcurses 2>/dev/null refresh
     zcurses end
+
+    zprof
 }
 
 # Outputs a message in the bottom of the screen
@@ -78,6 +80,8 @@ integer active_window=0
 local ansi_mode="ansi"
 [ -f ~/.config/znt/n-preview.conf ] && . ~/.config/znt/n-preview.conf
 typeset -a hcmd
+#if type pygmentize 2>/dev/null 1>&2; then
+#    hcmd=( pygmentize -g )
 if type highlight 2>/dev/null 1>&2; then
     hcmd=( highlight -q --force -O ansi )
 elif type source-highlight 2>/dev/null 1>&2; then
