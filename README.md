@@ -12,6 +12,12 @@ This is an alternative approach to idea of visual shell, when compared to Midnig
 
 ZNT can be compared to IDEs, integrated development environments. Typically, when user searches for occurences of a symbol throughout the project, what IDE does is that it provides a list that can be navigated.
 
+## Installation via plugin
+
+Running script `doc/generate_plugin` will create single-file version of `ZNT`. It can be sourced from `.zshrc`
+or added to `oh-my-zsh` (create directory `plugins/zshnavigationtools` and copy the plugin there). Don't forget
+about configuration files as described below.
+
 ## Installation
 Copy (or link) all n-\* files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
