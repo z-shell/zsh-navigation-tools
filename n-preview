@@ -9,7 +9,6 @@
 emulate -L zsh
 
 zmodload zsh/curses
-zmodload zsh/zprof
 
 setopt localoptions typesetsilent localtraps extendedglob
 trap "return" TERM INT QUIT
@@ -30,8 +29,6 @@ _vpreview_exit() {
     zcurses 2>/dev/null delwin status
     zcurses 2>/dev/null refresh
     zcurses end
-
-    zprof
 }
 
 # Outputs a message in the bottom of the screen
