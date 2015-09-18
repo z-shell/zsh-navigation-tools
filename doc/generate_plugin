@@ -6,6 +6,9 @@ local PLUGIN_FILE="doc/zshnavigationtools.plugin.zsh"
 
 rm -vf "$PLUGIN_FILE"
 echo "# The preamble comments apply when using ZNT as autoload functions" >>"$PLUGIN_FILE"
+echo "# https://github.com/psprint/zsh-navigation-tools" >>"$PLUGIN_FILE"
+echo "# License is GPLv3" >>"$PLUGIN_FILE"
+echo >>"$PLUGIN_FILE"
 
 for i in n-*; do
     echo "$i() {" >>"$PLUGIN_FILE"
