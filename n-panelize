@@ -29,7 +29,8 @@ if [ -t 0 ]; then
     fi
 
     list=( `"$@"` )
-    [ "$?" -ne 0 ] && return $?
+    # TODO: $? doesn't reach user
+    [ "$?" -eq 127 ] && return $?
 else
     # Check if can reattach to terminal
     if [ ! -c /dev/tty ]; then
