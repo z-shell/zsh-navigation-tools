@@ -21,14 +21,25 @@ local selected
 
 NLIST_REMEMBER_STATE=0
 
-# Check if there is proper input
-if [ "$#" -lt 1 ]; then
-    echo "Usage: n-panelize command ..."
-    return 1
-fi
+if [ -t 0 ]; then
+    # Check if there is proper input
+    if [ "$#" -lt 1 ]; then
+        echo "Usage: n-panelize {command} [option|argument] ... or command | n-panelize"
+        return 1
+    fi
 
-list=( `"$@"` )
-[ "$?" -ne 0 ] && return $?
+    list=( `"$@"` )
+    [ "$?" -ne 0 ] && return $?
+else
+    # Check if can reattach to terminal
+    if [ ! -c /dev/tty ]; then
+        echo "No terminal available (no /dev/tty)"
+        return 1
+    fi
+
+    list=( "${(@f)"$(<&0)"}" )
+    exec </dev/tty
+fi
 
 n-list "${list[@]}"
 
