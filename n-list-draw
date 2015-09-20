@@ -46,6 +46,7 @@ _nlist_print_with_ansi() {
             out="$match[1]"
             # Save color
             col="$match[2]"
+            (( match[3] >= 30 && match[3] <= 37 )) && col="$match[3]"
         else
             out="$text"
             no_match=1
