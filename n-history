@@ -35,7 +35,15 @@ n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[$REPLY]"
-    print -zr "$selected"
+    # ZLE?
+    if [ "${(t)CURSOR}" = "integer-local-special" ]; then
+        zle reset-prompt
+        zle -U "$selected"
+    else
+        print -zr "$selected"
+    fi
+else
+    [ "${(t)CURSOR}" = "integer-local-special" ] && zle reset-prompt
 fi
 
 # vim: set filetype=zsh:

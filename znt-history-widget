@@ -1,0 +1,2 @@
+autoload znt-usetty-wrapper n-history
+znt-usetty-wrapper n-history "$@"
