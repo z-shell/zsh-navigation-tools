@@ -74,6 +74,8 @@ if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REM
     NLIST_SEARCH_BUFFER=""
     NLIST_TEXT_OFFSET=0
 
+    # Zero - because it isn't known, unless we
+    # confirm that first element is selectable
     NLIST_USER_CURRENT_IDX=0
     [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)1]} != 1 ]] && NLIST_USER_CURRENT_IDX=1
     NLIST_USER_LAST_ELEMENT=$(( last_element - $#NLIST_NONSELECTABLE_ELEMENTS ))
