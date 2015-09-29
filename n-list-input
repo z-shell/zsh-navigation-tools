@@ -146,6 +146,55 @@ case "$key" in
     ($'\n')
         search=0
         ;;
+    ()
+        reply=( -1 REDRAW )
+        ;;
+
+    #
+    # Slightly limited navigation
+    #
+
+    (UP|)
+        [ "$current_idx" -gt 1 ] && current_idx=current_idx-1;
+        _nlist_compute_first_to_show_idx
+        ;;
+    (DOWN|)
+        [ "$current_idx" -lt "$last_element" ] && current_idx=current_idx+1;
+        _nlist_compute_first_to_show_idx
+        ;;
+    (PPAGE)
+        current_idx=current_idx-page_height
+        [ "$current_idx" -lt 1 ] && current_idx=1;
+        _nlist_compute_first_to_show_idx
+        ;;
+    (NPAGE)
+        current_idx=current_idx+page_height
+        [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
+        _nlist_compute_first_to_show_idx
+        ;;
+    ()
+        current_idx=current_idx-page_height/2
+        [ "$current_idx" -lt 1 ] && current_idx=1;
+        _nlist_compute_first_to_show_idx
+        ;;
+    ()
+        current_idx=current_idx+page_height/2
+        [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
+        _nlist_compute_first_to_show_idx
+        ;;
+    (HOME)
+        current_idx=1
+        _nlist_compute_first_to_show_idx
+        ;;
+    (END)
+        current_idx=last_element
+        _nlist_compute_first_to_show_idx
+        ;;
+
+    #
+    # The input
+    #
+
     ($'\b'||BACKSPACE)
         buffer="${buffer%?}"
         ;;
@@ -156,8 +205,6 @@ case "$key" in
         buffer+="$key"
         ;;
 esac
-
-reply=( -1 SEARCH )
 
 fi
 
