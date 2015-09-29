@@ -19,3 +19,11 @@ for i in n-*(on); do
     echo "alias n${i#n-}=$i" >>"$PLUGIN_FILE"
     echo >>"$PLUGIN_FILE"
 done
+
+# Append znt-* files
+for i in znt-*(on); do
+    echo "$i() {" >>"$PLUGIN_FILE"
+    cat "$i" >>"$PLUGIN_FILE"
+    echo "}" >>"$PLUGIN_FILE"
+    echo >>"$PLUGIN_FILE"
+done
