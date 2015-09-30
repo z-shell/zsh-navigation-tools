@@ -8,7 +8,7 @@ Screenshot (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/w
 
 A tool generating a selectable curses-based list of elements that has access to current ZSH session, i.e. has broad capabilities to work together with it. That's `n-list`. The files `n-cd`, `n-env`, `n-kill`, etc. are applications of the tool. Feature highlights include incremental searching, ANSI coloring, grepping and various integrations with ZSH.
 
-This is an alternative approach to idea of visual shell, when compared to Midnight Commander. Here the command line is the main way the shell is used. From that mode of operation, user call tools that do not require mouse or typing, only navigating. 
+This is an alternative approach to idea of visual shell, when compared to Midnight Commander. Here the command line is the main way the shell is used. From that mode of operation, user call tools that do not require mouse or typing, only navigating.
 
 ZNT can be compared to IDEs, integrated development environments. Typically, when user searches for occurences of a symbol throughout the project, what IDE does is that it provides a list that can be navigated.
 
@@ -62,12 +62,15 @@ The tools are:
 All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
 
 - `[`,`]` - jump directory bookmarks in `n-cd` and typical signals in `n-kill`
-- `/` - start incremental search
 - `Ctrl-d`, `Ctrl-u` - half page up or down
 - `Ctrl-p`, `Ctrl-n` - previous and next (also done with vim's j,k)
 - `Ctrl-l` - redraw of whole display
 - `g, G` - beginning and end of the list
+- `/` - start incremental search
+- 'Enter' - finish incremental search, applying filter
+- 'Esc' - exit incremental search, clearing filter
 - `Ctrl-w` (in incremental search) - delete whole word
+- `Ctrl-k` (in incremental search) - delete whole line
 
 ## Programming
 
@@ -91,4 +94,3 @@ Result is stored as $reply[REPLY]. The returned array might be different from
 input arguments as `n-list` can process them via incremental search. $REPLY is
 the index in that possibly processed array. If $REPLY equals -1 it means that no
 selection have been made (user quitted via 'q' key).
-
