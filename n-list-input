@@ -136,6 +136,9 @@ case "$key" in
     ('>'|'}')
         hscroll+=7
         ;;
+    ($'\E')
+        buffer=""
+        ;;
     (*)
         ;;
 esac
@@ -190,6 +193,9 @@ case "$key" in
         current_idx=last_element
         _nlist_compute_first_to_show_idx
         ;;
+    (LEFT|RIGHT|F1|F2|F3|F4|F5|F6|F7|F8|F9|F10)
+        # ignore
+        ;;
 
     #
     # The input
@@ -201,8 +207,19 @@ case "$key" in
     ()
         [ "$buffer" = "${buffer% *}" ] && buffer="" || buffer="${buffer% *}"
         ;;
+    ($'\C-K')
+        buffer=""
+        ;;
+    ($'\E')
+        buffer=""
+        search=0
+        ;;
     (*)
-        buffer+="$key"
+        if [[ $#key == 1 && $((#key)) -lt 31 ]]; then
+            # ignore all other control keys
+        else
+            buffer+="$key"
+        fi
         ;;
 esac
 
