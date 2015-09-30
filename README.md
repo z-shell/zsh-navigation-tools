@@ -67,8 +67,8 @@ All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
 - `Ctrl-l` - redraw of whole display
 - `g, G` - beginning and end of the list
 - `/` - start incremental search
-- 'Enter' - finish incremental search, applying filter
-- 'Esc' - exit incremental search, clearing filter
+- `Enter` - finish incremental search, retaining filter
+- `Esc` - exit incremental search, clearing filter
 - `Ctrl-w` (in incremental search) - delete whole word
 - `Ctrl-k` (in incremental search) - delete whole line
 
