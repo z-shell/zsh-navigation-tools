@@ -7,7 +7,7 @@
 
 emulate -L zsh
 
-setopt localoptions extendedglob
+setopt extendedglob
 zmodload zsh/curses
 
 local IFS="

@@ -5,7 +5,6 @@ emulate -L zsh
 
 zmodload zsh/curses
 
-setopt localoptions
 setopt typesetsilent
 
 # Compute first to show index

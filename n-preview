@@ -10,7 +10,7 @@ emulate -L zsh
 
 zmodload zsh/curses
 
-setopt localoptions typesetsilent localtraps extendedglob
+setopt typesetsilent extendedglob
 trap "return" TERM INT QUIT
 trap "_vpreview_exit" EXIT
 
