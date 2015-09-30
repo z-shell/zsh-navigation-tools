@@ -51,12 +51,12 @@ local buffer="$9"
 if [ "$search" = "0" ]; then
 
 case "$key" in
-    (UP|k|)
+    (UP|k|$'\C-P')
         # Are there any elements before the current one?
         [ "$current_idx" -gt 1 ] && current_idx=current_idx-1;
         _nlist_compute_first_to_show_idx
         ;;
-    (DOWN|j|)
+    (DOWN|j|$'\C-N')
         # Are there any elements after the current one?
         [ "$current_idx" -lt "$last_element" ] && current_idx=current_idx+1;
         _nlist_compute_first_to_show_idx
@@ -71,12 +71,12 @@ case "$key" in
         [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
         _nlist_compute_first_to_show_idx
         ;;
-    ()
+    ($'\C-U')
         current_idx=current_idx-page_height/2
         [ "$current_idx" -lt 1 ] && current_idx=1;
         _nlist_compute_first_to_show_idx
         ;;
-    ()
+    ($'\C-D')
         current_idx=current_idx+page_height/2
         [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
         _nlist_compute_first_to_show_idx
@@ -98,15 +98,15 @@ case "$key" in
         fi
         ;;
     (q)
-            reply=( -1 QUIT )
+        reply=( -1 QUIT )
         ;;
     (/)
         search=1
         ;;
     ($'\t')
-            reply=( $current_idx LEAVE )
+        reply=( $current_idx LEAVE )
         ;;
-    ()
+    ($'\C-L')
         reply=( -1 REDRAW )
         ;;
     (\])
@@ -146,7 +146,7 @@ case "$key" in
     ($'\n')
         search=0
         ;;
-    ()
+    ($'\C-L')
         reply=( -1 REDRAW )
         ;;
 
@@ -154,11 +154,11 @@ case "$key" in
     # Slightly limited navigation
     #
 
-    (UP|)
+    (UP|$'\C-P')
         [ "$current_idx" -gt 1 ] && current_idx=current_idx-1;
         _nlist_compute_first_to_show_idx
         ;;
-    (DOWN|)
+    (DOWN|$'\C-N')
         [ "$current_idx" -lt "$last_element" ] && current_idx=current_idx+1;
         _nlist_compute_first_to_show_idx
         ;;
@@ -172,12 +172,12 @@ case "$key" in
         [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
         _nlist_compute_first_to_show_idx
         ;;
-    ()
+    ($'\C-U')
         current_idx=current_idx-page_height/2
         [ "$current_idx" -lt 1 ] && current_idx=1;
         _nlist_compute_first_to_show_idx
         ;;
-    ()
+    ($'\C-D')
         current_idx=current_idx+page_height/2
         [ "$current_idx" -gt "$last_element" ] && current_idx=last_element;
         _nlist_compute_first_to_show_idx
@@ -195,10 +195,10 @@ case "$key" in
     # The input
     #
 
-    ($'\b'||BACKSPACE)
+    ($'\b'|$'\C-?'|BACKSPACE)
         buffer="${buffer%?}"
         ;;
-    ()
+    ($'\C-W')
         [ "$buffer" = "${buffer% *}" ] && buffer="" || buffer="${buffer% *}"
         ;;
     (*)
