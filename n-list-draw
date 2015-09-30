@@ -4,7 +4,6 @@
 emulate -L zsh
 
 zmodload zsh/curses
-zmodload zsh/terminfo
 
 setopt localoptions typesetsilent extendedglob
 
@@ -13,7 +12,7 @@ _nlist_expand_tabs() {
     integer before_len="$2"
     REPLY=""
 
-    while [[ -n "$chunk" ]]; do
+    while [ -n "$chunk" ]; do
         [[ "$chunk" = (#b)([^$'\t']#)$'\t'(*) ]] && {
             (( all_text_len=((before_len+${#match[1]})/8+1)*8 ))
 
@@ -53,13 +52,13 @@ _nlist_print_with_ansi() {
             no_match=1
         fi
 
-        if [[ -n "$out" ]]; then
+        if [ -n "$out" ]; then
 ################ Expand tabs ################
             chunk="$out"
             before_len="$text_len"
             Xout=""
 
-            while [[ -n "$chunk" ]]; do
+            while [ -n "$chunk" ]; do
                 [[ "$chunk" = (#b)([^$'\t']#)$'\t'(*) ]] && {
                     (( all_text_len=((before_len+${#match[1]})/8+1)*8 ))
 

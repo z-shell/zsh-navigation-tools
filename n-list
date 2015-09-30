@@ -28,7 +28,7 @@ _nlist_exit() {
     zcurses 2>/dev/null delwin main
     zcurses 2>/dev/null refresh
     zcurses end
-    [[ -n $terminfo[cvvis] ]] && echo -n $terminfo[cvvis]
+    [ -n $terminfo[cvvis] ] && echo -n $terminfo[cvvis]
 }
 
 # Outputs a message in the bottom of the screen
@@ -46,8 +46,8 @@ _nlist_status_msg() {
 #
 
 # Check if there is proper input
-if [[ "$#" -lt 1 ]]; then
-    echo >&2 "Usage: n-list element_1 ..."
+if [ "$#" -lt 1 ]; then
+    echo "Usage: n-list element_1 ..."
     return 1
 fi
 
@@ -85,10 +85,10 @@ if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REM
     NLIST_USER_LAST_ELEMENT=$(( last_element - $#NLIST_NONSELECTABLE_ELEMENTS ))
 
     # 2 is init once, then remember
-    [[ "$NLIST_REMEMBER_STATE" -eq 2 ]] && NLIST_REMEMBER_STATE=1
+    [ "$NLIST_REMEMBER_STATE" -eq 2 ] && NLIST_REMEMBER_STATE=1
 fi
 
-if [[ "$NLIST_START_IN_SEARCH_MODE" -eq 1 ]]; then
+if [ "$NLIST_START_IN_SEARCH_MODE" -eq 1 ]; then
     NLIST_START_IN_SEARCH_MODE=0
     NLIST_IS_SEARCH_MODE=1
 fi
@@ -100,7 +100,9 @@ zcurses addwin main "$term_height" "$term_width" 0 0
 zcurses addwin inner "$inner_height" "$inner_width" 1 1
 zcurses bg main white/black
 zcurses bg inner white/black
-[[ -n $terminfo[civis] ]] && echo -n $terminfo[civis]
+if [ "$NLIST_IS_SEARCH_MODE" -ne 1 ]; then
+    [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
+fi
 
 #
 # Listening for input
