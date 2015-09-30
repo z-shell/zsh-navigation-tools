@@ -10,7 +10,7 @@
 
 emulate -LR zsh
 
-setopt localoptions typesetsilent localtraps extendedglob noshortloops
+setopt typesetsilent extendedglob noshortloops
 
 zmodload zsh/curses
 

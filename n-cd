@@ -7,7 +7,7 @@
 
 emulate -L zsh
 
-setopt localoptions extendedglob pushdignoredups
+setopt extendedglob pushdignoredups
 
 zmodload zsh/curses
 local IFS="

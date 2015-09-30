@@ -5,7 +5,7 @@ emulate -L zsh
 
 zmodload zsh/curses
 
-setopt localoptions typesetsilent extendedglob
+setopt typesetsilent extendedglob
 
 _nlist_expand_tabs() {
     local chunk="$1"

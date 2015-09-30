@@ -8,7 +8,7 @@
 
 emulate -L zsh
 
-setopt localoptions extendedglob
+setopt extendedglob
 unsetopt equals
 zmodload zsh/curses
 
