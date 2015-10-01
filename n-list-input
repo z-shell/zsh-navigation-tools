@@ -4,6 +4,7 @@
 emulate -L zsh
 
 zmodload zsh/curses
+zmodload zsh/terminfo
 
 setopt typesetsilent
 
@@ -101,6 +102,7 @@ case "$key" in
         ;;
     (/)
         search=1
+        [ -n $terminfo[cvvis] ] && echo -n $terminfo[cvvis]
         ;;
     ($'\t')
         reply=( $current_idx LEAVE )
@@ -147,6 +149,7 @@ else
 case "$key" in
     ($'\n')
         search=0
+        [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
         ;;
     ($'\C-L')
         reply=( -1 REDRAW )
