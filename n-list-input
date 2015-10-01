@@ -215,6 +215,7 @@ case "$key" in
     ($'\E')
         buffer=""
         search=0
+        [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
         ;;
     (*)
         if [[ $#key == 1 && $((#key)) -lt 31 ]]; then
