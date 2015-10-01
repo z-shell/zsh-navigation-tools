@@ -119,6 +119,7 @@ integer max_text_len=page_width-x_offset
 
 [ "$bold" = "0" ] && bold="" || bold="+bold"
 [ "$ansi_mode" = "ansi" ] && zcurses attr "$win" $bold white/black
+[[ "$active_text" = "underline" || "$active_text" = "reverse" ]] || active_text="reverse"
 
 integer end_idx=1+page_height-1
 [ "$end_idx" -gt "$#" ] && end_idx="$#"
@@ -129,7 +130,7 @@ local text
 for (( i=1; i<=end_idx; i++ )); do
     zcurses move "$win" $y "$x_offset"
 
-    [ "$i" = "$highlight" ] && zcurses attr "$win" +reverse
+    [ "$i" = "$highlight" ] && zcurses attr "$win" +"$active_text"
     if [ "$ansi_mode" != "ansi" ]; then
         # TODO horizontal scroll
         _nlist_expand_tabs "$@[i]"
@@ -141,7 +142,7 @@ for (( i=1; i<=end_idx; i++ )); do
     else
         _nlist_print_with_ansi "$win" "$@[i]" "$text_offset" "$max_text_len"
     fi
-    [ "$i" = "$highlight" ] && zcurses attr "$win" -reverse
+    [ "$i" = "$highlight" ] && zcurses attr "$win" -"$active_text"
 
     y+=1
 done

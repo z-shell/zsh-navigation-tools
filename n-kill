@@ -15,6 +15,7 @@ local IFS="
 "
 
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
+[ -f ~/.config/znt/n-kill.conf ] && . ~/.config/znt/n-kill.conf
 
 typeset -A signals
 signals=(

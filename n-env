@@ -16,6 +16,7 @@ local IFS="
 "
 
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
+[ -f ~/.config/znt/n-env.conf ] && . ~/.config/znt/n-env.conf
 
 local list
 local selected
