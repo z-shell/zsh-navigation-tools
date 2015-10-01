@@ -10,9 +10,9 @@ local restore=0 FD
 
 # Reattach to terminal
 if [ ! -t 0 ]; then
-    # Check if can reattach to terminal
-    if [ ! -c /dev/tty ]; then
-        echo "No terminal available (no /dev/tty)"
+    # Check if can reattach to terminal in any way
+    if [[ ! -c /dev/tty && ! -t 2 ]]; then
+        echo "No terminal available (no /dev/tty and no terminal at stderr)"
         return 1
     fi
 
@@ -22,7 +22,12 @@ if [ ! -t 0 ]; then
     else
         restore=1
     fi
-    exec </dev/tty
+
+    if [[ ! -c /dev/tty ]]; then
+        exec <&2
+    else
+        exec </dev/tty
+    fi
 fi
 
 # Run the command
