@@ -74,7 +74,9 @@ case "$key" in
     ($'\n')
         # Is that element selectable?
         # Check for this only when there is no search
-        if [[ "$NLIST_SEARCH_BUFFER" != "" || ${NLIST_NONSELECTABLE_ELEMENTS[(r)$current_idx]} != $current_idx ]]; then
+        if [[ "$NLIST_SEARCH_BUFFER" != "" || "$NLIST_IS_UNIQ_MODE" -eq 1 ||
+            ${NLIST_NONSELECTABLE_ELEMENTS[(r)$current_idx]} != $current_idx ]]
+        then
             # Save current element in the result variable
             reply=( $current_idx SELECT )
         fi
