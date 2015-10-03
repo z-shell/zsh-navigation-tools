@@ -152,7 +152,7 @@ while (( 1 )); do
                 (( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((NLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
 
                 local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
-                col_list=( "${(@)list//(#bi)($~colsearch_pattern)/$red${match[1]}$reset}" )
+                col_list=( "${(@)list//(#mi)($~colsearch_pattern)/$red${MATCH}$reset}" )
             else
                 col_list=( "$list[@]" )
             fi
