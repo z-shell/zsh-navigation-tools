@@ -41,6 +41,41 @@ _nlist_status_msg() {
     status_msg_strlen=$#1
 }
 
+_nlist_compute_user_vars_difference() {
+        if [[ "${(t)NLIST_NONSELECTABLE_ELEMENTS}" != "array" &&
+                "${(t)NLIST_NONSELECTABLE_ELEMENTS}" != "array-local" ]]
+        then
+            last_element_difference=0
+            current_difference=0
+        else
+            last_element_difference=$#NLIST_NONSELECTABLE_ELEMENTS
+            current_difference=0
+            local idx
+            for idx in "${(n)NLIST_NONSELECTABLE_ELEMENTS[@]}"; do
+                [ "$idx" -le "$NLIST_CURRENT_IDX" ] && current_difference+=1 || break
+            done
+        fi
+}
+
+# List was processed, check if variables aren't off range
+_nlist_verify_vars() {
+    [ "$NLIST_CURRENT_IDX" -gt "$last_element" ] && NLIST_CURRENT_IDX="$last_element"
+    [[ "$NLIST_CURRENT_IDX" -eq 0 && "$last_element" -ne 0 ]] && NLIST_CURRENT_IDX=1
+    (( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((NLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
+}
+
+# Compute the variables which are shown to the user
+_nlist_setup_user_vars() {
+    if [ "$1" = "1" ]; then
+        # Basic values when there are no non-selectables
+        NLIST_USER_CURRENT_IDX="$NLIST_CURRENT_IDX"
+        NLIST_USER_LAST_ELEMENT="$last_element"
+    else
+        _nlist_compute_user_vars_difference
+        NLIST_USER_CURRENT_IDX=$(( NLIST_CURRENT_IDX - current_difference ))
+        NLIST_USER_LAST_ELEMENT=$(( last_element - last_element_difference ))
+    fi
+}
 #
 # Main code
 #
@@ -68,7 +103,10 @@ integer last_element=$#
 local action
 local final_key
 integer selection
+integer last_element_difference=0
+integer current_difference=0
 local prev_search_buffer=""
+integer prev_uniq_mode=0
 
 # Ability to remember the list between calls
 if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REMEMBER_STATE" -eq 2 ]]; then
@@ -77,6 +115,7 @@ if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REM
     NLIST_IS_SEARCH_MODE=0
     NLIST_SEARCH_BUFFER=""
     NLIST_TEXT_OFFSET=0
+    NLIST_IS_UNIQ_MODE=0
 
     # Zero - because it isn't known, unless we
     # confirm that first element is selectable
@@ -124,17 +163,23 @@ while (( 1 )); do
     # Do searching (filtering with string)
     if [ -n "$NLIST_SEARCH_BUFFER" ]; then
         # Compute new list, col_list ?
-        if [ "$NLIST_SEARCH_BUFFER" != "$prev_search_buffer" ]; then
+        if [[ "$NLIST_SEARCH_BUFFER" != "$prev_search_buffer" || "$NLIST_IS_UNIQ_MODE" -ne "$prev_uniq_mode" ]]; then
             prev_search_buffer="$NLIST_SEARCH_BUFFER"
+            prev_uniq_mode="$NLIST_IS_UNIQ_MODE"
 
+            # Take all elements, including duplicates and non-selectables
+            typeset +U list
             list=( "$@" )
 
-            # First remove non-selectable elements
+            # Remove non-selectable elements
             [ "$#NLIST_NONSELECTABLE_ELEMENTS" -gt 0 ] && for i in "${(nO)NLIST_NONSELECTABLE_ELEMENTS[@]}"; do
                 list[$i]=()
             done
 
-            last_element="$#"
+            # Remove duplicates
+            [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && typeset -U list
+
+            last_element="$#list"
 
             # Next do the filtering
             local search_buffer="${NLIST_SEARCH_BUFFER%% ##}"
@@ -147,16 +192,18 @@ while (( 1 )); do
 
                 list=( "${(@M)list:#(#i)*$~search_pattern*}" )
                 last_element="$#list"
-                [ "$NLIST_CURRENT_IDX" -gt "$last_element" ] && NLIST_CURRENT_IDX="$last_element"
-                [[ "$NLIST_CURRENT_IDX" -eq 0 && "$last_element" -ne 0 ]] && NLIST_CURRENT_IDX=1
-                (( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=0+((NLIST_CURRENT_IDX-1)/page_height)*page_height+1 ))
 
                 local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
                 col_list=( "${(@)list//(#mi)($~colsearch_pattern)/$red${MATCH}$reset}" )
             else
                 col_list=( "$list[@]" )
             fi
+
+            # Called after processing list
+            _nlist_verify_vars
         fi
+
+        _nlist_setup_user_vars 1
 
         integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
         [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
@@ -167,12 +214,32 @@ while (( 1 )); do
             "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
     else
         # There is no search, but there was in previous loop
-        # Enter non-search mode with fresh list array
-        if [ -n "$prev_search_buffer" ]; then
+        # OR
+        # Uniq mode was entered or left out
+        if [[ -n "$prev_search_buffer" || "$NLIST_IS_UNIQ_MODE" -ne "$prev_uniq_mode" ]]; then
             prev_search_buffer=""
+            prev_uniq_mode="$NLIST_IS_UNIQ_MODE"
+
+            # Take all elements, including duplicates and non-selectables
+            typeset +U list
             list=( "$@" )
-            last_element="$#"
+
+            # Remove non-selectable elements only when in uniq mode
+            [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && [ "$#NLIST_NONSELECTABLE_ELEMENTS" -gt 0 ] &&
+            for i in "${(nO)NLIST_NONSELECTABLE_ELEMENTS[@]}"; do
+                list[$i]=()
+            done
+
+            # Remove duplicates when in uniq mode
+            [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && typeset -U list
+
+            last_element="$#list"
+            # Called after processing list
+            _nlist_verify_vars
         fi
+
+        # "1" - shouldn't bother with non-selectables
+        _nlist_setup_user_vars "$NLIST_IS_UNIQ_MODE"
 
         integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
         [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
@@ -185,11 +252,15 @@ while (( 1 )); do
 
     local status_msg_strlen
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
-        _nlist_status_msg "Filtering with: ${NLIST_SEARCH_BUFFER// /+}"
-    elif [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)$NLIST_CURRENT_IDX]} != $NLIST_CURRENT_IDX ]]; then
-        local _txt=""
+        local _txt2=""
+        [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && _txt2="[-UNIQ-] "
+        _nlist_status_msg "${_txt2}Filtering with: ${NLIST_SEARCH_BUFFER// /+}"
+    elif [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)$NLIST_CURRENT_IDX]} != $NLIST_CURRENT_IDX ||
+            -n "$NLIST_SEARCH_BUFFER" || "$NLIST_IS_UNIQ_MODE" -eq 1 ]]; then
+        local _txt="" _txt2=""
         [ -n "$NLIST_GREP_STRING" ] && _txt=" [$NLIST_GREP_STRING]"
-        _nlist_status_msg "Current #$NLIST_USER_CURRENT_IDX (of #$NLIST_USER_LAST_ELEMENT entries)$_txt"
+        [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && _txt2="[-UNIQ-] "
+        _nlist_status_msg "${_txt2}Current #$NLIST_USER_CURRENT_IDX (of #$NLIST_USER_LAST_ELEMENT entries)$_txt"
     else
         _nlist_status_msg ""
     fi
@@ -213,7 +284,8 @@ while (( 1 )); do
 
     n-list-input "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
                     "$page_height" "$page_width" "$last_element" "$NLIST_TEXT_OFFSET" \
-                    "$final_key" "$NLIST_IS_SEARCH_MODE" "$NLIST_SEARCH_BUFFER"
+                    "$final_key" "$NLIST_IS_SEARCH_MODE" "$NLIST_SEARCH_BUFFER" \
+                    "$NLIST_IS_UNIQ_MODE"
 
     selection="$reply[1]"
     action="$reply[2]"
@@ -222,8 +294,7 @@ while (( 1 )); do
     NLIST_TEXT_OFFSET="$reply[5]"
     NLIST_IS_SEARCH_MODE="$reply[6]"
     NLIST_SEARCH_BUFFER="$reply[7]"
-    NLIST_USER_CURRENT_IDX="$reply[8]"
-    NLIST_USER_LAST_ELEMENT="$reply[9]"
+    NLIST_IS_UNIQ_MODE="$reply[8]"
 
     if [ "$action" = "SELECT" ]; then
         REPLY="$selection"
