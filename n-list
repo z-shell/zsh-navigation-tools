@@ -157,7 +157,7 @@ key=""
 keypad=""
 
 list=( "$@" )
-last_element="$#"
+last_element="$#list"
 
 while (( 1 )); do
     # Do searching (filtering with string)
