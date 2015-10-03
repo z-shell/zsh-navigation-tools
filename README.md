@@ -66,6 +66,7 @@ All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
 - `Ctrl-p`, `Ctrl-n` - previous and next (also done with vim's j,k)
 - `Ctrl-l` - redraw of whole display
 - `g, G` - beginning and end of the list
+- `Ctrl-o` - enter uniq mode (no duplicate lines)
 - `/` - start incremental search
 - `Enter` - finish incremental search, retaining filter
 - `Esc` - exit incremental search, clearing filter
