@@ -6,7 +6,12 @@ Screenshot (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/w
 
 ![n-preview](http://imageshack.com/a/img540/4401/Xfb7nN.png)
 
-A tool generating a selectable curses-based list of elements that has access to current ZSH session, i.e. has broad capabilities to work together with it. That's `n-list`. The files `n-cd`, `n-env`, `n-kill`, etc. are applications of the tool. Feature highlights include incremental searching, ANSI coloring, grepping and various integrations with ZSH.
+A tool generating a selectable curses-based list of elements that has access to
+current ZSH session, i.e. has broad capabilities to work together with it.
+That's `n-list`. The files `n-cd`, `n-env`, `n-kill`, etc. are applications of
+the tool. Feature highlights include incremental multi-word searching, ANSI
+coloring, unique mode, horizontal scroll, non-selectable elements, grepping and
+various integrations with ZSH.
 
 This is an alternative approach to idea of visual shell, when compared to Midnight Commander. Here the command line is the main way the shell is used. From that mode of operation, user call tools that do not require mouse or typing, only navigating.
 
@@ -66,7 +71,7 @@ All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
 - `Ctrl-p`, `Ctrl-n` - previous and next (also done with vim's j,k)
 - `Ctrl-l` - redraw of whole display
 - `g, G` - beginning and end of the list
-- `Ctrl-o` - enter uniq mode (no duplicate lines)
+- `Ctrl-o`, `o` - enter uniq mode (no duplicate lines)
 - `/` - start incremental search
 - `Enter` - finish incremental search, retaining filter
 - `Esc` - exit incremental search, clearing filter
@@ -82,16 +87,27 @@ n-list {element1} [element2] ... [elementN]
 ```
 
 This is all that is needed to be done to have the features like ANSI coloring,
-incremental search, horizontal scroll (grepping is done outside n-list, see the
-tools for how it can be done). To set up non-selectable entries add their
-indexes into array NLIST_NONSELECTABLE_ELEMENTS:
+incremental multi-word search, unique mode, horizontal scroll, non-selectable
+elements (grepping is done outside `n-list`, see the tools for how it can be
+done). To set up non-selectable entries add their indices into array
+`NLIST_NONSELECTABLE_ELEMENTS`:
 
 ```zsh
 typeset -a NLIST_NONSELECTABLE_ELEMENTS
 NLIST_NONSELECTABLE_ELEMENTS=( 1 )
 ```
 
-Result is stored as $reply[REPLY]. The returned array might be different from
-input arguments as `n-list` can process them via incremental search. $REPLY is
-the index in that possibly processed array. If $REPLY equals -1 it means that no
-selection have been made (user quitted via 'q' key).
+Result is stored as `$reply[REPLY]`. The returned array might be different from
+input arguments as `n-list` can process them via incremental search or uniq
+mode. `$REPLY` is the index in that possibly processed array. If `$REPLY`
+equals `-1` it means that no selection have been made (user quitted via `q`
+key).
+
+To set up entries that can be jumped to with `[`,`]` keys add their indices to
+`NLIST_HOP_INDEXES` array:
+
+```zsh
+typeset -a NLIST_HOP_INDEXES
+NLIST_HOP_INDEXES=( 1 10 )
+```
+
