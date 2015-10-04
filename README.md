@@ -13,14 +13,20 @@ the tool. Feature highlights include incremental multi-word searching, ANSI
 coloring, unique mode, horizontal scroll, non-selectable elements, grepping and
 various integrations with ZSH.
 
-This is an alternative approach to idea of visual shell, when compared to Midnight Commander. Here the command line is the main way the shell is used. From that mode of operation, user call tools that do not require mouse or typing, only navigating.
+This is an alternative approach to idea of visual shell, when compared to
+Midnight Commander. Here the command line is the main way the shell is used.
+From that mode of operation, user call tools that do not require mouse or
+typing, only navigating.
 
-ZNT can be compared to IDEs, integrated development environments. Typically, when user searches for occurences of a symbol throughout the project, what IDE does is that it provides a list that can be navigated.
+ZNT can be compared to IDEs, integrated development environments. Typically,
+when user searches for occurences of a symbol throughout the project, what IDE
+does is that it provides a list that can be navigated.
 
 ## Installation via plugin
 
-Running script `doc/generate_plugin` will create single-file version of `ZNT`. It can be sourced from `.zshrc`
-or added to `oh-my-zsh` (create directory `plugins/zshnavigationtools` and copy the plugin there). Don't forget
+Running script `doc/generate_plugin` will create single-file version of `ZNT`.
+It can be sourced from `.zshrc` or added to `oh-my-zsh` (create directory
+`plugins/zshnavigationtools` and copy the plugin there). Don't forget
 about configuration files as described below.
 
 ## Installation
@@ -28,7 +34,7 @@ Copy (or link) all n-\* files to **/usr/share/zsh/site-functions/** (or **/usr/l
 
     autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-preview
 
-to ~/.zshrc.
+to `~/.zshrc`
 
 To avoid typing of the minus sign "-" no-sign version can be simlinked (zsh code):
 
@@ -48,7 +54,21 @@ Don't forget to copy [configuration files](https://github.com/psprint/zsh-naviga
 setopt AUTO_PUSHD
 ```
 
-in `.zshrc` (also recommend `PUSHD_IGNORE_DUPS`). Without the option `n-cd` will just work as incremental searcher of directory bookmarks.
+in `.zshrc` (also recommend `PUSHD_IGNORE_DUPS`). Without the option `n-cd`
+will just work as incremental searcher of directory bookmarks.
+
+## History widget
+
+To have `n-history` as the incremental searcher bound to `^R` copy `znt-*`
+files into the `*/site-functions` dir (unless you do plugin install) and add:
+
+```zsh
+autoload znt-history-widget
+zle -N znt-history-widget
+bindkey "^R" znt-history-widget
+```
+
+to `.zshrc`
 
 ## Introduction
 
@@ -56,10 +76,10 @@ The tools are:
 
 - `n-aliases` - browses aliases, relegates editing to `vared`
 - `n-cd` - browses dirstack and bookmarked directories, allows to enter selected directory
-- `n-env` - browses environment, relegates editing to `vared`
 - `n-functions` - browses functions, relegates editing to `zed` or `vared`
 - `n-history` - browses history, allows to edit and run commands from it
 - `n-kill` - browses processes list, allows to send signal to selected process
+- `n-env` - browses environment, relegates editing to `vared`
 - `n-options` - browses options, allows to toggle their state
 - `n-panelize` - loads output of given command into the list for browsing
 - `n-preview` - a demonstration of running two lists at the same time and of ANSI colors - syntax highlighted source browser
@@ -97,7 +117,8 @@ typeset -a NLIST_NONSELECTABLE_ELEMENTS
 NLIST_NONSELECTABLE_ELEMENTS=( 1 )
 ```
 
-Result is stored as `$reply[REPLY]`. The returned array might be different from
+Result is stored as `$reply[REPLY]` (`$` isn't needed before `REPLY` because
+of arithmetic context inside `[]`). The returned array might be different from
 input arguments as `n-list` can process them via incremental search or uniq
 mode. `$REPLY` is the index in that possibly processed array. If `$REPLY`
 equals `-1` it means that no selection have been made (user quitted via `q`
