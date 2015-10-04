@@ -132,6 +132,11 @@ if [ "$NLIST_START_IN_SEARCH_MODE" -eq 1 ]; then
     NLIST_IS_SEARCH_MODE=1
 fi
 
+if [ "$NLIST_START_IN_UNIQ_MODE" -eq 1 ]; then
+    NLIST_START_IN_UNIQ_MODE=0
+    NLIST_IS_UNIQ_MODE=1
+fi
+
 zcurses init
 zcurses delwin main 2>/dev/null
 zcurses delwin inner 2>/dev/null
