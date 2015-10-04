@@ -100,7 +100,7 @@ All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
 
 ## Programming
 
-The function n-list is used as follows:
+The function `n-list` is used as follows:
 
 ```zsh
 n-list {element1} [element2] ... [elementN]
