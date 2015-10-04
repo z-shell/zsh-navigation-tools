@@ -4,7 +4,7 @@ Videos: [https://youtu.be/kznhIdLFrbk](https://youtu.be/kznhIdLFrbk) [https://yo
 
 Screenshot (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
 
-![n-preview](http://imageshack.com/a/img540/4401/Xfb7nN.png)
+![n-preview](http://imageshack.com/a/img910/3500/JchLzC.png)
 
 A tool generating a selectable curses-based list of elements that has access to
 current ZSH session, i.e. has broad capabilities to work together with it.
