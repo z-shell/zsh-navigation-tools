@@ -12,8 +12,10 @@ emulate -LR zsh
 
 setopt typesetsilent extendedglob noshortloops
 
+integer has_terminfo=0
+
 zmodload zsh/curses
-zmodload zsh/terminfo
+zmodload zsh/terminfo 2>/dev/null && has_terminfo=1
 
 trap "return" TERM INT QUIT
 trap "_nlist_exit" EXIT
@@ -28,7 +30,7 @@ _nlist_exit() {
     zcurses 2>/dev/null delwin main
     zcurses 2>/dev/null refresh
     zcurses end
-    [ -n $terminfo[cvvis] ] && echo -n $terminfo[cvvis]
+    _nlist_cursor_visibility 1
 }
 
 # Outputs a message in the bottom of the screen
@@ -39,6 +41,17 @@ _nlist_status_msg() {
     zcurses string main "$1"
     #status_msg_strlen is localized in caller
     status_msg_strlen=$#1
+}
+
+# Prefer tput, then module terminfo
+_nlist_cursor_visibility() {
+    if type tput 2>/dev/null 1>&2; then
+        [ "$1" = "1" ] && tput cvvis
+        [ "$1" = "0" ] && tput civis
+    elif [ "$has_terminfo" = "1" ]; then
+        [ "$1" = "1" ] && [ -n $terminfo[cvvis] ] && echo -n $terminfo[cvvis]
+        [ "$1" = "0" ] && [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
+    fi 
 }
 
 _nlist_compute_user_vars_difference() {
@@ -145,7 +158,7 @@ zcurses addwin inner "$inner_height" "$inner_width" 1 1
 zcurses bg main white/black
 zcurses bg inner white/black
 if [ "$NLIST_IS_SEARCH_MODE" -ne 1 ]; then
-    [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
+    _nlist_cursor_visibility 0
 fi
 
 #
