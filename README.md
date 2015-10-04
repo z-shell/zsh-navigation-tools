@@ -82,7 +82,6 @@ The tools are:
 - `n-env` - browses environment, relegates editing to `vared`
 - `n-options` - browses options, allows to toggle their state
 - `n-panelize` - loads output of given command into the list for browsing
-- `n-preview` - a demonstration of running two lists at the same time and of ANSI colors - syntax highlighted source browser
 
 All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
 
