@@ -47,10 +47,20 @@ n-list "${list[@]}"
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[$REPLY]"
     selected="${selected/#\~/$HOME}"
-    echo "You have selected $selected"
+
     (( NCD_DONT_PUSHD )) && setopt NO_AUTO_PUSHD
     cd "$selected"
     (( NCD_DONT_PUSHD )) && setopt AUTO_PUSHD
+
+    # ZLE?
+    if [ "${(t)CURSOR}" = "integer-local-special" ]; then
+        zle reset-prompt
+        zle -M "You have selected $selected"
+    else
+        echo "You have selected $selected"
+    fi
+else
+    [ "${(t)CURSOR}" = "integer-local-special" ] && zle reset-prompt
 fi
 
 # vim: set filetype=zsh:
