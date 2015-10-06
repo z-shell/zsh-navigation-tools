@@ -18,35 +18,31 @@ Midnight Commander. Here the command line is the main way the shell is used.
 From that mode of operation, user call tools that do not require mouse or
 typing, only navigating.
 
-ZNT can be compared to IDEs, integrated development environments. Typically,
-when user searches for occurences of a symbol throughout the project, what IDE
-does is that it provides a list that can be navigated.
-
-## Installation via plugin
-
-Running script `doc/generate_plugin` will create single-file version of `ZNT`.
-It can be sourced from `.zshrc` or added to `oh-my-zsh` (create directory
-`plugins/zshnavigationtools` and copy the plugin there). Don't forget
-about configuration files as described below.
-
 ## Installation
-Copy (or link) all n-\* files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
-    autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-preview
-
-to `~/.zshrc`
-
-To avoid typing of the minus sign "-" no-sign version can be simlinked (zsh code):
-
-```zsh
-cd /usr/share/zsh/site-functions/
-IFS=$'\n'
-for i in n-*; do sudo ln -s "$i" "n${i#n-}"; done
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zsh-navigation-tools/master/install.sh)"
 ```
 
-After making simlinks add one other autoload line:
+To update run the command again.
 
-    autoload nlist ncd nenv nkill npanelize noptions naliases nfunctions nhistory npreview
+`ZNT` will be installed at `~/.config/znt/zsh-navigation-tools`, config files will be copied to `~/.config/znt`.
+
+After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – this keyboard shortcut will open `n-history`.
+
+## Manual Installation
+Copy (or link) all `n-*` files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
+
+    autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history
+
+to `~/.zshrc`.
+
+Create aliases to avoid typing of the minus sign "-":
+
+```zsh
+alias naliases=n-aliases ncd=n-cd nenv=n-env nfunctions=n-functions nhistory=n-history
+alias nkill=n-kill noptions=n-options npanelize=n-panelize
+```
 
 Don't forget to copy [configuration files](https://github.com/psprint/zsh-navigation-tools/tree/master/.config/znt). They should go to `~/.config/znt`. Moreover, `n-cd` works together with option `AUTO_PUSHD` and you should have:
 
@@ -57,10 +53,11 @@ setopt AUTO_PUSHD
 in `.zshrc` (also recommend `PUSHD_IGNORE_DUPS`). Without the option `n-cd`
 will just work as incremental searcher of directory bookmarks.
 
-## History widget
+## History Widget
 
-To have `n-history` as the incremental searcher bound to `^R` copy `znt-*`
-files into the `*/site-functions` dir (unless you do plugin install) and add:
+To have `n-history` as the incremental searcher bound to `Ctrl-R` copy `znt-*`
+files into the `*/site-functions` dir (unless you do single file install) and
+add:
 
 ```zsh
 autoload znt-history-widget
@@ -68,7 +65,14 @@ zle -N znt-history-widget
 bindkey "^R" znt-history-widget
 ```
 
-to `.zshrc`
+to `.zshrc`. This is done automatically when using the installer.
+
+## Single File Manual Installation
+
+Running script `doc/generate_plugin` will create single-file version of `ZNT`.
+It can be sourced from `.zshrc` or added to `oh-my-zsh` (create directory
+`plugins/zshnavigationtools` and copy the plugin there). Don't forget
+about configuration files as described above.
 
 ## Introduction
 
