@@ -14,14 +14,12 @@ local IFS="
 "
 
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
+[ -f ~/.config/znt/n-functions.conf ] && . ~/.config/znt/n-functions.conf
 
 local list
 local selected
 
 NLIST_REMEMBER_STATE=0
-
-# Read configuration
-[ -f ~/.config/znt/n-functions.conf ] && . ~/.config/znt/n-functions.conf
 
 list=( "${(@k)functions}" )
 list=( "${(@M)list:#(#i)*$1*}" )
