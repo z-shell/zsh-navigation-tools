@@ -7,11 +7,11 @@ Screenshot (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/w
 ![n-history](http://imageshack.com/a/img905/8408/TyjE8H.gif)
 
 A tool generating a selectable curses-based list of elements that has access to
-current ZSH session, i.e. has broad capabilities to work together with it.
+current `Zsh` session, i.e. has broad capabilities to work together with it.
 That's `n-list`. The files `n-cd`, `n-env`, `n-kill`, etc. are applications of
 the tool. Feature highlights include incremental multi-word searching, ANSI
 coloring, unique mode, horizontal scroll, non-selectable elements, grepping and
-various integrations with ZSH.
+various integrations with `Zsh`.
 
 This is an alternative approach to idea of visual shell, when compared to
 Midnight Commander. Here the command line is the main way the shell is used.
@@ -134,4 +134,19 @@ To set up entries that can be jumped to with `[`,`]` keys add their indices to
 typeset -a NLIST_HOP_INDEXES
 NLIST_HOP_INDEXES=( 1 10 )
 ```
+
+`n-list` can automatically colorize a `Zsh` pattern. Following example will
+colorize all numbers with blue:
+
+```zsh
+local NLIST_COLORING_PATTERN="[0-9]##"
+local NLIST_COLORING_COLOR=$'\x1b[00;34m'
+local NLIST_COLORING_END_COLOR=$'\x1b[0m'
+local NLIST_COLORING_MATCH_MULTIPLE=1
+local NLIST_COLORING_MATCH_START_OF_LINE=0
+
+n-list "This is a number 123" "This line too has a number: 456"
+```
+
+Blue is the default color, it doesn't have to be set.
 
