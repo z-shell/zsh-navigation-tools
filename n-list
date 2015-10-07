@@ -96,17 +96,9 @@ _nlist_coloring_list_into_col_list() {
     [ -n "$NLIST_COLORING_END_COLOR" ] && reset="$NLIST_COLORING_END_COLOR"
 
     if [ "$NLIST_COLORING_MATCH_MULTIPLE" -eq 1 ]; then
-        if [ "$NLIST_COLORING_MATCH_START_OF_LINE" -eq 1 ]; then
-            col_list=( "${(@)list//#(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
-        else
-            col_list=( "${(@)list//(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
-        fi
+        col_list=( "${(@)list//(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
     else
-        if [ "$NLIST_COLORING_MATCH_START_OF_LINE" -eq 1 ]; then
-            col_list=( "${(@)list/#(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
-        else
-            col_list=( "${(@)list/(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
-        fi
+        col_list=( "${(@)list/(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
     fi
 }
 
