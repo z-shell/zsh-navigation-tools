@@ -20,6 +20,7 @@ local list
 local selected
 
 NLIST_REMEMBER_STATE=0
+unset NLIST_COLORING_PATTERN
 
 list=( "${(@k)aliases}" )
 list=( "${(@M)list:#(#i)*$1*}" )

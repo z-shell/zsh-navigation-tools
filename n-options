@@ -26,6 +26,7 @@ local state
 
 # 0 - don't remember, 1 - remember, 2 - init once, then remember
 NLIST_REMEMBER_STATE=2
+unset NLIST_COLORING_PATTERN
 
 local NLIST_GREP_STRING="${1:=}"
 

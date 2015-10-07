@@ -21,6 +21,7 @@ local list
 local selected
 
 NLIST_REMEMBER_STATE=0
+unset NLIST_COLORING_PATTERN
 
 list=( `builtin history -rn 1` )
 list=( "${(@M)list:#(#i)*$1*}" )

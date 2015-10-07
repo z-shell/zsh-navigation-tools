@@ -89,6 +89,27 @@ _nlist_setup_user_vars() {
         NLIST_USER_LAST_ELEMENT=$(( last_element - last_element_difference ))
     fi
 }
+
+_nlist_coloring_list_into_col_list() {
+    local col=$'\x1b[00;34m' reset=$'\x1b[0m'
+    [ -n "$NLIST_COLORING_COLOR" ] && col="$NLIST_COLORING_COLOR"
+    [ -n "$NLIST_COLORING_END_COLOR" ] && reset="$NLIST_COLORING_END_COLOR"
+
+    if [ "$NLIST_COLORING_MATCH_MULTIPLE" -eq 1 ]; then
+        if [ "$NLIST_COLORING_MATCH_START_OF_LINE" -eq 1 ]; then
+            col_list=( "${(@)list//#(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
+        else
+            col_list=( "${(@)list//(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
+        fi
+    else
+        if [ "$NLIST_COLORING_MATCH_START_OF_LINE" -eq 1 ]; then
+            col_list=( "${(@)list/#(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
+        else
+            col_list=( "${(@)list/(#mi)$~NLIST_COLORING_PATTERN/$col${MATCH}$reset}" )
+        fi
+    fi
+}
+
 #
 # Main code
 #
@@ -177,6 +198,12 @@ keypad=""
 list=( "$@" )
 last_element="$#list"
 
+integer is_colored=0
+if [[ -z "$NLIST_SEARCH_BUFFER" && -n "$NLIST_COLORING_PATTERN" ]]; then
+    is_colored=1
+    _nlist_coloring_list_into_col_list
+fi
+
 while (( 1 )); do
     # Do searching (filtering with string)
     if [ -n "$NLIST_SEARCH_BUFFER" ]; then
@@ -251,6 +278,13 @@ while (( 1 )); do
             # Remove duplicates when in uniq mode
             [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && typeset -U list
 
+            # Apply coloring pattern (when not with search query)
+            is_colored=0
+            if [ -n "$NLIST_COLORING_PATTERN" ]; then
+                is_colored=1
+                _nlist_coloring_list_into_col_list 
+            fi
+
             last_element="$#list"
             # Called after processing list
             _nlist_verify_vars
@@ -262,10 +296,21 @@ while (( 1 )); do
         integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
         [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
 
+        if [ "$is_colored" -eq 0 ]; then
+
         # Output the list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
             "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
             "${(@)list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
+
+        else
+
+        # Output colored list
+        n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
+            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
+            "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
+
+        fi
     fi
 
     local status_msg_strlen

@@ -21,6 +21,7 @@ local list
 local selected
 
 NLIST_REMEMBER_STATE=0
+unset NLIST_COLORING_PATTERN
 
 if [ -t 0 ]; then
     # Check if there is proper input
