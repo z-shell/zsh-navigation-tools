@@ -95,7 +95,8 @@ case "$key" in
         ;;
     (\])
         [[ "${(t)NLIST_HOP_INDEXES}" = "array" || "${(t)NLIST_HOP_INDEXES}" = "array-local" ]] &&
-        [ -z "$NLIST_SEARCH_BUFFER" ] && for idx in "${(n)NLIST_HOP_INDEXES[@]}"; do
+        [ -z "$NLIST_SEARCH_BUFFER" ] && [ "$NLIST_IS_UNIQ_MODE" -eq 0 ] &&
+        for idx in "${(n)NLIST_HOP_INDEXES[@]}"; do
             if [ "$idx" -gt "$current_idx" ]; then
                 current_idx=$idx
                 _nlist_compute_first_to_show_idx
@@ -105,7 +106,8 @@ case "$key" in
         ;;
     (\[)
         [[ "${(t)NLIST_HOP_INDEXES}" = "array" || "${(t)NLIST_HOP_INDEXES}" = "array-local" ]] &&
-        [ -z "$NLIST_SEARCH_BUFFER" ] && for idx in "${(nO)NLIST_HOP_INDEXES[@]}"; do
+        [ -z "$NLIST_SEARCH_BUFFER" ] && [ "$NLIST_IS_UNIQ_MODE" -eq 0 ] &&
+        for idx in "${(nO)NLIST_HOP_INDEXES[@]}"; do
             if [ "$idx" -lt "$current_idx" ]; then
                 current_idx=$idx
                 _nlist_compute_first_to_show_idx
