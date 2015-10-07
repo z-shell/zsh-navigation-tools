@@ -60,12 +60,6 @@ if [ "$#list" -eq 1 ]; then
     return 1
 fi
 
-local NLIST_COLORING_PATTERN=" #[0-9]## ##[0-9]##"
-local NLIST_COLORING_COLOR=$'\x1b[00;34m'
-local NLIST_COLORING_END_COLOR=$'\x1b[0m'
-local NLIST_COLORING_MATCH_MULTIPLE=0
-local NLIST_COLORING_MATCH_START_OF_LINE=1
-
 n-list "$list[@]"
 
 # Got answer? (could be Ctrl-C or 'q')
