@@ -11,7 +11,7 @@ if ! test -d ~/.config/znt; then
     mkdir ~/.config/znt
 fi
 
-echo ">>> Downloading zsh-navigation-tools"
+echo ">>> Downloading zsh-navigation-tools to ~/.config/znt"
 if test -d ~/.config/znt/zsh-navigation-tools; then
     cd ~/.config/znt/zsh-navigation-tools
     git pull origin master
