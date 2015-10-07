@@ -13,6 +13,8 @@ zmodload zsh/curses
 local IFS="
 "
 
+unset NLIST_COLORING_PATTERN
+
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
 [ -f ~/.config/znt/n-functions.conf ] && . ~/.config/znt/n-functions.conf
 
@@ -20,7 +22,6 @@ local list
 local selected
 
 NLIST_REMEMBER_STATE=0
-unset NLIST_COLORING_PATTERN
 
 list=( "${(@k)functions}" )
 list=( "${(@M)list:#(#i)*$1*}" )

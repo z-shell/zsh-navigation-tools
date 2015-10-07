@@ -14,6 +14,8 @@ zmodload zsh/curses
 local IFS="
 "
 
+unset NLIST_COLORING_PATTERN
+
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
 [ -f ~/.config/znt/n-panelize.conf ] && . ~/.config/znt/n-panelize.conf
 
@@ -21,7 +23,6 @@ local list
 local selected
 
 NLIST_REMEMBER_STATE=0
-unset NLIST_COLORING_PATTERN
 
 if [ -t 0 ]; then
     # Check if there is proper input

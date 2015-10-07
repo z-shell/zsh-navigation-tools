@@ -12,6 +12,8 @@ zmodload zsh/curses
 local IFS="
 "
 
+unset NLIST_COLORING_PATTERN
+
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
 [ -f ~/.config/znt/n-options.conf ] && . ~/.config/znt/n-options.conf
 
@@ -26,7 +28,6 @@ local state
 
 # 0 - don't remember, 1 - remember, 2 - init once, then remember
 NLIST_REMEMBER_STATE=2
-unset NLIST_COLORING_PATTERN
 
 local NLIST_GREP_STRING="${1:=}"
 
