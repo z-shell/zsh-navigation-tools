@@ -33,12 +33,6 @@ if [ "$#list" -eq 0 ]; then
     return 1
 fi
 
-local NLIST_COLORING_PATTERN="[a-zA-Z0-9_]##"
-local NLIST_COLORING_COLOR=$'\x1b[00;34m'
-local NLIST_COLORING_END_COLOR=$'\x1b[0m'
-local NLIST_COLORING_MATCH_MULTIPLE=0
-local NLIST_COLORING_MATCH_START_OF_LINE=1
-
 list=( "${(@i)list}" )
 n-list "$list[@]"
 
