@@ -143,11 +143,11 @@ local NLIST_COLORING_PATTERN="[0-9]##"
 local NLIST_COLORING_COLOR=$'\x1b[00;34m'
 local NLIST_COLORING_END_COLOR=$'\x1b[0m'
 local NLIST_COLORING_MATCH_MULTIPLE=1
-local NLIST_COLORING_MATCH_START_OF_LINE=0
 
 n-list "This is a number 123" "This line too has a number: 456"
 ```
 
 Blue is the default color, it doesn't have to be set. See `zshexpn` man page
-for more information on `Zsh` patterns.
+for more information on `Zsh` patterns. Briefly, `(#s)` is `^`, `(#e)` is `$`,
+`#` is `*`, `##` is `+` (comparing to regex).
 
