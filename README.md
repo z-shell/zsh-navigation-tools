@@ -135,8 +135,8 @@ typeset -a NLIST_HOP_INDEXES
 NLIST_HOP_INDEXES=( 1 10 )
 ```
 
-`n-list` can automatically colorize a `Zsh` pattern. Following example will
-colorize all numbers with blue:
+`n-list` can automatically colorize according to a `Zsh` pattern. Following
+example will colorize all numbers with blue:
 
 ```zsh
 local NLIST_COLORING_PATTERN="[0-9]##"
@@ -148,6 +148,6 @@ n-list "This is a number 123" "This line too has a number: 456"
 ```
 
 Blue is the default color, it doesn't have to be set. See `zshexpn` man page
-for more information on `Zsh` patterns. Briefly, `(#s)` is `^`, `(#e)` is `$`,
-`#` is `*`, `##` is `+` (comparing to regex).
-
+for more information on `Zsh` patterns. Briefly, comparing to regular
+expressions, `(#s)` is `^`, `(#e)` is `$`, `#` is `*`, `##` is `+`. Alternative
+will work when in parenthesis, i.e. `(a|b)`.
