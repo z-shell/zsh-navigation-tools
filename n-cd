@@ -35,7 +35,7 @@ if [ "$#hotlist" -ge 1 ]; then
     typeset -a NLIST_NONSELECTABLE_ELEMENTS NLIST_HOP_INDEXES
     local tmp_list_size="$#list"
     NLIST_NONSELECTABLE_ELEMENTS=( $(( tmp_list_size+1 )) $(( tmp_list_size+2 )) )
-    list=( "$list[@]" "" $'\x1b[00;31m'"Hotlist:"$'\x1b[00;00m' "$hotlist[@]" )
+    list=( "$list[@]" "" $'\x1b[00;31m'"Hotlist"$'\x1b[00;00m': "$hotlist[@]" )
     (( tmp_list_size+=3 ))
     local middle_hop=$(( (tmp_list_size+$#list) / 2 ))
     [[ "$middle_hop" -eq $tmp_list_size || "$middle_hop" -eq $#list ]] && middle_hop=""
