@@ -32,7 +32,7 @@ After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – th
 
 ## Installation with zgen
 
-Just add `zgen load psprint/zsh-navigation-tools` to your `.zshrc` and issue a `zgen reset` (assuming that there is a proper `zgen save` construct in `.zshrc`).
+Just add `zgen load psprint/zsh-navigation-tools` to your `.zshrc` and issue a `zgen reset` (this assumes that there is a proper `zgen save` construct in `.zshrc`).
 The config files will be available in `~/.config/znt`.
 
 ## Manual Installation
@@ -155,4 +155,6 @@ n-list "This is a number 123" "This line too has a number: 456"
 Blue is the default color, it doesn't have to be set. See `zshexpn` man page
 for more information on `Zsh` patterns. Briefly, comparing to regular
 expressions, `(#s)` is `^`, `(#e)` is `$`, `#` is `*`, `##` is `+`. Alternative
-will work when in parenthesis, i.e. `(a|b)`.
+will work when in parenthesis, i.e. `(a|b)`. BTW by using this method you can
+colorize output of the tools, via their config files (check out e.g. n-cd.conf,
+it uses this).
