@@ -32,7 +32,7 @@ After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – th
 
 ## Installation with zgen
 
-Just add `zgen load psprint/zsh-navigation-tools` to your `.zshrc` and issue a `zgen reset`.
+Just add `zgen load psprint/zsh-navigation-tools` to your `.zshrc` and issue a `zgen reset` (assuming that there is a proper `zgen save` construct in `.zshrc`).
 The config files will be available in `~/.config/znt`.
 
 ## Manual Installation
