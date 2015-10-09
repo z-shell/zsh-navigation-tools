@@ -69,9 +69,9 @@ to `.zshrc`. This is done automatically when using the installer.
 
 ## Single File Manual Installation
 
-Running script `doc/generate_plugin` will create single-file version of `ZNT`.
+Running script `doc/generate_single_file` will create single-file version of `ZNT`.
 It can be sourced from `.zshrc` or added to `oh-my-zsh` (create directory
-`plugins/zshnavigationtools` and copy the plugin there). Don't forget
+`plugins/zshnavigationtools` and copy the generated file there). Don't forget
 about configuration files as described above.
 
 ## Introduction
