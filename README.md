@@ -21,7 +21,7 @@ typing, only navigating.
 ## Installation
 
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zsh-navigation-tools/master/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zsh-navigation-tools/master/doc/install.sh)"
 ```
 
 To update run the command again.
@@ -29,6 +29,11 @@ To update run the command again.
 `ZNT` will be installed at `~/.config/znt/zsh-navigation-tools`, config files will be copied to `~/.config/znt`.
 
 After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – this keyboard shortcut will open `n-history`.
+
+## Installation with zgen
+
+Just add `zgen load hcgraf/zsh-navigation-tools` to your `.zshrc` and issue a `zgen reset`.
+The config files will be available in `~/.config/znt`.
 
 ## Manual Installation
 Copy (or link) all `n-*` files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
