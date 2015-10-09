@@ -23,8 +23,6 @@ done
 # Load functions
 #
 
-fpath+="$REPO_DIR"
-
 autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize
 autoload znt-usetty-wrapper znt-history-widget znt-cd-widget
 alias naliases=n-aliases ncd=n-cd nenv=n-env nfunctions=n-functions nhistory=n-history
