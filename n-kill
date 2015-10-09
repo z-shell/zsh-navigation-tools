@@ -79,9 +79,14 @@ if [ "$REPLY" -gt 0 ]; then
         selected="$reply[$REPLY]"
         signal="${(k)signals[(r)$selected]}"
 
-        # Will change so that the command actually
-        # executes when function is more tested
-        print -zr "kill -$signal $pid"
+        # ZLE?
+        if [ "${(t)CURSOR}" = "integer-local-special" ]; then
+            zle reset-prompt
+            zle kill-whole-line
+            zle -U "kill -$signal $pid"
+        else
+            print -zr "kill -$signal $pid"
+        fi
     fi
 fi
 

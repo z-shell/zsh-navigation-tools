@@ -49,7 +49,7 @@ if ! grep zsh-navigation-tools ~/.zshrc >/dev/null 2>&1; then
     echo "### ZNT's installer added snippet ###" >> ~/.zshrc
     echo "fpath=( \"\$fpath[@]\" \"\$HOME/.config/znt/zsh-navigation-tools\" )" >> ~/.zshrc
     echo "autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize" >> ~/.zshrc
-    echo "autoload znt-usetty-wrapper znt-history-widget znt-cd-widget" >> ~/.zshrc
+    echo "autoload znt-usetty-wrapper znt-history-widget znt-cd-widget znt-kill-widget" >> ~/.zshrc
     echo "alias naliases=n-aliases ncd=n-cd nenv=n-env nfunctions=n-functions nhistory=n-history" >> ~/.zshrc
     echo "alias nkill=n-kill noptions=n-options npanelize=n-panelize" >> ~/.zshrc
     echo "zle -N znt-history-widget" >> ~/.zshrc
