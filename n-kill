@@ -87,7 +87,11 @@ if [ "$REPLY" -gt 0 ]; then
         else
             print -zr "kill -$signal $pid"
         fi
+    else
+        [ "${(t)CURSOR}" = "integer-local-special" ] && zle reset-prompt
     fi
+else
+    [ "${(t)CURSOR}" = "integer-local-special" ] && zle reset-prompt
 fi
 
 # vim: set filetype=zsh:
