@@ -135,8 +135,8 @@ typeset -a NLIST_HOP_INDEXES
 NLIST_HOP_INDEXES=( 1 10 )
 ```
 
-`n-list` can automatically colorize according to a `Zsh` pattern. Following
-example will colorize all numbers with blue:
+`n-list` can automatically colorize entries according to a `Zsh` pattern.
+Following example will colorize all numbers with blue:
 
 ```zsh
 local NLIST_COLORING_PATTERN="[0-9]##"
