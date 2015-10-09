@@ -19,7 +19,11 @@ for i; do
     fi
 done
 
-# load functions
+#
+# Load functions
+#
+
+fpath+="$REPO_DIR"
 
 autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize
 autoload znt-usetty-wrapper znt-history-widget znt-cd-widget
@@ -29,3 +33,4 @@ alias nkill=n-kill noptions=n-options npanelize=n-panelize
 zle -N znt-history-widget
 bindkey '^R' znt-history-widget
 setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
+
