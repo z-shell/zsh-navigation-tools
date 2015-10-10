@@ -125,7 +125,7 @@ integer inner_width=term_width-2
 integer page_height=inner_height
 integer page_width=inner_width
 
-typeset -a list col_list
+typeset -a list col_list disp_list
 integer last_element=$#
 local action
 local final_key
@@ -134,6 +134,7 @@ integer last_element_difference=0
 integer current_difference=0
 local prev_search_buffer=""
 integer prev_uniq_mode=0
+integer prev_start_idx=-1
 
 # Ability to remember the list between calls
 if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REMEMBER_STATE" -eq 2 ]]; then
@@ -204,6 +205,8 @@ while (( 1 )); do
         if [[ "$NLIST_SEARCH_BUFFER" != "$prev_search_buffer" || "$NLIST_IS_UNIQ_MODE" -ne "$prev_uniq_mode" ]]; then
             prev_search_buffer="$NLIST_SEARCH_BUFFER"
             prev_uniq_mode="$NLIST_IS_UNIQ_MODE"
+            # regenerating list -> regenerating disp_list
+            prev_start_idx=-1
 
             # Take all elements, including duplicates and non-selectables
             typeset +U list
@@ -246,17 +249,25 @@ while (( 1 )); do
         integer end_idx=$(( NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN + page_height - 1 ))
         [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
 
+        if [ "$prev_start_idx" -ne "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" ]; then
+            prev_start_idx="$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN"
+            disp_list=( "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}" )
+        fi
+
         # Output colored list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
             "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
-            "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
+            "$disp_list[@]"
     else
         # There is no search, but there was in previous loop
         # OR
         # Uniq mode was entered or left out
+        # -> compute new list (maybe also col_list)
         if [[ -n "$prev_search_buffer" || "$NLIST_IS_UNIQ_MODE" -ne "$prev_uniq_mode" ]]; then
             prev_search_buffer=""
             prev_uniq_mode="$NLIST_IS_UNIQ_MODE"
+            # regenerating list -> regenerating disp_list
+            prev_start_idx=-1
 
             # Take all elements, including duplicates and non-selectables
             typeset +U list
@@ -291,17 +302,27 @@ while (( 1 )); do
 
         if [ "$is_colored" -eq 0 ]; then
 
+            if [ "$prev_start_idx" -ne "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" ]; then
+                prev_start_idx="$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN"
+                disp_list=( "${(@)list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}" )
+            fi
+
         # Output the list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
             "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
-            "${(@)list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
+            "$disp_list[@]"
 
         else
+
+            if [ "$prev_start_idx" -ne "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" ]; then
+                prev_start_idx="$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN"
+                disp_list=( "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}" )
+            fi
 
         # Output colored list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
             "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
-            "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}"
+            "$disp_list[@]"
 
         fi
     fi
