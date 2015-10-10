@@ -70,7 +70,16 @@ zle -N znt-history-widget
 bindkey "^R" znt-history-widget
 ```
 
-to `.zshrc`. This is done automatically when using the installer.
+to `.zshrc`. This is done automatically when using the installer. Two other
+widgets exist, `znt-cd-widget` and `znt-kill-widget`, they can be too assigned
+to key combinations:
+
+```zsh
+zle -N znt-cd-widget
+bindkey "^T" znt-cd-widget
+zle -N znt-kill-widget
+bindkey "^Y" znt-kill-widget
+```
 
 ## Single File Manual Installation
 
