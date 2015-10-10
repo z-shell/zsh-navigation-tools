@@ -301,30 +301,21 @@ while (( 1 )); do
         [ "$end_idx" -gt "$last_element" ] && end_idx=last_element
 
         if [ "$is_colored" -eq 0 ]; then
-
             if [ "$prev_start_idx" -ne "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" ]; then
                 prev_start_idx="$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN"
                 disp_list=( "${(@)list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}" )
             fi
+        else
+            if [ "$prev_start_idx" -ne "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" ]; then
+                prev_start_idx="$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN"
+                disp_list=( "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}" )
+            fi
+        fi
 
         # Output the list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
             "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
             "$disp_list[@]"
-
-        else
-
-            if [ "$prev_start_idx" -ne "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" ]; then
-                prev_start_idx="$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN"
-                disp_list=( "${(@)col_list[NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN, end_idx]}" )
-            fi
-
-        # Output colored list
-        n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
-            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
-            "$disp_list[@]"
-
-        fi
     fi
 
     local status_msg_strlen
