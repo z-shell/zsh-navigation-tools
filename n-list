@@ -17,7 +17,7 @@ integer has_terminfo=0
 zmodload zsh/curses
 zmodload zsh/terminfo 2>/dev/null && has_terminfo=1
 
-trap "return" TERM INT QUIT
+trap "REPLY=-2; reply=(); return" TERM INT QUIT
 trap "_nlist_exit" EXIT
 
 # Drawing and input
@@ -112,6 +112,9 @@ if [ "$#" -lt 1 ]; then
     echo "Usage: n-list element_1 ..."
     return 1
 fi
+
+REPLY="-1"
+reply=()
 
 integer term_height="$LINES"
 integer term_width="$COLUMNS"
