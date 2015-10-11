@@ -12,10 +12,10 @@ emulate -LR zsh
 
 setopt typesetsilent extendedglob noshortloops
 
-integer has_terminfo=0
+_nlist_has_terminfo=0
 
 zmodload zsh/curses
-zmodload zsh/terminfo 2>/dev/null && has_terminfo=1
+zmodload zsh/terminfo 2>/dev/null && _nlist_has_terminfo=1
 
 trap "REPLY=-2; reply=(); return" TERM INT QUIT
 trap "_nlist_exit" EXIT
@@ -31,6 +31,7 @@ _nlist_exit() {
     zcurses 2>/dev/null refresh
     zcurses end
     _nlist_cursor_visibility 1
+    unset _nlist_has_terminfo
 }
 
 # Outputs a message in the bottom of the screen
@@ -48,7 +49,7 @@ _nlist_cursor_visibility() {
     if type tput 2>/dev/null 1>&2; then
         [ "$1" = "1" ] && { tput cvvis; tput cnorm }
         [ "$1" = "0" ] && tput civis
-    elif [ "$has_terminfo" = "1" ]; then
+    elif [ "$_nlist_has_terminfo" = "1" ]; then
         [ "$1" = "1" ] && { [ -n $terminfo[cvvis] ] && echo -n $terminfo[cvvis];
                            [ -n $terminfo[cnorm] ] && echo -n $terminfo[cnorm] }
         [ "$1" = "0" ] && [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
