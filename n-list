@@ -30,6 +30,7 @@ _nlist_exit() {
     zcurses 2>/dev/null delwin main
     zcurses 2>/dev/null refresh
     zcurses end
+    _nlist_alternate_screen 0
     _nlist_cursor_visibility 1
     unset _nlist_has_terminfo
 }
@@ -54,6 +55,34 @@ _nlist_cursor_visibility() {
                            [ -n $terminfo[cnorm] ] && echo -n $terminfo[cnorm] }
         [ "$1" = "0" ] && [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
     fi 
+}
+
+# Reason for this function is that on some systems
+# smcup and rmcup are not knowing why left empty
+_nlist_alternate_screen() {
+    if [ "$1" = "1" ]; then
+        if [[ "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[smcup]" ]]; then
+            case "$TERM" in
+                *rxvt*)
+                    echo -n "7[?47h"
+                    ;;
+                *)
+                    echo -n "[?1049h"
+                    ;;
+            esac
+        fi
+    else
+        if [[ "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[rmcup]" ]]; then
+            case "$TERM" in
+                *rxvt*)
+                    echo -n "[2J[?47l8"
+                    ;;
+                *)
+                    echo -n "[?1049l"
+                    ;;
+            esac
+        fi
+    fi
 }
 
 _nlist_compute_user_vars_difference() {
@@ -169,6 +198,7 @@ if [ "$NLIST_START_IN_UNIQ_MODE" -eq 1 ]; then
     NLIST_IS_UNIQ_MODE=1
 fi
 
+_nlist_alternate_screen 1
 zcurses init
 zcurses delwin main 2>/dev/null
 zcurses delwin inner 2>/dev/null
