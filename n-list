@@ -60,29 +60,16 @@ _nlist_cursor_visibility() {
 # Reason for this function is that on some systems
 # smcup and rmcup are not knowing why left empty
 _nlist_alternate_screen() {
-    if [ "$1" = "1" ]; then
-        if [[ "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[smcup]" ]]; then
-            case "$TERM" in
-                *rxvt*)
-                    echo -n "7[?47h"
-                    ;;
-                *)
-                    echo -n "[?1049h"
-                    ;;
-            esac
-        fi
-    else
-        if [[ "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[rmcup]" ]]; then
-            case "$TERM" in
-                *rxvt*)
-                    echo -n "[2J[?47l8"
-                    ;;
-                *)
-                    echo -n "[?1049l"
-                    ;;
-            esac
-        fi
-    fi
+    case "$TERM" in
+        *rxvt*)
+            [[ "$1" = "1" && "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[smcup]" ]] && echo -n "7[?47h"
+            [[ "$1" = "0" && "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[rmcup]" ]] && echo -n "[2J[?47l8"
+            ;;
+        *)
+            [[ "$1" = "1" && "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[smcup]" ]] && echo -n "[?1049h"
+            [[ "$1" = "0" && "$_nlist_has_terminfo" -eq "1" && -z "$terminfo[rmcup]" ]] && echo -n "[?1049l"
+            ;;
+    esac
 }
 
 _nlist_compute_user_vars_difference() {
