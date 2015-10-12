@@ -72,6 +72,7 @@ _nlist_alternate_screen() {
         *)
             [ "$1" = "1" ] && echo -n "[?1049h"
             [ "$1" = "0" ] && echo -n "[?1049l"
+            # just to remember two other that work: $'\x1b7\x1b[r\x1b[?47h', $'\x1b[?47l\x1b8'
             ;;
     esac
 }
