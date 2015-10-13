@@ -1,5 +1,7 @@
 # Copy this file into /usr/share/zsh/site-functions/
 # and add 'autoload n-list-input` to .zshrc
+#
+# This is an internal function not for direct use
 
 emulate -L zsh
 
