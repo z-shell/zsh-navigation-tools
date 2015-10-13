@@ -4,11 +4,12 @@
 # Clone or pull
 #
 
-if ! test -d ~/.config; then
-    mkdir ~/.config
+if ! test -d "$HOME/.config"; then
+    mkdir "$HOME/.config"
 fi
-if ! test -d ~/.config/znt; then
-    mkdir ~/.config/znt
+
+if ! test -d "$HOME/.config/znt"; then
+    mkdir "$HOME/.config/znt"
 fi
 
 echo ">>> Downloading zsh-navigation-tools to ~/.config/znt"

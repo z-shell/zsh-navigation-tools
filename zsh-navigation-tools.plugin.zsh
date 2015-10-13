@@ -1,14 +1,18 @@
 #!/usr/bin/env zsh
 
-REPO_DIR=${0%/*}
-CONFIG_DIR=~/.config/znt
+REPO_DIR="${0%/*}"
+CONFIG_DIR="$HOME/.config/znt"
 
 #
 # Copy configs
 #
 
-if ! test -d $CONFIG_DIR; then
-    mkdir -p $CONFIG_DIR
+if ! test -d "$HOME/.config"; then
+    mkdir "$HOME/.config"
+fi
+
+if ! test -d "$CONFIG_DIR"; then
+    mkdir "$CONFIG_DIR"
 fi
 
 set n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf n-preview.conf
