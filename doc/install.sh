@@ -30,7 +30,7 @@ echo ">>> Copying config files"
 
 cd ~/.config/znt
 
-set n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf n-preview.conf
+set n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf
 
 for i; do
     if ! test -f "$i"; then

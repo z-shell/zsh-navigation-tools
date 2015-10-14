@@ -15,7 +15,7 @@ if ! test -d "$CONFIG_DIR"; then
     mkdir "$CONFIG_DIR"
 fi
 
-set n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf n-preview.conf
+set n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf
 
 for i; do
     if ! test -f "$CONFIG_DIR/$i"; then
