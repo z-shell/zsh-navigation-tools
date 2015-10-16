@@ -19,6 +19,9 @@ unset NLIST_COLORING_PATTERN
 
 # TODO restore options
 unsetopt localoptions
+
+integer kshoptionprint=0
+[[ -o kshoptionprint ]] && kshoptionprint=1
 setopt kshoptionprint
 
 local list
@@ -74,5 +77,7 @@ while (( 1 )); do
 done
 
 NLIST_REMEMBER_STATE=0
+
+[[ "$kshoptionprint" -eq 0 ]] && unsetopt kshoptionprint
 
 # vim: set filetype=zsh:
