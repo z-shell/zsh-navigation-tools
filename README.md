@@ -34,11 +34,11 @@ After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – th
 
 ## Installation With Zgen
 
-Just add `zgen load psprint/zsh-navigation-tools` to your `.zshrc` and issue a `zgen reset` (this assumes that there is a proper `zgen save` construct in `.zshrc`).
+Just add `zgen load psprint/zsh-navigation-tools` to `.zshrc` and issue a `zgen reset` (this assumes that there is a proper `zgen save` construct in `.zshrc`).
 The config files will be available in `~/.config/znt`.
 
 ## Installation With Antigen
-Add `antigen bundle psprint/zsh-navigation-tools` to your `.zshrc`. There also
+Add `antigen bundle psprint/zsh-navigation-tools` to `.zshrc`. There also
 should be `antigen apply`. The config files will be in `~/.config/znt`.
 
 ## Manual Installation
