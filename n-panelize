@@ -36,13 +36,18 @@ if [ -t 0 ]; then
     [ "$?" -eq 127 ] && return $?
 else
     # Check if can reattach to terminal
-    if [ ! -c /dev/tty ]; then
+    if [[ ! -c /dev/tty && ! -t 2 ]]; then
         echo "No terminal available (no /dev/tty)"
         return 1
     fi
 
     list=( "${(@f)"$(<&0)"}" )
-    exec </dev/tty
+
+    if [[ ! -c /dev/tty ]]; then
+        exec <&2
+    else
+        exec </dev/tty
+    fi
 fi
 
 n-list "${list[@]}"
