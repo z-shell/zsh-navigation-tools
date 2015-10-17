@@ -2,7 +2,9 @@
 
 Videos: [https://youtu.be/kznhIdLFrbk](https://youtu.be/kznhIdLFrbk) [https://youtu.be/JfQd7B0kKPM](https://youtu.be/JfQd7B0kKPM)
 
-Screenshot (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
+Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
+
+![n-history](http://imageshack.com/a/img633/7967/ps6rKR.png)
 
 ![n-history](http://imageshack.com/a/img905/8408/TyjE8H.gif)
 
