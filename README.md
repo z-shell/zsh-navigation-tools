@@ -30,10 +30,14 @@ To update run the command again.
 
 After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – this keyboard shortcut will open `n-history`.
 
-## Installation with zgen
+## Installation With Zgen
 
 Just add `zgen load psprint/zsh-navigation-tools` to your `.zshrc` and issue a `zgen reset` (this assumes that there is a proper `zgen save` construct in `.zshrc`).
 The config files will be available in `~/.config/znt`.
+
+## Installation With Antigen
+Add `antigen bundle psprint/zsh-navigation-tools` to your `.zshrc`. There also
+should be `antigen apply`. The config files will be in `~/.config/znt`.
 
 ## Manual Installation
 Copy (or link) all `n-*` files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
