@@ -172,4 +172,4 @@ for more information on `Zsh` patterns. Briefly, comparing to regular
 expressions, `(#s)` is `^`, `(#e)` is `$`, `#` is `*`, `##` is `+`. Alternative
 will work when in parenthesis, i.e. `(a|b)`. BTW by using this method you can
 colorize output of the tools, via their config files (check out e.g. n-cd.conf,
-it uses this).
+it is using this).
