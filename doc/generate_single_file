@@ -27,3 +27,9 @@ for i in znt-*(on); do
     echo "}" >>"$PLUGIN_FILE"
     echo >>"$PLUGIN_FILE"
 done
+
+# Append ^R bind
+echo "zle -N znt-history-widget" >>"$PLUGIN_FILE"
+echo "bindkey '^R' znt-history-widget" >>"$PLUGIN_FILE"
+echo "setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS" >>"$PLUGIN_FILE"
+
