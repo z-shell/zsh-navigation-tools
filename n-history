@@ -37,7 +37,7 @@ fi
 n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
-    selected="$reply[$REPLY]"
+    selected="$reply[REPLY]"
     # ZLE?
     if [ "${(t)CURSOR}" = "integer-local-special" ]; then
         zle reset-prompt

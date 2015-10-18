@@ -37,7 +37,7 @@ list=( "${(@i)list}" )
 n-list "$list[@]"
 
 if [ "$REPLY" -gt 0 ]; then
-    selected="$reply[$REPLY]"
+    selected="$reply[REPLY]"
     if [ "$feditor" = "zed" ]; then
         echo "Editing \`$selected' (ESC ZZ or Ctrl-x-w to finish):"
         autoload zed

@@ -63,7 +63,7 @@ n-list "$list[@]"
 
 # Got answer? (could be Ctrl-C or 'q')
 if [ "$REPLY" -gt 0 ]; then
-    selected="$reply[$REPLY]"
+    selected="$reply[REPLY]"
     selected="${selected## #}"
     pid="${selected%% *}"
 
@@ -75,7 +75,7 @@ if [ "$REPLY" -gt 0 ]; then
     n-list $'\x1b[00;31mSelect signal:\x1b[00;00m' "$signal_names[@]"
 
     if [ "$REPLY" -gt 0 ]; then
-        selected="$reply[$REPLY]"
+        selected="$reply[REPLY]"
         signal="${(k)signals[(r)$selected]}"
 
         # ZLE?
