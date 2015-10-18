@@ -6,7 +6,7 @@ Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/
 
 ![n-history](http://imageshack.com/a/img633/7967/ps6rKR.png)
 
-![n-history](http://imageshack.com/a/img905/8408/TyjE8H.gif)
+![n-history](http://imagizer.imageshack.us/a/img905/5673/hPx6SZ.gif)
 
 A tool generating a selectable curses-based list of elements that has access to
 current `Zsh` session, i.e. has broad capabilities to work together with it.
