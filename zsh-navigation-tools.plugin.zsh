@@ -19,7 +19,7 @@ set n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.co
 
 for i; do
     if ! test -f "$CONFIG_DIR/$i"; then
-        cp $REPO_DIR/.config/znt/$i $CONFIG_DIR/
+        cp "$REPO_DIR/.config/znt/$i" "$CONFIG_DIR"
     fi
 done
 
