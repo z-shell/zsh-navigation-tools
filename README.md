@@ -84,7 +84,7 @@ or single file install. Two other widgets exist, `znt-cd-widget` and
 zle -N znt-cd-widget
 bindkey "^T" znt-cd-widget
 zle -N znt-kill-widget
-bindkey "^E" znt-kill-widget
+bindkey "^Y" znt-kill-widget
 ```
 
 ## Single File Manual Installation
