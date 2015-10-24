@@ -4,6 +4,8 @@ Videos: [https://youtu.be/kznhIdLFrbk](https://youtu.be/kznhIdLFrbk) [https://yo
 
 Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
 
+![n-cd](http://imageshack.com/a/img907/6185/oaJvdv.png)
+
 ![n-history](http://imageshack.com/a/img633/7967/ps6rKR.png)
 
 ![n-history](http://imagizer.imageshack.us/a/img905/5673/hPx6SZ.gif)
