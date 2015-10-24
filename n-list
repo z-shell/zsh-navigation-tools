@@ -149,7 +149,7 @@ if [[ "$term_height" -lt 1 || "$term_width" -lt 1 ]]; then
     term_width="${stty_out#* }"
 fi
 integer inner_height=term_height-3
-integer inner_width=term_width-2
+integer inner_width=term_width-3
 integer page_height=inner_height
 integer page_width=inner_width
 
@@ -198,7 +198,7 @@ zcurses init
 zcurses delwin main 2>/dev/null
 zcurses delwin inner 2>/dev/null
 zcurses addwin main "$term_height" "$term_width" 0 0
-zcurses addwin inner "$inner_height" "$inner_width" 1 1
+zcurses addwin inner "$inner_height" "$inner_width" 1 2
 zcurses bg main white/black
 zcurses bg inner white/black
 if [ "$NLIST_IS_SEARCH_MODE" -ne 1 ]; then
@@ -285,7 +285,7 @@ while (( 1 )); do
 
         # Output colored list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
-            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
+            "$page_height" "$page_width" 0 0 "$NLIST_TEXT_OFFSET" inner ansi \
             "$disp_list[@]"
     else
         # There is no search, but there was in previous loop
@@ -343,7 +343,7 @@ while (( 1 )); do
 
         # Output the list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
-            "$page_height" "$page_width" 0 1 "$NLIST_TEXT_OFFSET" inner ansi \
+            "$page_height" "$page_width" 0 0 "$NLIST_TEXT_OFFSET" inner ansi \
             "$disp_list[@]"
     fi
 
