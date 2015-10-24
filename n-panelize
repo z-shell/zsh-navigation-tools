@@ -55,8 +55,6 @@ n-list "${list[@]}"
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[REPLY]"
-    echo "You have selected $selected"
-
     print -zr "# $selected"
 fi
 
