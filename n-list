@@ -285,7 +285,7 @@ while (( 1 )); do
 
         # Output colored list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
-            "$page_height" "$page_width" 0 0 "$NLIST_TEXT_OFFSET" inner ansi \
+            "$page_height" "$page_width" 0 0 "$NLIST_TEXT_OFFSET" inner \
             "$disp_list[@]"
     else
         # There is no search, but there was in previous loop
@@ -343,7 +343,7 @@ while (( 1 )); do
 
         # Output the list
         n-list-draw "$(( (NLIST_CURRENT_IDX-1) % page_height + 1 ))" \
-            "$page_height" "$page_width" 0 0 "$NLIST_TEXT_OFFSET" inner ansi \
+            "$page_height" "$page_width" 0 0 "$NLIST_TEXT_OFFSET" inner \
             "$disp_list[@]"
     fi
 
