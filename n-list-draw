@@ -125,7 +125,7 @@ integer max_text_len=page_width-x_offset
 # With Linux terminal underline won't work properly
 [ "$TERM" = "linux" ] && active_text="reverse"
 
-integer end_idx=1+page_height-1
+integer end_idx=page_height
 [ "$end_idx" -gt "$#" ] && end_idx="$#"
 integer y=y_offset
 
