@@ -125,7 +125,8 @@ integer max_text_len=page_width-x_offset
 # With Linux terminal underline won't work properly
 [ "$TERM" = "linux" ] && active_text="reverse"
 
-integer end_idx=page_height
+integer max_idx=page_height
+integer end_idx=max_idx
 [ "$end_idx" -gt "$#" ] && end_idx="$#"
 integer y=y_offset
 
@@ -146,10 +147,16 @@ for (( i=1; i<=end_idx; i++ )); do
     else
         _nlist_print_with_ansi "$win" "$@[i]" "$text_offset" "$max_text_len"
     fi
+    zcurses clear "$win" eol
     [ "$i" = "$highlight" ] && zcurses attr "$win" -"$active_text"
 
     y+=1
 done
+
+if [ "$end_idx" -lt "$max_idx" ]; then
+    zcurses move "$win" $y "$x_offset"
+    zcurses clear "$win" eol
+fi
 
 zcurses attr "$win" white/black
 # vim: set filetype=zsh:
