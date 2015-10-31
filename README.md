@@ -109,7 +109,7 @@ The tools are:
 - `n-options` - browses options, allows to toggle their state
 - `n-panelize` - loads output of given command into the list for browsing
 
-All tools support horizontal scroll with `<`,`>` or `{`,`}`. Other keys are:
+All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and right cursors. Other keys are:
 
 - `[`,`]` - jump directory bookmarks in `n-cd` and typical signals in `n-kill`
 - `Ctrl-d`, `Ctrl-u` - half page up or down
