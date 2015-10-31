@@ -42,8 +42,8 @@ if [ "$REPLY" -gt 0 ]; then
     if [ "$feditor" = "zed" ]; then
         echo "Editing \`$selected' (ESC ZZ or Ctrl-x-w to finish):"
         autoload zed
-        print -rs "zed -f \"$selected\""
-        zed -f "$selected"
+        print -rs "zed -f -- \"$selected\""
+        zed -f -- "$selected"
     else
         echo "Editing \`$selected':"
         print -rs "vared functions\\[$selected\\]"
