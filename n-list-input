@@ -117,11 +117,11 @@ case "$key" in
             fi
         done
         ;;
-    ('<'|'{')
+    ('<'|'{'|LEFT|'h')
         hscroll=hscroll-7
         [ "$hscroll" -lt 0 ] && hscroll=0
         ;;
-    ('>'|'}')
+    ('>'|'}'|RIGHT|'l')
         hscroll+=7
         ;;
     ($'\E')
@@ -185,7 +185,14 @@ case "$key" in
         current_idx=last_element
         _nlist_compute_first_to_show_idx
         ;;
-    (LEFT|RIGHT|F1|F2|F3|F4|F5|F6|F7|F8|F9|F10)
+    (LEFT)
+        hscroll=hscroll-7
+        [ "$hscroll" -lt 0 ] && hscroll=0
+        ;;
+    (RIGHT)
+        hscroll+=7
+        ;;
+    (F1|F2|F3|F4|F5|F6|F7|F8|F9|F10)
         # ignore
         ;;
 
