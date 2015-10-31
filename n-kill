@@ -48,7 +48,7 @@ case "$(uname)" in
 esac
 
 # Ask of PID
-title=$'\x1b[00;31m'"${list[1]}"$'\x1b[00;00m '
+title=$'\x1b[00;31m'"${list[1]}"$'\x1b[00;00m\0'
 shift list
 list=( "$title" "${(@M)list:#(#i)*$1*}" )
 
