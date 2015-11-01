@@ -40,14 +40,14 @@ if [ "$REPLY" -gt 0 ]; then
     selected="$reply[REPLY]"
     # ZLE?
     if [ "${(t)CURSOR}" = "integer-local-special" ]; then
-        zle reset-prompt
+        zle redisplay
         zle kill-whole-line
         zle -U "$selected"
     else
         print -zr "$selected"
     fi
 else
-    [ "${(t)CURSOR}" = "integer-local-special" ] && zle reset-prompt
+    [ "${(t)CURSOR}" = "integer-local-special" ] && zle redisplay
 fi
 
 # vim: set filetype=zsh:

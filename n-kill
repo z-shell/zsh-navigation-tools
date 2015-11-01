@@ -80,17 +80,17 @@ if [ "$REPLY" -gt 0 ]; then
 
         # ZLE?
         if [ "${(t)CURSOR}" = "integer-local-special" ]; then
-            zle reset-prompt
+            zle redisplay
             zle kill-whole-line
             zle -U "kill -$signal $pid"
         else
             print -zr "kill -$signal $pid"
         fi
     else
-        [ "${(t)CURSOR}" = "integer-local-special" ] && zle reset-prompt
+        [ "${(t)CURSOR}" = "integer-local-special" ] && zle redisplay
     fi
 else
-    [ "${(t)CURSOR}" = "integer-local-special" ] && zle reset-prompt
+    [ "${(t)CURSOR}" = "integer-local-special" ] && zle redisplay
 fi
 
 # vim: set filetype=zsh:
