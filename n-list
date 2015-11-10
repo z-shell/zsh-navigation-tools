@@ -139,6 +139,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 REPLY="-1"
+typeset -ga reply
 reply=()
 
 integer term_height="$LINES"
