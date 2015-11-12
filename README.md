@@ -10,10 +10,11 @@ Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/
 
 ![n-history](http://imagizer.imageshack.us/a/img905/5673/hPx6SZ.gif)
 
-A tool generating a selectable curses-based list of elements that has access to
-current `Zsh` session, i.e. has broad capabilities to work together with it.
-That's `n-list`. The files `n-cd`, `n-env`, `n-kill`, etc. are applications of
-the tool. Feature highlights include incremental multi-word searching, ANSI
+Set of tools like `n-history` – multiword history searcher, `n-cd` – directory
+bookmark manager, `n-kill` – `htop` like kill utility, and more. Based on
+`n-list`, a tool generating selectable curses-based list of elements that has
+access to current `Zsh` session, i.e. has broad capabilities to work together
+with it. Feature highlights include incremental multi-word searching, ANSI
 coloring, unique mode, horizontal scroll, non-selectable elements, grepping and
 various integrations with `Zsh`.
 
