@@ -10,7 +10,7 @@ Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/
 
 ![n-history](http://imagizer.imageshack.us/a/img905/5673/hPx6SZ.gif)
 
-Set of tools like `n-history` – multiword history searcher, `n-cd` – directory
+Set of tools like `n-history` – multi-word history searcher, `n-cd` – directory
 bookmark manager, `n-kill` – `htop` like kill utility, and more. Based on
 `n-list`, a tool generating selectable curses-based list of elements that has
 access to current `Zsh` session, i.e. has broad capabilities to work together
