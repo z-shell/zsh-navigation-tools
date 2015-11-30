@@ -81,7 +81,8 @@ bindkey "^R" znt-history-widget
 
 to `.zshrc`. This is done automatically when using the installer, zgen, antigen
 or single file install. Two other widgets exist, `znt-cd-widget` and
-`znt-kill-widget`, they can be too assigned to key combinations:
+`znt-kill-widget`, they too can be assigned to key combinations (`autoload` is done
+in `.zshrc` so no need of it):
 
 ```zsh
 zle -N znt-cd-widget
