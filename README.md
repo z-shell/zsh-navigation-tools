@@ -94,9 +94,8 @@ bindkey "^Y" znt-kill-widget
 ## Single File Manual Installation
 
 Running script `doc/generate_single_file` will create single-file version of `ZNT`.
-It can be sourced from `.zshrc` or added to `oh-my-zsh` (create directory
-`plugins/zshnavigationtools` and copy the generated file there). Don't forget
-about configuration files as described above.
+It can be sourced from `.zshrc`. Don't forget about configuration files as described
+above.
 
 ## Introduction
 
