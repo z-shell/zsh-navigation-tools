@@ -43,8 +43,7 @@ else
     fi
 
     # This loop makes script faster on some Zsh's (e.g. 5.0.8)
-    local loop=1
-    while (( loop -- )); do
+    repeat 1; do
         list=( "${(@f)"$(<&0)"}" )
     done
 
