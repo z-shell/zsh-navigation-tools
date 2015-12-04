@@ -32,7 +32,11 @@ if [ -t 0 ]; then
         return 1
     fi
 
-    list=( `"$@"` )
+    # This loop makes script faster on some Zsh's (e.g. 5.0.8)
+    repeat 1; do
+        list=( `"$@"` )
+    done
+
     # TODO: $? doesn't reach user
     [ "$?" -eq 127 ] && return $?
 else
