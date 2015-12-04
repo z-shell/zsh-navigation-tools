@@ -42,7 +42,11 @@ else
         return 1
     fi
 
-    list=( "${(@f)"$(<&0)"}" )
+    # This loop makes script faster on some Zsh's (e.g. 5.0.8)
+    local loop=1
+    while (( loop -- )); do
+        list=( "${(@f)"$(<&0)"}" )
+    done
 
     if [[ ! -c /dev/tty ]]; then
         exec <&2
