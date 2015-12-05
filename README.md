@@ -1,6 +1,6 @@
 # Zsh Navigation Tools
 
-Videos: [https://youtu.be/kznhIdLFrbk](https://youtu.be/kznhIdLFrbk) [https://youtu.be/JfQd7B0kKPM](https://youtu.be/JfQd7B0kKPM)
+Video: [https://youtu.be/kznhIdLFrbk](https://youtu.be/kznhIdLFrbk)
 
 Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
 
