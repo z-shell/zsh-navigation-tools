@@ -179,4 +179,4 @@ it is using this).
 
 ## Performance
 
-`ZNT` are fastest with `Zsh` before `5.0.8` and starting from `5.2`
+`ZNT` are fastest with `Zsh` before `5.0.6` and starting from `5.2`
