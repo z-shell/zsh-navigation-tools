@@ -12,7 +12,7 @@ emulate -LR zsh
 
 setopt typesetsilent extendedglob noshortloops
 
-_nlist_has_terminfo=0
+local _nlist_has_terminfo=0
 
 zmodload zsh/curses
 zmodload zsh/terminfo 2>/dev/null && _nlist_has_terminfo=1
@@ -164,6 +164,7 @@ integer current_difference=0
 local prev_search_buffer=""
 integer prev_uniq_mode=0
 integer prev_start_idx=-1
+local MBEGIN MEND MATCH mbegin mend match
 
 # Ability to remember the list between calls
 if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REMEMBER_STATE" -eq 2 ]]; then
