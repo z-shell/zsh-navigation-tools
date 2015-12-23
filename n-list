@@ -269,7 +269,11 @@ while (( 1 )); do
                 search_pattern="${search_buffer// ##/*~^*}"
                 colsearch_pattern="${search_buffer// ##/|}"
 
-                list=( "${(@M)list:#(#i)*$~search_pattern*}" )
+                # The repeat will make the matching work on a fresh heap
+                repeat 1; do
+                    list=( "${(@M)list:#(#i)*$~search_pattern*}" )
+                done
+
                 last_element="$#list"
             fi
 
@@ -288,7 +292,10 @@ while (( 1 )); do
 
             if [ -n "$colsearch_pattern" ]; then
                 local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
-                disp_list=( "${(@)disp_list//(#mi)($~colsearch_pattern)/$red${MATCH}$reset}" )
+                # The repeat will make the matching work on a fresh heap
+                repeat 1; do
+                    disp_list=( "${(@)disp_list//(#mi)($~colsearch_pattern)/$red${MATCH}$reset}" )
+                done
             fi
 
             # We have display list, lets replace newlines with "\n" when needed (1/2)
