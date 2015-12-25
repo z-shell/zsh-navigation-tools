@@ -265,7 +265,7 @@ while (( 1 )); do
             local search_pattern=""
             local colsearch_pattern=""
             if [ -n "$search_buffer" ]; then
-                # Patterns will be *foo*~^*bar* and foo|bar)
+                # Patterns will be *foo*~^*bar* and (foo|bar)
                 search_pattern="${search_buffer// ##/*~^*}"
                 colsearch_pattern="${search_buffer// ##/|}"
 
