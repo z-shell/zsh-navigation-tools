@@ -1,6 +1,7 @@
 # $1, $2, ... - elements of the list
 # $NLIST_NONSELECTABLE_ELEMENTS - array of indexes (1-based) that cannot be selected
 # $REPLY is the output variable - contains index (1-based) or -1 when no selection
+# $reply (array) is the second part of the output - use the index (REPLY) to get selected element
 #
 # Copy this file into /usr/share/zsh/site-functions/
 # and add 'autoload n-list` to .zshrc
