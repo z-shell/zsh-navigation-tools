@@ -389,7 +389,7 @@ while (( 1 )); do
 
     # Get the special (i.e. "keypad") key or regular key
     if [ -n "$key" ]; then
-        final_key="$key" 
+        final_key="$key"
     elif [ -n "$keypad" ]; then
         final_key="$keypad"
     else
