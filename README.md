@@ -1,5 +1,7 @@
 # Zsh Navigation Tools
 
+Also check out [Zsh Command Architect](https://github.com/psprint/zsh-cmd-architect)!
+
 Video: [https://youtu.be/kznhIdLFrbk](https://youtu.be/kznhIdLFrbk)
 
 Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
