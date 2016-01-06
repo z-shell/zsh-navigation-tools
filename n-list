@@ -13,7 +13,7 @@ emulate -LR zsh
 
 setopt typesetsilent extendedglob noshortloops
 
-local _nlist_has_terminfo=0
+_nlist_has_terminfo=0
 
 zmodload zsh/curses
 zmodload zsh/terminfo 2>/dev/null && _nlist_has_terminfo=1
