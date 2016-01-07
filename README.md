@@ -46,6 +46,12 @@ The config files will be available in `~/.config/znt`.
 Add `antigen bundle psprint/zsh-navigation-tools` to `.zshrc`. There also
 should be `antigen apply`. The config files will be in `~/.config/znt`.
 
+## Single File Manual Installation
+
+Running script `doc/generate_single_file` will create single-file version of `ZNT`.
+It can be sourced from `.zshrc`. Don't forget about configuration files as described
+above.
+
 ## Manual Installation
 Copy (or link) all `n-*` files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
@@ -88,16 +94,10 @@ in `.zshrc` so no need of it):
 
 ```zsh
 zle -N znt-cd-widget
-bindkey "^T" znt-cd-widget
+bindkey "^A" znt-cd-widget
 zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
 ```
-
-## Single File Manual Installation
-
-Running script `doc/generate_single_file` will create single-file version of `ZNT`.
-It can be sourced from `.zshrc`. Don't forget about configuration files as described
-above.
 
 ## Introduction
 
