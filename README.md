@@ -33,7 +33,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/psprint/zsh-navigation-too
 
 To update run the command again.
 
-`ZNT` will be installed at `~/.config/znt/zsh-navigation-tools`, config files will be copied to `~/.config/znt`.
+`ZNT` will be installed at `~/.config/znt/zsh-navigation-tools`, config files will be copied to `~/.config/znt`. `.zshrc`
+will be updated with only `8` lines of code, which will be added at the bottom.
 
 After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – this keyboard shortcut will open `n-history`.
 
