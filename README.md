@@ -1,3 +1,5 @@
+![znt logo](http://imageshack.com/a/img907/9273/UvnRJQ.png)
+
 # Zsh Navigation Tools
 
 Also check out [Zsh Command Architect](https://github.com/psprint/zsh-cmd-architect)!
@@ -95,7 +97,7 @@ in `.zshrc` so no need of it):
 
 ```zsh
 zle -N znt-cd-widget
-bindkey "^A" znt-cd-widget
+bindkey "^B" znt-cd-widget
 zle -N znt-kill-widget
 bindkey "^Y" znt-kill-widget
 ```
