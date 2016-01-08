@@ -1,4 +1,4 @@
-![znt logo](http://imageshack.com/a/img907/9273/UvnRJQ.png)
+![znt logo](http://imageshack.com/a/img905/2629/WK9qjN.png)
 
 # Zsh Navigation Tools
 
