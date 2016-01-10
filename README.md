@@ -12,7 +12,7 @@ Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/
 
 ![n-history](http://imageshack.com/a/img633/7967/ps6rKR.png)
 
-![n-history](http://imagizer.imageshack.us/a/img905/5673/hPx6SZ.gif)
+![n-history](http://imageshack.com/a/img905/3807/Vcfvw4.gif)
 
 Set of tools like `n-history` – multi-word history searcher, `n-cd` – directory
 bookmark manager, `n-kill` – `htop` like kill utility, and more. Based on
