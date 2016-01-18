@@ -117,6 +117,7 @@ The tools are:
 
 All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and right cursors. Other keys are:
 
+- `Ctrl-R` - start n-history, the incremental, multi-keyword history searcher (default binding)
 - `[`,`]` - jump directory bookmarks in `n-cd` and typical signals in `n-kill`
 - `Ctrl-d`, `Ctrl-u` - half page up or down
 - `Ctrl-p`, `Ctrl-n` - previous and next (also done with vim's j,k)
