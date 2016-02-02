@@ -43,9 +43,12 @@ will be updated with only `8` lines of code, which will be added at the bottom.
 
 After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – this keyboard shortcut will open `n-history`.
 
+## Installation With [Zplugin](https://github.com/psprint/zplugin)
+Add `zplugin load psprint/zsh-navigation-tools` to `.zshrc`. The config files will be in `~/.config/znt`.
+
 ## Installation With Zgen
 
-Just add `zgen load psprint/zsh-navigation-tools` to `.zshrc` and issue a `zgen reset` (this assumes that there is a proper `zgen save` construct in `.zshrc`).
+Add `zgen load psprint/zsh-navigation-tools` to `.zshrc` and issue a `zgen reset` (this assumes that there is a proper `zgen save` construct in `.zshrc`).
 The config files will be available in `~/.config/znt`.
 
 ## Installation With Antigen
