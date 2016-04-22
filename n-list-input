@@ -140,6 +140,9 @@ case "$key" in
     ($'\n'|ENTER)
         search=0
         _nlist_cursor_visibility 0
+        if [ "$NLIST_INSTANT_SELECT" = "1" ]; then
+            reply=( $current_idx SELECT )
+        fi
         ;;
     ($'\C-L')
         reply=( -1 REDRAW )
