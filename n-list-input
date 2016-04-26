@@ -82,6 +82,12 @@ case "$key" in
             reply=( $current_idx SELECT )
         fi
         ;;
+    (F1)
+        reply=( -1 "$key" )
+        ;;
+    (F2|F3|F4|F5|F6|F7|F8|F9|F10)
+        # ignore
+        ;;
     (q)
         reply=( -1 QUIT )
         ;;
@@ -195,7 +201,10 @@ case "$key" in
     (RIGHT)
         hscroll+=7
         ;;
-    (F1|F2|F3|F4|F5|F6|F7|F8|F9|F10)
+    (F1)
+        reply=( -1 "$key" )
+        ;;
+    (F2|F3|F4|F5|F6|F7|F8|F9|F10)
         # ignore
         ;;
 
