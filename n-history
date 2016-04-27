@@ -85,6 +85,22 @@ _nhistory_switch_lists_states() {
     fi
 }
 
+local most_frequent_db="$HOME/.config/znt/mostfrequent.db"
+_nhistory_generate_most_frequent() {
+    local title=$'\x1b[00;31m'"Most frequent history words:"$'\x1b[00;00m\0'
+
+    typeset -A uniq
+    for k in "${historywords[@]}"; do
+        uniq[$k]=$(( ${uniq[$k]:-0} + 1 ))
+    done
+    vk=()
+    for k v in ${(kv)uniq}; do
+        vk+="$v"$'\t'"$k"
+    done
+
+    print -rl "$title" "${(On)vk[@]}" > "$most_frequent_db"
+}
+
 # Load configuration
 unset NLIST_COLORING_PATTERN
 [ -f ~/.config/znt/n-list.conf ] && builtin source ~/.config/znt/n-list.conf
@@ -129,36 +145,58 @@ while (( 1 )); do
 
     # View 2 - most frequent words in history
     elif [ "$active_view" = "1" ]; then
+        local -a dbfile
+        dbfile=( $most_frequent_db(Nm+1) )
+
         # Compute most frequent history words
-        if [ "${#NHISTORY_WORDS}" -eq 0 ]; then
-            _nlist_alternate_screen 1
-            zcurses init
-            zcurses delwin info 2>/dev/null
-            zcurses addwin info "$term_height" "$term_width" 0 0
-            zcurses bg info white/black
-            zcurses string info "Computing most frequent history words..."
-            zcurses refresh info
+        if [[ "${#NHISTORY_WORDS}" -eq "0" || "${#dbfile}" -ne "0" ]]; then
+            # Read the list if it's there
+            local -a list
+            list=()
+            [ -s "$most_frequent_db" ] && list=( ${(f)"$(<$most_frequent_db)"} )
 
-            local title=$'\x1b[00;31m'"Most frequent history words:"$'\x1b[00;00m\0'
+            # Will wait for the data?
+            local message=0
+            if [[ "${#list}" -eq 0 ]]; then
+                message=1
+                _nlist_alternate_screen 1
+                zcurses init
+                zcurses delwin info 2>/dev/null
+                zcurses addwin info "$term_height" "$term_width" 0 0
+                zcurses bg info white/black
+                zcurses string info "Computing most frequent history words..."$'\n'
+                zcurses string info "(This is done once per day, from now on transparently)"$'\n'
+                zcurses refresh info
+                sleep 3
+            fi
 
-            #list=( "$title" `print -rl "${(O)historywords[@]}" | sort | uniq -c | sort -k1,1nr -k2,2` )
-            typeset -A uniq
-            for k in "${historywords[@]}"; do
-                uniq[$k]=$(( ${uniq[$k]:-0} + 1 ))
+            # Start periodic list regeneration?
+            if [[ "${#list}" -eq 0 || "${#dbfile}" -ne "0" ]]; then
+                # Mark the file with current time, to prevent double
+                # regeneration (on quick double change of view)
+                print >> "$most_frequent_db"
+                (_nhistory_generate_most_frequent &) &> /dev/null
+            fi
+
+            # Ensure we got the list, wait for it if needed
+            while [[ "${#list}" -eq 0 ]]; do
+                zcurses string info "."
+                zcurses refresh info
+                LANG=C sleep 0.5
+                [ -s "$most_frequent_db" ] && list=( ${(f)"$(<$most_frequent_db)"} )
             done
-            vk=()
-            for k v in ${(kv)uniq}; do
-                vk+="$v"$'\t'"$k"
-            done
-            list=( "$title" "${(On)vk[@]}" )
+
             NHISTORY_WORDS=( "${list[@]}" )
 
-            zcurses delwin info 2>/dev/null
-            zcurses refresh
-            zcurses end
-            _nlist_alternate_screen 0
+            if [ "$message" -eq "1" ]; then
+                zcurses delwin info 2>/dev/null
+                zcurses refresh
+                zcurses end
+                _nlist_alternate_screen 0
+            fi
         else
             # Reuse most frequent history words
+            local -a list
             list=( "${NHISTORY_WORDS[@]}" )
         fi
 
