@@ -386,7 +386,7 @@ while (( 1 )); do
 
     zcurses border main
 
-    local top_msg="${(C)ZSH_NAME} $ZSH_VERSION, shell level $SHLVL, $USER"
+    local top_msg=" F1-change view, ${(C)ZSH_NAME} $ZSH_VERSION, shell level $SHLVL "
     zcurses move main 0 $(( term_width / 2 - $#top_msg / 2 ))
     zcurses string main $top_msg
 
