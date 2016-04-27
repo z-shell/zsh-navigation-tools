@@ -216,6 +216,8 @@ if [ "$NLIST_IS_SEARCH_MODE" -ne 1 ]; then
     _nlist_cursor_visibility 0
 fi
 
+zcurses refresh
+
 #
 # Listening for input
 #
