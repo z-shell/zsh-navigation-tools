@@ -207,8 +207,11 @@ zcurses delwin main 2>/dev/null
 zcurses delwin inner 2>/dev/null
 zcurses addwin main "$term_height" "$term_width" 0 0
 zcurses addwin inner "$inner_height" "$inner_width" 1 2
-zcurses bg main white/black
-zcurses bg inner white/black
+# From n-list.conf
+[[ "$colorpair" = "" ]] && colorpair="white/black"
+local background="${colorpair#*/}"
+zcurses bg main "$colorpair"
+zcurses bg inner "$colorpair"
 if [ "$NLIST_IS_SEARCH_MODE" -ne 1 ]; then
     _nlist_cursor_visibility 0
 fi

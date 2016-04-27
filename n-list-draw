@@ -79,9 +79,9 @@ _nlist_print_with_ansi() {
 
         if (( no_match == 0 )); then
             if (( col >= 30 && col <= 37 )); then
-                zcurses attr "$win" $c[col-29]/black
+                zcurses attr "$win" $c[col-29]/"$background"
             elif [[ "$col" -eq 0 ]]; then
-                zcurses attr "$win" white/black
+                zcurses attr "$win" "$colorpair"
             fi
         fi
     done
@@ -107,7 +107,7 @@ integer end_idx=max_idx
 [ "$end_idx" -gt "$#" ] && end_idx="$#"
 integer y=y_offset
 
-zcurses attr "$win" $bold white/black
+zcurses attr "$win" "$bold" "$colorpair"
 
 integer i text_len
 local text
