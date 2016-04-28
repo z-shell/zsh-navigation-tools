@@ -135,6 +135,8 @@ All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and r
 - `Esc` - exit incremental search, clearing filter
 - `Ctrl-w` (in incremental search) - delete whole word
 - `Ctrl-k` (in incremental search) - delete whole line
+- `F1` - switch view to: most frequent history words
+- `F2`, `Ctrl-x`, `Ctrl-/` - iterate predefined search keywords (defined in config files)
 
 ## Programming
 
