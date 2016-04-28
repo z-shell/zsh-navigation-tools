@@ -127,7 +127,7 @@ while (( 1 )); do
     #
     if [ "$active_view" = "0" ]; then
         list=( "$history[@]" )
-        list=( "${(@M)list:#(#i)*$1*}" )
+        list=( "${(@M)list:#(#i)*$NLIST_GREP_STRING*}" )
 
         if [ "$#list" -eq 0 ]; then
             echo "No matching history entries"
