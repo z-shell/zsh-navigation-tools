@@ -201,8 +201,8 @@ while (( 1 )); do
         fi
 
         local NLIST_REPLACE_NEWLINES="1"
-        #typeset -a NLIST_NONSELECTABLE_ELEMENTS
-        #NLIST_NONSELECTABLE_ELEMENTS=( 1 )
+        typeset -a NLIST_NONSELECTABLE_ELEMENTS
+        NLIST_NONSELECTABLE_ELEMENTS=( 1 )
 
         n-list "${list[@]}"
 
