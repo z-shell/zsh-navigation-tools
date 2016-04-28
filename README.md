@@ -7,7 +7,9 @@ and [![ZEW](http://imageshack.com/a/img908/3869/Vsd2c6.png) Zsh Editing Workbenc
 
 
 
-Video: [https://youtu.be/QwZ8IJEgXRE](https://youtu.be/QwZ8IJEgXRE)
+Videos:
+- [https://youtu.be/QwZ8IJEgXRE](https://youtu.be/QwZ8IJEgXRE)
+- [https://youtu.be/DN9QqssAYB8](https://youtu.be/DN9QqssAYB8)
 
 Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
 
