@@ -11,7 +11,7 @@ Videos:
 - [https://youtu.be/QwZ8IJEgXRE](https://youtu.be/QwZ8IJEgXRE)
 - [https://youtu.be/DN9QqssAYB8](https://youtu.be/DN9QqssAYB8)
 
-Screenshots (more at the [wiki](https://github.com/psprint/zsh-navigation-tools/wiki)):
+Screenshots:
 
 ![n-history](http://imageshack.com/a/img922/3765/msDV7J.png)
 
@@ -29,6 +29,14 @@ This is an alternative approach to idea of visual shell, when compared to
 Midnight Commander. Here the command line is the main way the shell is used.
 From that mode of operation, user call tools that do not require mouse or
 typing, only navigating.
+
+## News
+
+* 28-04-2016
+  - New features:
+    1. New view (activated with F1): Most Frequent History Words
+    2. Predefined iterable search keywords – use F2 to quickly search for chosen keywords
+    3. Configuration option for doing instant selection in search mode
 
 ## Installation
 
