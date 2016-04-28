@@ -14,6 +14,18 @@ _nlist_compute_first_to_show_idx() {
     from_what_idx_list_is_shown=0+((current_idx-1)/page_height)*page_height+1
 }
 
+_nlist_update_from_keywords() {
+    keywordisfresh="1"
+    if [ "$nkeywords" -gt 0 ]; then
+        curkeyword=$(( (curkeyword+1) % (nkeywords+1) ))
+        if [ "$curkeyword" -eq "0" ]; then
+            buffer=""
+        else
+            buffer="${keywords[curkeyword]}"
+        fi
+    fi
+}
+
 typeset -ga reply
 reply=( -1 '' )
 integer current_idx="$1"
@@ -85,8 +97,8 @@ case "$key" in
     (F1)
         reply=( -1 "$key" )
         ;;
-    (F2|F3|F4|F5|F6|F7|F8|F9|F10)
-        # ignore
+    (F3|F4|F5|F6|F7|F8|F9|F10)
+        # ignore; F2 is used at bottom
         ;;
     (q)
         reply=( -1 QUIT )
@@ -135,6 +147,11 @@ case "$key" in
         ;;
     (o|$'\C-O')
         uniq_mode=1-uniq_mode
+        ;;
+    ($'\x1F'|F2|$'\C-X')
+        search=1
+        _nlist_cursor_visibility 1
+        _nlist_update_from_keywords
         ;;
     (*)
         ;;
@@ -204,8 +221,8 @@ case "$key" in
     (F1)
         reply=( -1 "$key" )
         ;;
-    (F2|F3|F4|F5|F6|F7|F8|F9|F10)
-        # ignore
+    (F3|F4|F5|F6|F7|F8|F9|F10)
+        # ignore; F2 is used at bottom
         ;;
 
     #
@@ -228,6 +245,9 @@ case "$key" in
         ;;
     ($'\C-O')
         uniq_mode=1-uniq_mode
+        ;;
+    ($'\x1F'|F2|$'\C-X')
+        _nlist_update_from_keywords
         ;;
     (*)
         if [[ $#key == 1 && $((#key)) -lt 31 ]]; then
