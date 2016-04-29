@@ -19,6 +19,9 @@ local IFS="
 
 [ -f ~/.config/znt/n-list.conf ] && . ~/.config/znt/n-list.conf
 
+[[ "$colorpair" = "" ]] && colorpair="white/black"
+local background="${colorpair#*/}"
+
 # Drawing and input
 autoload n-list-draw n-list-input
 
