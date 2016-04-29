@@ -37,24 +37,38 @@ local two_NLIST_GREP_STRING
 local two_NLIST_NONSELECTABLE_ELEMENTS
 local two_NLIST_REMEMBER_STATE
 
+local three_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
+local three_NLIST_CURRENT_IDX
+local three_NLIST_IS_SEARCH_MODE
+local three_NLIST_SEARCH_BUFFER
+local three_NLIST_TEXT_OFFSET
+local three_NLIST_IS_UNIQ_MODE
+local three_NLIST_GREP_STRING
+local three_NLIST_NONSELECTABLE_ELEMENTS
+local three_NLIST_REMEMBER_STATE
+
 # history view
 integer active_view=0
 
+# Lists are "0", "1", "2" - 1st, 2nd, 3rd
+# "zero" is like "0", but switched from 2nd view, not 3rd like "0"
+# Except for "zero" switching is done in cyclic manner
+# i.e. 0 -> 1, 1 -> 2, 2 -> 0
 _nhistory_switch_lists_states() {
     # First argument is current, newly selected list, i.e. $active_view
-    # This implies that we are switching from 1-$active_view
+    # This implies that we are switching from previous view
    
     if [ "$1" = "0" ]; then
-        # Switched to 1st list, save 2nd list's state
-        two_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
-        two_NLIST_CURRENT_IDX=$NLIST_CURRENT_IDX
-        two_NLIST_IS_SEARCH_MODE=$NLIST_IS_SEARCH_MODE
-        two_NLIST_SEARCH_BUFFER=$NLIST_SEARCH_BUFFER
-        two_NLIST_TEXT_OFFSET=$NLIST_TEXT_OFFSET
-        two_NLIST_IS_UNIQ_MODE=$NLIST_IS_UNIQ_MODE
-        two_NLIST_GREP_STRING=$NLIST_GREP_STRING
-        two_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
-        two_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
+        # Switched to 1st list, save 3rd list's state
+        three_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
+        three_NLIST_CURRENT_IDX=$NLIST_CURRENT_IDX
+        three_NLIST_IS_SEARCH_MODE=$NLIST_IS_SEARCH_MODE
+        three_NLIST_SEARCH_BUFFER=$NLIST_SEARCH_BUFFER
+        three_NLIST_TEXT_OFFSET=$NLIST_TEXT_OFFSET
+        three_NLIST_IS_UNIQ_MODE=$NLIST_IS_UNIQ_MODE
+        three_NLIST_GREP_STRING=$NLIST_GREP_STRING
+        three_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
+        three_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
 
         # ..and restore 1st list's state
         NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$one_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -66,8 +80,8 @@ _nhistory_switch_lists_states() {
         NLIST_GREP_STRING=$one_NLIST_GREP_STRING
         NLIST_NONSELECTABLE_ELEMENTS=( ${one_NLIST_NONSELECTABLE_ELEMENTS[@]} )
         NLIST_REMEMBER_STATE=$one_NLIST_REMEMBER_STATE
-    else
-        # Switched to 2st list, save 1st list's state
+    elif [ "$1" = "1" ]; then
+        # Switched to 2nd list, save 1st list's state
         one_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
         one_NLIST_CURRENT_IDX=$NLIST_CURRENT_IDX
         one_NLIST_IS_SEARCH_MODE=$NLIST_IS_SEARCH_MODE
@@ -88,6 +102,50 @@ _nhistory_switch_lists_states() {
         NLIST_GREP_STRING=$two_NLIST_GREP_STRING
         NLIST_NONSELECTABLE_ELEMENTS=( ${two_NLIST_NONSELECTABLE_ELEMENTS[@]} )
         NLIST_REMEMBER_STATE=$two_NLIST_REMEMBER_STATE
+    elif [ "$1" = "2" ]; then
+        # Switched to 3rd list, save 2nd list's state
+        two_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
+        two_NLIST_CURRENT_IDX=$NLIST_CURRENT_IDX
+        two_NLIST_IS_SEARCH_MODE=$NLIST_IS_SEARCH_MODE
+        two_NLIST_SEARCH_BUFFER=$NLIST_SEARCH_BUFFER
+        two_NLIST_TEXT_OFFSET=$NLIST_TEXT_OFFSET
+        two_NLIST_IS_UNIQ_MODE=$NLIST_IS_UNIQ_MODE
+        two_NLIST_GREP_STRING=$NLIST_GREP_STRING
+        two_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
+        two_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
+
+        # ..and restore 3rd list's state
+        NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$three_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
+        NLIST_CURRENT_IDX=$three_NLIST_CURRENT_IDX
+        NLIST_IS_SEARCH_MODE=$three_NLIST_IS_SEARCH_MODE
+        NLIST_SEARCH_BUFFER=$three_NLIST_SEARCH_BUFFER
+        NLIST_TEXT_OFFSET=$three_NLIST_TEXT_OFFSET
+        NLIST_IS_UNIQ_MODE=$three_NLIST_IS_UNIQ_MODE
+        NLIST_GREP_STRING=$three_NLIST_GREP_STRING
+        NLIST_NONSELECTABLE_ELEMENTS=( ${three_NLIST_NONSELECTABLE_ELEMENTS[@]} )
+        NLIST_REMEMBER_STATE=$three_NLIST_REMEMBER_STATE
+    elif [ "$1" = "zero" ]; then
+        # Save 2nd list's state
+        two_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
+        two_NLIST_CURRENT_IDX=$NLIST_CURRENT_IDX
+        two_NLIST_IS_SEARCH_MODE=$NLIST_IS_SEARCH_MODE
+        two_NLIST_SEARCH_BUFFER=$NLIST_SEARCH_BUFFER
+        two_NLIST_TEXT_OFFSET=$NLIST_TEXT_OFFSET
+        two_NLIST_IS_UNIQ_MODE=$NLIST_IS_UNIQ_MODE
+        two_NLIST_GREP_STRING=$NLIST_GREP_STRING
+        two_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
+        two_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
+
+        # ..and restore 1st list's state
+        NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$one_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
+        NLIST_CURRENT_IDX=$one_NLIST_CURRENT_IDX
+        NLIST_IS_SEARCH_MODE=$one_NLIST_IS_SEARCH_MODE
+        NLIST_SEARCH_BUFFER=$one_NLIST_SEARCH_BUFFER
+        NLIST_TEXT_OFFSET=$one_NLIST_TEXT_OFFSET
+        NLIST_IS_UNIQ_MODE=$one_NLIST_IS_UNIQ_MODE
+        NLIST_GREP_STRING=$one_NLIST_GREP_STRING
+        NLIST_NONSELECTABLE_ELEMENTS=( ${one_NLIST_NONSELECTABLE_ELEMENTS[@]} )
+        NLIST_REMEMBER_STATE=$one_NLIST_REMEMBER_STATE
     fi
 }
 
@@ -114,11 +172,13 @@ unset NLIST_COLORING_PATTERN
 
 local list
 local selected
+local private_history_db="$HOME/.config/znt/privhist.db"
 
 local NLIST_GREP_STRING="$1"
 # 2 is: init once, then remember
 local NLIST_REMEMBER_STATE=2
 two_NLIST_REMEMBER_STATE=2
+three_NLIST_REMEMBER_STATE=2
 
 while (( 1 )); do
 
@@ -144,12 +204,14 @@ while (( 1 )); do
 
         # View change?
         if [ "$REPLY" = "F1" ]; then
-            active_view=1-active_view
             # Target view: 1
+            active_view=1
             _nhistory_switch_lists_states "1"
         fi
 
+    #
     # View 2 - most frequent words in history
+    #
     elif [ "$active_view" = "1" ]; then
         local -a dbfile
         dbfile=( $most_frequent_db(Nm+1) )
@@ -213,9 +275,9 @@ while (( 1 )); do
         n-list "${list[@]}"
 
         if [ "$REPLY" = "F1" ]; then
-            active_view=1-active_view
-            # Target view: 0
-            _nhistory_switch_lists_states "0"
+            # Target view: 2
+            active_view=2
+            _nhistory_switch_lists_states "2"
         elif [[ "$REPLY" = -(#c0,1)[0-9]## && "$REPLY" -lt 0 ]]; then
             break
         elif [[ "$REPLY" = -(#c0,1)[0-9]## && "$REPLY" -gt 0 ]]; then
@@ -223,8 +285,37 @@ while (( 1 )); do
             one_NLIST_SEARCH_BUFFER="$one_NLIST_SEARCH_BUFFER $word"
             one_NLIST_SEARCH_BUFFER="${one_NLIST_SEARCH_BUFFER## ##}"
 
-            active_view=1-active_view
             # Target view: 0
+            active_view=0
+            _nhistory_switch_lists_states "zero"
+        fi
+
+    #
+    # View 3 - private history
+    #
+    elif [ "$active_view" = "2" ]; then
+        if [ -s "$private_history_db" ]; then
+            local title=$'\x1b[00;32m'"Private history:"$'\x1b[00;00m\0'
+            list=( "$title" ${(fOa)"$(<$private_history_db)"} )
+        else
+            typeset -a NLIST_NONSELECTABLE_ELEMENTS
+            NLIST_NONSELECTABLE_ELEMENTS=( 1 )
+            list=( "Private history - history entries selected via this tool will be put here" )
+        fi
+
+        local NLIST_REPLACE_NEWLINES="1"
+        n-list "${list[@]}"
+        unset NLIST_NONSELECTABLE_ELEMENTS
+
+        # Selection or quit?
+        if [[ "$REPLY" = -(#c0,1)[0-9]## && ("$REPLY" -lt 0 || "$REPLY" -gt 0) ]]; then
+            break
+        fi
+
+        # View change?
+        if [ "$REPLY" = "F1" ]; then
+            # Target view: 0
+            active_view=0
             _nhistory_switch_lists_states "0"
         fi
     fi
@@ -237,6 +328,9 @@ if [ "$REPLY" -gt 0 ]; then
         zle redisplay
         zle kill-buffer
         zle -U "$selected"
+
+        # Append to private history
+        [ "$active_view" = "0" ] && echo "$selected" >> "$private_history_db"
     else
         print -zr "$selected"
     fi
