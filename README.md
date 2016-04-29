@@ -32,10 +32,15 @@ typing, only navigating.
 
 ## News
 
+* 29-04-2016
+  - New feature: private history – n-history tracks selected history entries,
+    exposes them via new view (activated with F1)
+
 * 28-04-2016
   - New features:
-    1. New view (activated with F1): Most Frequent History Words
-    2. Predefined iterable search keywords – use F2 to quickly search for chosen keywords
+    1. New n-history view (activated with F1): Most Frequent History Words
+    2. Predefined search keywords – use F2 to quickly search for chosen
+       keywords (video: [https://youtu.be/DN9QqssAYB8](https://youtu.be/DN9QqssAYB8))
     3. Configuration option for doing instant selection in search mode
 
 ## Installation
