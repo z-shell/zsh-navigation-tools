@@ -26,6 +26,27 @@ _nlist_update_from_keywords() {
     fi
 }
 
+_nlist_iterate_theme() {
+    themeisfresh="1"
+    if [ "$1" = "1" ]; then
+        curtheme=$(( (curtheme+1) % (nthemes+1) ))
+    else
+        curtheme=curtheme-1
+        [ "$curtheme" -lt 0 ] && curtheme=nthemes
+    fi
+
+    if [ "$nthemes" -gt 0 ]; then
+        local theme=${themes[curtheme]}
+        [ "$curtheme" -eq "0" ] && theme="$backuptheme"
+
+        colorpair="${theme%/*}"
+        bold="${theme##*/}"
+        background="${colorpair#*/}"
+        zcurses bg main "$colorpair"
+        zcurses bg inner "$colorpair"
+    fi
+}
+
 typeset -ga reply
 reply=( -1 '' )
 integer current_idx="$1"
@@ -153,6 +174,12 @@ case "$key" in
         _nlist_cursor_visibility 1
         _nlist_update_from_keywords
         ;;
+    ($'\C-T')
+        _nlist_iterate_theme 1
+        ;;
+    ($'\C-G')
+        _nlist_iterate_theme 0
+        ;;
     (*)
         ;;
 esac
@@ -248,6 +275,12 @@ case "$key" in
         ;;
     ($'\x1F'|F2|$'\C-X')
         _nlist_update_from_keywords
+        ;;
+    ($'\C-T')
+        _nlist_iterate_theme 1
+        ;;
+    ($'\C-G')
+        _nlist_iterate_theme 0
         ;;
     (*)
         if [[ $#key == 1 && $((#key)) -lt 31 ]]; then
