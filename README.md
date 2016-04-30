@@ -31,14 +31,21 @@ From that mode of operation, user call tools that do not require mouse or
 typing, only navigating.
 
 ## News
+* 30-04-2016
+  - New feature: color themes. Use `Ctrl-T` and `Ctrl-G` to browse predefined
+    themes. They are listed in [~/.config/znt/n-list.conf](https://github.com/psprint/zsh-navigation-tools/blob/master/.config/znt/n-list.conf).
+    Use the file to permanently set a color scheme. Also, I sent a patch to Zsh developers
+    and starting from Zsh > 5.2 (not yet released) supported will be 256 colors.
+    The file [~/.config/znt/n-list.conf](https://github.com/psprint/zsh-navigation-tools/blob/master/.config/znt/n-list.conf)
+    already has set of 256-color themes prepared :)
 
 * 29-04-2016
   - New feature: private history – n-history tracks selected history entries,
-    exposes them via new view (activated with F1)
+    exposes them via new view (activated with `F1`)
 
 * 28-04-2016
   - New features:
-    1. New n-history view (activated with F1): Most Frequent History Words
+    1. New n-history view (activated with `F1`): Most Frequent History Words
     2. Predefined search keywords – use F2 to quickly search for chosen
        keywords (video: [https://youtu.be/DN9QqssAYB8](https://youtu.be/DN9QqssAYB8))
     3. Configuration option for doing instant selection in search mode
