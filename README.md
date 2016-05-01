@@ -43,7 +43,8 @@ typing, only navigating.
 
 * 29-04-2016
   - New feature: private history – n-history tracks selected history entries,
-    exposes them via new view (activated with `F1`)
+    exposes them via new view (activated with `F1`). It is shared across all
+    sessions
 
 * 28-04-2016
   - New features:
