@@ -93,10 +93,13 @@ fpath+=( {some-directory} )
 source "{some-directory}/zsh-navigation-tools.plugin.zsh"
 ```
 
-As you can see, no plugin manager is needed to use the `*.plugin.zsh` file.
+As you can see, no plugin manager is needed to use the `*.plugin.zsh`
+file. The above two lines of code are all that almost all plugin
+managers do.
 
 ## Truly Manual Installation
-Copy (or link) all `n-*` files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
+Copy (or link) all `n-*` and `znt-*` files to **/usr/share/zsh/site-functions/**
+(or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
     autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history
 
@@ -234,7 +237,7 @@ it is using this).
 Zsh plugins may look scary, as they seem to have some "architecture". In fact, what a plugin really is, is that:
 
 1. It has its directory added to `fpath`
-2. It has any first `*.plugin.zsh` sourced
+2. It has any first `*.plugin.zsh` file sourced
 
 That's it. When one contributes to Oh-My-Zsh or creates a plugin for any plugin manager, he only needs to account for this.
 The same with doing any non-typical Zsh Navigation Tools installation.
