@@ -242,3 +242,6 @@ Zsh plugins may look scary, as they seem to have some "architecture". In fact, w
 That's it. When one contributes to Oh-My-Zsh or creates a plugin for any plugin manager, he only needs to account for this.
 The same with doing any non-typical Zsh Navigation Tools installation.
 
+## More
+
+- be aware of [this](https://github.com/psprint/zsh-navigation-tools/blob/master/zsh-navigation-tools.plugin.zsh#L26-L40)
