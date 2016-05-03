@@ -85,6 +85,17 @@ It can be sourced from `.zshrc`. Don't forget about configuration files as descr
 above.
 
 ## Manual Installation
+
+After extracting `ZNT` to `{some-directory}` add following two lines to `~/.zshrc`:
+
+```zsh
+fpath+=( {some-directory} )
+source "{some-directory}/zsh-navigation-tools.plugin.zsh"
+```
+
+As you can see, no plugin manager is needed to use the `*.plugin.zsh` file.
+
+## Truly Manual Installation
 Copy (or link) all `n-*` files to **/usr/share/zsh/site-functions/** (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
     autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history
