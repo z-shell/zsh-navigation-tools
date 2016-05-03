@@ -217,3 +217,14 @@ it is using this).
 ## Performance
 
 `ZNT` are fastest with `Zsh` before `5.0.6` and starting from `5.2`
+
+## A tip
+
+Zsh plugins may look scary, as they seem to have some "architecture". In fact, what a plugin really is, is that:
+
+1. It has its directory added to `fpath`
+2. It has any first `*.plugin.zsh` sourced
+
+That's it. When one contributes to Oh-My-Zsh or creates a plugin for any plugin manager, he only needs to account for this.
+The same with doing any non-typical Zsh Navigation Tools installation.
+
