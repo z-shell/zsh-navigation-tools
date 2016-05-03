@@ -1,5 +1,13 @@
 #!/usr/bin/env zsh
 
+#
+# No plugin manager is needed to use this file. All that is needed is adding:
+#   fpath+=( {where-znt-is} )
+#
+# to ~/.zshrc. Then this file can be sourced:
+#   source {where-znt-is}/zsh-navigation-tools.plugin.zsh
+#
+
 REPO_DIR="${0%/*}"
 CONFIG_DIR="$HOME/.config/znt"
 
