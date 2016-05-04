@@ -5,6 +5,8 @@ PREFIX?=/usr/local
 SHARE_DIR?=$(DESTDIR)$(PREFIX)/share/$(NAME)
 DOC_DIR?=$(DESTDIR)$(PREFIX)/share/doc/$(NAME)
 
+all:
+
 install:
 	$(INSTALL) -d $(SHARE_DIR)
 	$(INSTALL) -d $(SHARE_DIR)/.config
@@ -30,4 +32,4 @@ uninstall:
 	rm -f $(DOC_DIR)/README.md $(DOC_DIR)/LICENSE $(DOC_DIR)/n-history2.png 
 	[ -d $(DOC_DIR) ] && rmdir $(DOC_DIR) || true
 
-.PHONY: install uninstall
+.PHONY: all install uninstall
