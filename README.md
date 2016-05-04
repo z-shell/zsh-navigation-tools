@@ -13,7 +13,7 @@ Videos:
 
 Screenshots:
 
-![n-history](http://imageshack.com/a/img922/3765/msDV7J.png)
+![n-history](http://imageshack.com/a/img921/5046/bqr0mk.png)
 
 ![n-history](http://imageshack.com/a/img633/9905/WzfSdl.gif)
 
