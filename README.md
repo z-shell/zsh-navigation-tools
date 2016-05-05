@@ -39,7 +39,7 @@ typing, only navigating.
     The file [~/.config/znt/n-list.conf](https://github.com/psprint/zsh-navigation-tools/blob/master/.config/znt/n-list.conf)
     already has set of 256-color themes prepared :)
 
-    ![themes](http://imageshack.com/a/img924/8896/0kmijJ.gif)
+    ![themes](http://imageshack.com/a/img924/4310/EbRh30.gif)
 
 * 29-04-2016
   - New feature: private history – n-history tracks selected history entries,
