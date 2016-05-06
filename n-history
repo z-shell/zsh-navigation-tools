@@ -195,7 +195,7 @@ three_NLIST_REMEMBER_STATE=2
 local -a NLIST_ENABLED_EVENTS
 NLIST_ENABLED_EVENTS=( "F1" )
 two_NLIST_ENABLED_EVENTS=( "F1" )
-three_NLIST_ENABLED_EVENTS=( "F1" )
+three_NLIST_ENABLED_EVENTS=( "F1" "EDIT" )
 
 # All view should attempt to replace new lines with \n
 local NLIST_REPLACE_NEWLINES="1"
@@ -336,6 +336,9 @@ while (( 1 )); do
             # Target view: 0
             active_view=0
             _nhistory_switch_lists_states "0"
+        # Edit of the history?
+        elif [ "$REPLY" = "EDIT" ]; then
+            "$EDITOR" "$private_history_db"
         fi
     fi
 done

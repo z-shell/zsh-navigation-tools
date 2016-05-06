@@ -183,6 +183,12 @@ case "$key" in
     ($'\C-G')
         _nlist_iterate_theme 0
         ;;
+    ($'\C-E'|e)
+        # This event needs to be enabled
+        if [[ "${NLIST_ENABLED_EVENTS[(r)EDIT]}" = "EDIT" ]]; then
+            reply=( -1 EDIT )
+        fi
+        ;;
     (*)
         ;;
 esac
@@ -287,6 +293,12 @@ case "$key" in
         ;;
     ($'\C-G')
         _nlist_iterate_theme 0
+        ;;
+    ($'\C-E')
+        # This event needs to be enabled
+        if [[ "${NLIST_ENABLED_EVENTS[(r)EDIT]}" = "EDIT" ]]; then
+            reply=( -1 EDIT )
+        fi
         ;;
     (*)
         if [[ $#key == 1 && $((#key)) -lt 31 ]]; then

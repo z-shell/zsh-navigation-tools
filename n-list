@@ -29,7 +29,7 @@ _nlist_exit() {
     setopt localoptions
     setopt extendedglob
 
-    [[ "$REPLY" = -(#c0,1)[0-9]## || "$REPLY" = F<-> ]] || REPLY="-1"
+    [[ "$REPLY" = -(#c0,1)[0-9]## || "$REPLY" = F<-> || "$REPLY" = "EDIT" ]] || REPLY="-1"
     zcurses 2>/dev/null delwin inner
     zcurses 2>/dev/null delwin main
     zcurses 2>/dev/null refresh
@@ -468,6 +468,10 @@ while (( 1 )); do
         zcurses clear inner redraw
     elif [[ "$action" = F<-> ]]; then
         REPLY="$action"
+        reply=( "$list[@]" )
+        break
+    elif [[ "$action" = "EDIT" ]]; then
+        REPLY="EDIT"
         reply=( "$list[@]" )
         break
     fi
