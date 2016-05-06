@@ -354,7 +354,7 @@ if [ "$REPLY" -gt 0 ]; then
         # Append to private history
         local newline=$'\n'
         selected="${selected//$newline/\\$newline}"
-        [ "$active_view" = "0" ] && echo "$selected" >> "$private_history_db"
+        [ "$active_view" = "0" ] && print -r "$selected" >> "$private_history_db"
     else
         print -zr "$selected"
     fi
