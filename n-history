@@ -197,6 +197,17 @@ NLIST_ENABLED_EVENTS=( "F1" )
 two_NLIST_ENABLED_EVENTS=( "F1" )
 three_NLIST_ENABLED_EVENTS=( "F1" )
 
+# All view should attempt to replace new lines with \n
+local NLIST_REPLACE_NEWLINES="1"
+two_NLIST_REPLACE_NEWLINES="1"
+three_NLIST_REPLACE_NEWLINES="1"
+
+# Only second and third view has non-selectable first entry
+local -a NLIST_NONSELECTABLE_ELEMENTS
+NLIST_NONSELECTABLE_ELEMENTS=( )
+two_NLIST_NONSELECTABLE_ELEMENTS=( 1 )
+three_NLIST_NONSELECTABLE_ELEMENTS=( 1 )
+
 while (( 1 )); do
 
     #
@@ -211,7 +222,6 @@ while (( 1 )); do
             return 1
         fi
 
-        local NLIST_REPLACE_NEWLINES="1"
         n-list "${list[@]}"
 
         # Selection or quit?
@@ -285,10 +295,6 @@ while (( 1 )); do
             list=( "${NHISTORY_WORDS[@]}" )
         fi
 
-        local NLIST_REPLACE_NEWLINES="1"
-        typeset -a NLIST_NONSELECTABLE_ELEMENTS
-        NLIST_NONSELECTABLE_ELEMENTS=( 1 )
-
         n-list "${list[@]}"
 
         if [ "$REPLY" = "F1" ]; then
@@ -315,14 +321,10 @@ while (( 1 )); do
             local title=$'\x1b[00;32m'"Private history:"$'\x1b[00;00m\0'
             list=( "$title" ${(fOa)"$(<$private_history_db)"} )
         else
-            typeset -a NLIST_NONSELECTABLE_ELEMENTS
-            NLIST_NONSELECTABLE_ELEMENTS=( 1 )
             list=( "Private history - history entries selected via this tool will be put here" )
         fi
 
-        local NLIST_REPLACE_NEWLINES="1"
         n-list "${list[@]}"
-        unset NLIST_NONSELECTABLE_ELEMENTS
 
         # Selection or quit?
         if [[ "$REPLY" = -(#c0,1)[0-9]## && ("$REPLY" -lt 0 || "$REPLY" -gt 0) ]]; then
