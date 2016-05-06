@@ -31,6 +31,11 @@ From that mode of operation, user call tools that do not require mouse or
 typing, only navigating.
 
 ## News
+* 06-05-2016
+  - Private history can be edited. Use `e` key or `Ctrl-E` for that when in
+    n-history. Your `$EDITOR` will start. This is a way to have handy set of
+    bookmarks prepared in private history's file.
+
 * 30-04-2016
   - New feature: color themes. Use `Ctrl-T` and `Ctrl-G` to browse predefined
     themes. They are listed in [~/.config/znt/n-list.conf](https://github.com/psprint/zsh-navigation-tools/blob/master/.config/znt/n-list.conf).
