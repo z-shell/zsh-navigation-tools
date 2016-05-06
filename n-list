@@ -228,7 +228,7 @@ zcurses delwin inner 2>/dev/null
 zcurses addwin main "$term_height" "$term_width" 0 0
 zcurses addwin inner "$inner_height" "$inner_width" 1 2
 # From n-list.conf
-[[ "$colorpair" = "" ]] && colorpair="white/black"
+[ "$colorpair" = "" ] && colorpair="white/black"
 local background="${colorpair#*/}"
 local backuptheme="$colorpair/$bold"
 zcurses bg main "$colorpair"
