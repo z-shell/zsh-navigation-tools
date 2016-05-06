@@ -229,6 +229,7 @@ zcurses addwin main "$term_height" "$term_width" 0 0
 zcurses addwin inner "$inner_height" "$inner_width" 1 2
 # From n-list.conf
 [ "$colorpair" = "" ] && colorpair="white/black"
+[ "$border" = "0" ] || border="1"
 local background="${colorpair#*/}"
 local backuptheme="$colorpair/$bold"
 zcurses bg main "$colorpair"
@@ -419,7 +420,7 @@ while (( 1 )); do
         _nlist_status_msg "${keywordmsg}${thememsg}"
     fi
 
-    zcurses border main
+    [ "$border" = "1" ] && zcurses border main
 
     local top_msg=" F1-change view, ${(C)ZSH_NAME} $ZSH_VERSION, shell level $SHLVL "
     zcurses move main 0 $(( term_width / 2 - $#top_msg / 2 ))
