@@ -26,6 +26,7 @@ local one_NLIST_IS_UNIQ_MODE
 local one_NLIST_GREP_STRING
 local one_NLIST_NONSELECTABLE_ELEMENTS
 local one_NLIST_REMEMBER_STATE
+local one_NLIST_ENABLED_EVENTS
 
 local two_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
 local two_NLIST_CURRENT_IDX
@@ -36,6 +37,7 @@ local two_NLIST_IS_UNIQ_MODE
 local two_NLIST_GREP_STRING
 local two_NLIST_NONSELECTABLE_ELEMENTS
 local two_NLIST_REMEMBER_STATE
+local two_NLIST_ENABLED_EVENTS
 
 local three_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
 local three_NLIST_CURRENT_IDX
@@ -46,6 +48,7 @@ local three_NLIST_IS_UNIQ_MODE
 local three_NLIST_GREP_STRING
 local three_NLIST_NONSELECTABLE_ELEMENTS
 local three_NLIST_REMEMBER_STATE
+local three_NLIST_ENABLED_EVENTS
 
 # history view
 integer active_view=0
@@ -69,6 +72,7 @@ _nhistory_switch_lists_states() {
         three_NLIST_GREP_STRING=$NLIST_GREP_STRING
         three_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
         three_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
+        three_NLIST_ENABLED_EVENTS=( ${NLIST_ENABLED_EVENTS[@]} )
 
         # ..and restore 1st list's state
         NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$one_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -80,6 +84,7 @@ _nhistory_switch_lists_states() {
         NLIST_GREP_STRING=$one_NLIST_GREP_STRING
         NLIST_NONSELECTABLE_ELEMENTS=( ${one_NLIST_NONSELECTABLE_ELEMENTS[@]} )
         NLIST_REMEMBER_STATE=$one_NLIST_REMEMBER_STATE
+        NLIST_ENABLED_EVENTS=( ${one_NLIST_ENABLED_EVENTS[@]} )
     elif [ "$1" = "1" ]; then
         # Switched to 2nd list, save 1st list's state
         one_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -91,6 +96,7 @@ _nhistory_switch_lists_states() {
         one_NLIST_GREP_STRING=$NLIST_GREP_STRING
         one_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
         one_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
+        one_NLIST_ENABLED_EVENTS=( ${NLIST_ENABLED_EVENTS[@]} )
 
         # ..and restore 2nd list's state
         NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$two_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -102,6 +108,7 @@ _nhistory_switch_lists_states() {
         NLIST_GREP_STRING=$two_NLIST_GREP_STRING
         NLIST_NONSELECTABLE_ELEMENTS=( ${two_NLIST_NONSELECTABLE_ELEMENTS[@]} )
         NLIST_REMEMBER_STATE=$two_NLIST_REMEMBER_STATE
+        NLIST_ENABLED_EVENTS=( ${two_NLIST_ENABLED_EVENTS[@]} )
     elif [ "$1" = "2" ]; then
         # Switched to 3rd list, save 2nd list's state
         two_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -113,6 +120,7 @@ _nhistory_switch_lists_states() {
         two_NLIST_GREP_STRING=$NLIST_GREP_STRING
         two_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
         two_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
+        two_NLIST_ENABLED_EVENTS=( ${NLIST_ENABLED_EVENTS[@]} )
 
         # ..and restore 3rd list's state
         NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$three_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -124,6 +132,7 @@ _nhistory_switch_lists_states() {
         NLIST_GREP_STRING=$three_NLIST_GREP_STRING
         NLIST_NONSELECTABLE_ELEMENTS=( ${three_NLIST_NONSELECTABLE_ELEMENTS[@]} )
         NLIST_REMEMBER_STATE=$three_NLIST_REMEMBER_STATE
+        NLIST_ENABLED_EVENTS=( ${three_NLIST_ENABLED_EVENTS[@]} )
     elif [ "$1" = "zero" ]; then
         # Save 2nd list's state
         two_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -135,6 +144,7 @@ _nhistory_switch_lists_states() {
         two_NLIST_GREP_STRING=$NLIST_GREP_STRING
         two_NLIST_NONSELECTABLE_ELEMENTS=( ${NLIST_NONSELECTABLE_ELEMENTS[@]} )
         two_NLIST_REMEMBER_STATE=$NLIST_REMEMBER_STATE
+        two_NLIST_ENABLED_EVENTS=( ${NLIST_ENABLED_EVENTS[@]} )
 
         # ..and restore 1st list's state
         NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN=$one_NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN
@@ -146,6 +156,7 @@ _nhistory_switch_lists_states() {
         NLIST_GREP_STRING=$one_NLIST_GREP_STRING
         NLIST_NONSELECTABLE_ELEMENTS=( ${one_NLIST_NONSELECTABLE_ELEMENTS[@]} )
         NLIST_REMEMBER_STATE=$one_NLIST_REMEMBER_STATE
+        NLIST_ENABLED_EVENTS=( ${one_NLIST_ENABLED_EVENTS[@]} )
     fi
 }
 
@@ -179,6 +190,12 @@ local NLIST_GREP_STRING="$1"
 local NLIST_REMEMBER_STATE=2
 two_NLIST_REMEMBER_STATE=2
 three_NLIST_REMEMBER_STATE=2
+
+# Only Private history has EDIT
+local -a NLIST_ENABLED_EVENTS
+NLIST_ENABLED_EVENTS=( "F1" )
+two_NLIST_ENABLED_EVENTS=( "F1" )
+three_NLIST_ENABLED_EVENTS=( "F1" )
 
 while (( 1 )); do
 
