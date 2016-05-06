@@ -319,7 +319,7 @@ while (( 1 )); do
     elif [ "$active_view" = "2" ]; then
         if [ -s "$private_history_db" ]; then
             local title=$'\x1b[00;32m'"Private history:"$'\x1b[00;00m\0'
-            list=( "$title" ${(fOa)"$(<$private_history_db)"} )
+            () { fc -ap -R "$private_history_db"; list=( "$title" ${history[@]} ) }
         else
             list=( "Private history - history entries selected via this tool will be put here" )
         fi
@@ -338,7 +338,7 @@ while (( 1 )); do
             _nhistory_switch_lists_states "0"
         # Edit of the history?
         elif [ "$REPLY" = "EDIT" ]; then
-            "$EDITOR" "$private_history_db"
+            "${EDITOR:-vim}" "$private_history_db"
         fi
     fi
 done
@@ -352,6 +352,8 @@ if [ "$REPLY" -gt 0 ]; then
         zle -U "$selected"
 
         # Append to private history
+        local newline=$'\n'
+        selected="${selected//$newline/\\$newline}"
         [ "$active_view" = "0" ] && echo "$selected" >> "$private_history_db"
     else
         print -zr "$selected"
