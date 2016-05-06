@@ -197,10 +197,15 @@ else
 
 case "$key" in
     ($'\n'|ENTER)
-        search=0
-        _nlist_cursor_visibility 0
         if [ "$NLIST_INSTANT_SELECT" = "1" ]; then
-            reply=( $current_idx SELECT )
+            if [[ "$NLIST_SEARCH_BUFFER" != "" || "$NLIST_IS_UNIQ_MODE" -eq 1 ||
+                ${NLIST_NONSELECTABLE_ELEMENTS[(r)$current_idx]} != $current_idx ]]
+            then
+                reply=( $current_idx SELECT )
+            fi
+        else
+            search=0
+            _nlist_cursor_visibility 0
         fi
         ;;
     ($'\C-L')
