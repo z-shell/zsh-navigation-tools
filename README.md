@@ -35,6 +35,13 @@ typing, only navigating.
   - Private history can be edited. Use `e` key or `Ctrl-E` for that when in
     n-history. Your `$EDITOR` will start. This is a way to have handy set of
     bookmarks prepared in private history's file.
+  - Border can be disabled. Use following snippet in `~/.config/znt/n-list.conf`
+    or any other tool-targetted config file:
+
+    ```zsh
+    # Should draw the border?
+    local border=0
+    ```
 
 * 30-04-2016
   - New feature: color themes. Use `Ctrl-T` and `Ctrl-G` to browse predefined
