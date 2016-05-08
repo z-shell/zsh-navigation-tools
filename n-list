@@ -195,6 +195,7 @@ if [[ -z "$NLIST_REMEMBER_STATE" || "$NLIST_REMEMBER_STATE" -eq 0 || "$NLIST_REM
     NLIST_SEARCH_BUFFER=""
     NLIST_TEXT_OFFSET=0
     NLIST_IS_UNIQ_MODE=0
+    NLIST_IS_F_MODE=0
 
     # Zero - because it isn't known, unless we
     # confirm that first element is selectable
@@ -264,9 +265,12 @@ while (( 1 )); do
     # Do searching (filtering with string)
     if [ -n "$NLIST_SEARCH_BUFFER" ]; then
         # Compute new list?
-        if [[ "$NLIST_SEARCH_BUFFER" != "$prev_search_buffer" || "$NLIST_IS_UNIQ_MODE" -ne "$prev_uniq_mode" ]]; then
+        if [[ "$NLIST_SEARCH_BUFFER" != "$prev_search_buffer" || "$NLIST_IS_UNIQ_MODE" -ne "$prev_uniq_mode"
+                || "$NLIST_IS_F_MODE" -ne "$prev_f_mode" ]]
+        then
             prev_search_buffer="$NLIST_SEARCH_BUFFER"
             prev_uniq_mode="$NLIST_IS_UNIQ_MODE"
+            prev_f_mode="$NLIST_IS_F_MODE"
             # regenerating list -> regenerating disp_list
             prev_start_idx=-1
 
@@ -301,7 +305,13 @@ while (( 1 )); do
 
                 # The repeat will make the matching work on a fresh heap
                 repeat 1; do
-                    list=( "${(@M)list:#(#i)*$~search_pattern*}" )
+                    if [ "$NLIST_IS_F_MODE" -eq "1" ]; then
+                        list=( "${(@M)list:#(#ia1)*$~search_pattern*}" )
+                    elif [ "$NLIST_IS_F_MODE" -eq "2" ]; then
+                        list=( "${(@M)list:#(#ia2)*$~search_pattern*}" )
+                    else
+                        list=( "${(@M)list:#(#i)*$~search_pattern*}" )
+                    fi
                 done
 
                 last_element="$#list"
@@ -324,7 +334,13 @@ while (( 1 )); do
                 local red=$'\x1b[00;31m' reset=$'\x1b[00;00m'
                 # The repeat will make the matching work on a fresh heap
                 repeat 1; do
-                    disp_list=( "${(@)disp_list//(#mi)($~colsearch_pattern)/$red${MATCH}$reset}" )
+                    if [ "$NLIST_IS_F_MODE" -eq "1" ]; then
+                        disp_list=( "${(@)disp_list//(#mia1)($~colsearch_pattern)/$red${MATCH}$reset}" )
+                    elif [ "$NLIST_IS_F_MODE" -eq "2" ]; then
+                        disp_list=( "${(@)disp_list//(#mia2)($~colsearch_pattern)/$red${MATCH}$reset}" )
+                    else
+                        disp_list=( "${(@)disp_list//(#mi)($~colsearch_pattern)/$red${MATCH}$reset}" )
+                    fi
                 done
             fi
 
@@ -407,16 +423,18 @@ while (( 1 )); do
         themeisfresh="0"
     fi
 
-    local _txt2=""
+    local _txt2="" _txt3=""
     [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && _txt2="[-UNIQ-] "
+    [ "$NLIST_IS_F_MODE" -eq 1 ] && _txt3="[-FIX-] "
+    [ "$NLIST_IS_F_MODE" -eq 2 ] && _txt3="[-FIX2-] "
 
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
-        _nlist_status_msg "${_txt2}${keywordmsg}${thememsg}Filtering with: ${NLIST_SEARCH_BUFFER// /+}"
+        _nlist_status_msg "${_txt2}${_txt3}${keywordmsg}${thememsg}Filtering with: ${NLIST_SEARCH_BUFFER// /+}"
     elif [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)$NLIST_CURRENT_IDX]} != $NLIST_CURRENT_IDX ||
             -n "$NLIST_SEARCH_BUFFER" || "$NLIST_IS_UNIQ_MODE" -eq 1 ]]; then
         local _txt=""
         [ -n "$NLIST_GREP_STRING" ] && _txt=" [$NLIST_GREP_STRING]"
-        _nlist_status_msg "${_txt2}${keywordmsg}${thememsg}Current #$NLIST_USER_CURRENT_IDX (of #$NLIST_USER_LAST_ELEMENT entries)$_txt"
+        _nlist_status_msg "${_txt2}${_txt3}${keywordmsg}${thememsg}Current #$NLIST_USER_CURRENT_IDX (of #$NLIST_USER_LAST_ELEMENT entries)$_txt"
     else
         _nlist_status_msg "${keywordmsg}${thememsg}"
     fi
@@ -446,7 +464,7 @@ while (( 1 )); do
     n-list-input "$NLIST_CURRENT_IDX" "$NLIST_FROM_WHAT_IDX_LIST_IS_SHOWN" \
                     "$page_height" "$page_width" "$last_element" "$NLIST_TEXT_OFFSET" \
                     "$final_key" "$NLIST_IS_SEARCH_MODE" "$NLIST_SEARCH_BUFFER" \
-                    "$NLIST_IS_UNIQ_MODE"
+                    "$NLIST_IS_UNIQ_MODE" "$NLIST_IS_F_MODE"
 
     selection="$reply[1]"
     action="$reply[2]"
@@ -456,6 +474,7 @@ while (( 1 )); do
     NLIST_IS_SEARCH_MODE="$reply[6]"
     NLIST_SEARCH_BUFFER="$reply[7]"
     NLIST_IS_UNIQ_MODE="$reply[8]"
+    NLIST_IS_F_MODE="$reply[9]"
 
     if [ "$action" = "SELECT" ]; then
         REPLY="$selection"
