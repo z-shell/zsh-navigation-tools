@@ -31,6 +31,12 @@ From that mode of operation, user call tools that do not require mouse or
 typing, only navigating.
 
 ## News
+* 08-05-2016
+  - Approximate matching – pressing `f` or `Ctrl-F` will enter "`FIX`" mode,
+    in which `1` or `2` errors are allowed in what's searched. This utilizes
+    original Zsh approximate matching features and is intended to be used
+    after entering search query, when a typo is discovered.
+
 * 06-05-2016
   - Private history can be edited. Use `e` key or `Ctrl-E` for that when in
     n-history. Your `$EDITOR` will start. This is a way to have handy set of
@@ -186,6 +192,8 @@ All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and r
 - `Ctrl-k` (in incremental search) - delete whole line
 - `F1` - switch view to: most frequent history words
 - `F2`, `Ctrl-x`, `Ctrl-/` - iterate predefined search keywords (defined in config files)
+- `Ctrl-T`, `Ctrl-G` - browse themes
+- `Ctrl-F` - fix mode
 
 ## Programming
 
