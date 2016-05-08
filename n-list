@@ -407,15 +407,15 @@ while (( 1 )); do
         themeisfresh="0"
     fi
 
+    local _txt2=""
+    [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && _txt2="[-UNIQ-] "
+
     if [ "$NLIST_IS_SEARCH_MODE" = "1" ]; then
-        local _txt2=""
-        [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && _txt2="[-UNIQ-] "
         _nlist_status_msg "${_txt2}${keywordmsg}${thememsg}Filtering with: ${NLIST_SEARCH_BUFFER// /+}"
     elif [[ ${NLIST_NONSELECTABLE_ELEMENTS[(r)$NLIST_CURRENT_IDX]} != $NLIST_CURRENT_IDX ||
             -n "$NLIST_SEARCH_BUFFER" || "$NLIST_IS_UNIQ_MODE" -eq 1 ]]; then
-        local _txt="" _txt2=""
+        local _txt=""
         [ -n "$NLIST_GREP_STRING" ] && _txt=" [$NLIST_GREP_STRING]"
-        [ "$NLIST_IS_UNIQ_MODE" -eq 1 ] && _txt2="[-UNIQ-] "
         _nlist_status_msg "${_txt2}${keywordmsg}${thememsg}Current #$NLIST_USER_CURRENT_IDX (of #$NLIST_USER_LAST_ELEMENT entries)$_txt"
     else
         _nlist_status_msg "${keywordmsg}${thememsg}"
