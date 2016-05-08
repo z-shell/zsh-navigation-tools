@@ -37,6 +37,8 @@ typing, only navigating.
     original Zsh approximate matching features and is intended to be used
     after entering search query, when a typo is discovered.
 
+    ![fix mode](http://imageshack.com/a/img924/1455/FblOxW.gif)
+
 * 06-05-2016
   - Private history can be edited. Use `e` key or `Ctrl-E` for that when in
     n-history. Your `$EDITOR` will start. This is a way to have handy set of
