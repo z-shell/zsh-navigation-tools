@@ -186,7 +186,7 @@ The tools are:
 
 All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and right cursors. Other keys are:
 
-- `H` (from n-history) - run n-help
+- `H`, `?` (from n-history) - run n-help
 - `Ctrl-R` - start n-history, the incremental, multi-keyword history searcher (Zsh binding)
 - `Ctrl-F` - fix mode (approximate matching)
 - `Ctrl-L` - redraw of whole display

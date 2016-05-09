@@ -116,7 +116,7 @@ case "$key" in
             reply=( $current_idx SELECT )
         fi
         ;;
-    (H)
+    (H|'?')
         # This event needs to be enabled
         if [[ "${NLIST_ENABLED_EVENTS[(r)HELP]}" = "HELP" ]]; then
             reply=( -1 "HELP" )
