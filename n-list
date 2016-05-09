@@ -476,7 +476,9 @@ while (( 1 )); do
     NLIST_IS_UNIQ_MODE="$reply[8]"
     NLIST_IS_F_MODE="$reply[9]"
 
-    if [ "$action" = "SELECT" ]; then
+    if [ -z "$action" ]; then
+        continue
+    elif [ "$action" = "SELECT" ]; then
         REPLY="$selection"
         reply=( "$list[@]" )
         break
