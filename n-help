@@ -10,6 +10,7 @@ local rst="$reset_color"
 LESS="-iRc" less <<<"
 ${h1}Key Bindings${rst}
 
+${h2}H${rst} (from n-history) - run n-help
 ${h2}Ctrl-F${rst} - fix mode (approximate matching)
 ${h2}Ctrl-L${rst} - redraw of whole display
 ${h2}Ctrl-T${rst} - browse themes (next theme)
