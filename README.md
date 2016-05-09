@@ -35,6 +35,8 @@ typing, only navigating.
   - New feature: n-help tool, available also from n-history via `H` key. It
     displays help screen with various information on `ZNT`.
 
+    ![n-help](http://imageshack.com/a/img922/7595/MvtJdI.gif)
+
 * 08-05-2016
   - Approximate matching – pressing `f` or `Ctrl-F` will enter "`FIX`" mode,
     in which `1` or `2` errors are allowed in what's searched. This utilizes
