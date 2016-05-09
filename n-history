@@ -204,9 +204,9 @@ three_NLIST_REMEMBER_STATE=2
 
 # Only Private history has EDIT
 local -a NLIST_ENABLED_EVENTS
-NLIST_ENABLED_EVENTS=( "F1" )
-two_NLIST_ENABLED_EVENTS=( "F1" )
-three_NLIST_ENABLED_EVENTS=( "F1" "EDIT" )
+NLIST_ENABLED_EVENTS=( "F1" "HELP" )
+two_NLIST_ENABLED_EVENTS=( "F1" "HELP" )
+three_NLIST_ENABLED_EVENTS=( "F1" "EDIT" "HELP" )
 
 # All view should attempt to replace new lines with \n
 local NLIST_REPLACE_NEWLINES="1"
@@ -245,6 +245,8 @@ while (( 1 )); do
             # Target view: 1
             active_view=1
             _nhistory_switch_lists_states "1"
+        elif [ "$REPLY" = "HELP" ]; then
+            n-help
         fi
 
     #
@@ -322,6 +324,8 @@ while (( 1 )); do
             # Target view: 0
             active_view=0
             _nhistory_switch_lists_states "zero"
+        elif [ "$REPLY" = "HELP" ]; then
+            n-help
         fi
 
     #
@@ -350,6 +354,8 @@ while (( 1 )); do
         # Edit of the history?
         elif [ "$REPLY" = "EDIT" ]; then
             "${EDITOR:-vim}" "$private_history_db"
+        elif [ "$REPLY" = "HELP" ]; then
+            n-help
         fi
     fi
 done
