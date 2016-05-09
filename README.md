@@ -180,22 +180,24 @@ The tools are:
 
 All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and right cursors. Other keys are:
 
-- `Ctrl-R` - start n-history, the incremental, multi-keyword history searcher (default binding)
-- `[`,`]` - jump directory bookmarks in `n-cd` and typical signals in `n-kill`
-- `Ctrl-d`, `Ctrl-u` - half page up or down
-- `Ctrl-p`, `Ctrl-n` - previous and next (also done with vim's j,k)
-- `Ctrl-l` - redraw of whole display
-- `g, G` - beginning and end of the list
-- `Ctrl-o`, `o` - enter uniq mode (no duplicate lines)
+- `Ctrl-R` - start n-history, the incremental, multi-keyword history searcher (Zsh binding)
+- `Ctrl-F` - fix mode (approximate matching)
+- `Ctrl-L` - redraw of whole display
+- `Ctrl-T` - browse themes (next theme)
+- `Ctrl-G` - browse themes (previous theme)
+- `Ctrl-U` - half page up
+- `Ctrl-D` - half page down
+- `Ctrl-P` - previous element (also done with vim's k)
+- `Ctrl-N` - next element (also done with vim's j)
+- `[`, `]` - jump directory bookmarks in n-cd and typical signals in n-kill
+- `g`, `G` - beginning and end of the list
 - `/` - start incremental search
-- `Enter` - finish incremental search, retaining filter
 - `Esc` - exit incremental search, clearing filter
-- `Ctrl-w` (in incremental search) - delete whole word
-- `Ctrl-k` (in incremental search) - delete whole line
-- `F1` - switch view to: most frequent history words
-- `F2`, `Ctrl-x`, `Ctrl-/` - iterate predefined search keywords (defined in config files)
-- `Ctrl-T`, `Ctrl-G` - browse themes
-- `Ctrl-F` - fix mode
+- `Ctrl-W` (in incremental search) - delete whole word
+- `Ctrl-K` (in incremental search) - delete whole line
+- `Ctrl-O`, `o` - enter uniq mode (no duplicate lines)
+- `F1` - (in n-history) - switch view
+- `F2`, `Ctrl-X`, `Ctrl-/` - search predefined keywords (defined in config files)
 
 ## Programming
 
