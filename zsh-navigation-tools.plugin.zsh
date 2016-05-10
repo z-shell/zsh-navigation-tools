@@ -2,10 +2,9 @@
 
 #
 # No plugin manager is needed to use this file. All that is needed is adding:
-#   fpath+=( {where-znt-is} )
-#
-# to ~/.zshrc. Then this file can be sourced:
 #   source {where-znt-is}/zsh-navigation-tools.plugin.zsh
+#
+# to ~/.zshrc.
 #
 
 REPO_DIR="${0%/*}"
@@ -14,7 +13,7 @@ CONFIG_DIR="$HOME/.config/znt"
 #
 # Update FPATH if:
 # 1. Not loading with Zplugin
-# 2. Not having fpath already updated (equals: using other plugin manager)
+# 2. Not having fpath already updated (that would equal: using other plugin manager)
 #
 
 if [[ -z "$ZPLG_CUR_PLUGIN" && "${fpath[(r)$REPO_DIR]}" != $REPO_DIR ]]; then
