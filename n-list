@@ -299,17 +299,20 @@ while (( 1 )); do
             local search_pattern=""
             local colsearch_pattern=""
             if [ -n "$search_buffer" ]; then
-                # Patterns will be *foo*~^*bar* and (foo|bar)
-                search_pattern="${search_buffer// ##/*~^*}"
-                colsearch_pattern="${search_buffer// ##/|}"
-
                 # The repeat will make the matching work on a fresh heap
                 repeat 1; do
                     if [ "$NLIST_IS_F_MODE" -eq "1" ]; then
+                        search_pattern="${search_buffer// ##/*~^(#a1)*}"
+                        colsearch_pattern="${search_buffer// ##/|(#a1)}"
                         list=( "${(@M)list:#(#ia1)*$~search_pattern*}" )
                     elif [ "$NLIST_IS_F_MODE" -eq "2" ]; then
+                        search_pattern="${search_buffer// ##/*~^(#a2)*}"
+                        colsearch_pattern="${search_buffer// ##/|(#a2)}"
                         list=( "${(@M)list:#(#ia2)*$~search_pattern*}" )
                     else
+                        # Patterns will be *foo*~^*bar* and (foo|bar)
+                        search_pattern="${search_buffer// ##/*~^*}"
+                        colsearch_pattern="${search_buffer// ##/|}"
                         list=( "${(@M)list:#(#i)*$~search_pattern*}" )
                     fi
                 done

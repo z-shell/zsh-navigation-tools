@@ -54,10 +54,8 @@ or ${h2}Ctrl-/${rst}:
 
 ${h1}Search query rotation${rst}
 
-Fix mode works on first entered word. If a type has been made in some
-other word, it can be set first by rotating all entered words right
-with ${h2}Ctrl-A${rst}. Words 1+2+3 become 3+1+2. This can be also used to edit
-some not-last word.
+When searching, after pressing ${h2}Ctrl-A${rst}, words 1 2 3 will become 3 1 2, etc.
+This can be used to edit some not-last word.
 
 ${h1}Fix mode${rst}
 
@@ -65,10 +63,6 @@ Approximate matching - pressing ${h2}f${rst} or ${h2}Ctrl-F${rst} will enter "FI
 1 or 2 errors are allowed in what's searched. This utilizes original Zsh
 approximate matching features and is intended to be used after entering
 search query, when a typo is discovered.
-
-Because of Zsh limitations, fix mode works only for the first entered
-word. Use rotating to set consecutive word first (see ${h5}Search query${rst}
-${h5}rotation${rst}).
 
 ${h1}Color themes${rst}
 

@@ -45,9 +45,7 @@ typing, only navigating.
   - Approximate matching – pressing `f` or `Ctrl-F` will enter "`FIX`" mode,
     in which `1` or `2` errors are allowed in what's searched. This utilizes
     original Zsh approximate matching features and is intended to be used
-    after entering search query, when a typo is discovered. Unfortunately,
-    because of Zsh limitations, fix mode works only for first entered word.
-    But you can use word rotation (`Ctrl-A`) to set a consecutive word first.
+    after entering search query, when a typo is discovered.
 
     ![fix mode](http://imageshack.com/a/img921/5756/64lFnv.gif)
 
