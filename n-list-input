@@ -48,16 +48,11 @@ _nlist_iterate_theme() {
 }
 
 _nlist_rotate_buffer() {
+    setopt localoptions noglob
+
     local -a words
     words=( ${(s: :)buffer} )
-
-    local last="${words[-1]}"
-    integer len=${#words}
-
-    for (( i=len; i>=2; i-- )); do
-        words[i]="${words[i-1]}"
-    done
-    words[1]="$last"
+    words=( $words[-1] $words[1,-2] )
 
     local space=""
     [ "${buffer[-1]}" = " " ] && space=" "
