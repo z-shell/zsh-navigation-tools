@@ -31,6 +31,10 @@ From that mode of operation, user call tools that do not require mouse or
 typing, only navigating.
 
 ## News
+* 10-05-2016
+  - Search query rotation – use `Ctrl-A` to rotate entered words right.
+    Words `1 2 3` become `3 1 2`.
+
 * 09-05-2016
   - New feature: n-help tool, available also from n-history via `H` key. It
     displays help screen with various information on `ZNT`.
@@ -41,7 +45,9 @@ typing, only navigating.
   - Approximate matching – pressing `f` or `Ctrl-F` will enter "`FIX`" mode,
     in which `1` or `2` errors are allowed in what's searched. This utilizes
     original Zsh approximate matching features and is intended to be used
-    after entering search query, when a typo is discovered.
+    after entering search query, when a typo is discovered. Unfortunately,
+    because of Zsh limitations, fix mode works only for first entered word.
+    But you can use word rotation (`Ctrl-A`) to set a consecutive word first.
 
     ![fix mode](http://imageshack.com/a/img921/5756/64lFnv.gif)
 
