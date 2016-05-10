@@ -188,6 +188,7 @@ All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and r
 
 - `H`, `?` (from n-history) - run n-help
 - `Ctrl-R` - start n-history, the incremental, multi-keyword history searcher (Zsh binding)
+- `Ctrl-A` - rotate entered words (1+2+3 -> 3+1+2)
 - `Ctrl-F` - fix mode (approximate matching)
 - `Ctrl-L` - redraw of whole display
 - `Ctrl-T` - browse themes (next theme)

@@ -47,6 +47,24 @@ _nlist_iterate_theme() {
     fi
 }
 
+_nlist_rotate_buffer() {
+    local -a words
+    words=( ${(s: :)buffer} )
+
+    local last="${words[-1]}"
+    integer len=${#words}
+
+    for (( i=len; i>=2; i-- )); do
+        words[i]="${words[i-1]}"
+    done
+    words[1]="$last"
+
+    local space=""
+    [ "${buffer[-1]}" = " " ] && space=" "
+
+    buffer="${(j: :)words}$space"
+}
+
 typeset -ga reply
 reply=( -1 '' )
 integer current_idx="$1"
@@ -199,6 +217,9 @@ case "$key" in
             reply=( -1 EDIT )
         fi
         ;;
+    ($'\C-A')
+        _nlist_rotate_buffer
+        ;;
     (*)
         ;;
 esac
@@ -317,6 +338,9 @@ case "$key" in
         if [[ "${NLIST_ENABLED_EVENTS[(r)EDIT]}" = "EDIT" ]]; then
             reply=( -1 EDIT )
         fi
+        ;;
+    ($'\C-A')
+        _nlist_rotate_buffer
         ;;
     (*)
         if [[ $#key == 1 && $((#key)) -lt 31 ]]; then
