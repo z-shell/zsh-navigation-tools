@@ -12,6 +12,16 @@ REPO_DIR="${0%/*}"
 CONFIG_DIR="$HOME/.config/znt"
 
 #
+# Update FPATH if:
+# 1. Not loading with Zplugin
+# 2. Not having fpath already updated (equals: using other plugin manager)
+#
+
+if [[ -z "$ZPLG_CUR_PLUGIN" && "${fpath[(r)$REPO_DIR]}" != $REPO_DIR ]]; then
+    fpath+=( "$REPO_DIR" )
+fi
+
+#
 # Copy configs
 #
 
