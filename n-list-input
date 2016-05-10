@@ -128,7 +128,7 @@ case "$key" in
             reply=( -1 "$key" )
         fi
         ;;
-    (F3|F4|F5|F6|F7|F8|F9|F10)
+    (F3|F4|F5|F6|F7|F8|F9|F10|DC)
         # ignore; F2 is used at bottom
         ;;
     (q)
@@ -275,7 +275,7 @@ case "$key" in
             reply=( -1 "$key" )
         fi
         ;;
-    (F3|F4|F5|F6|F7|F8|F9|F10)
+    (F3|F4|F5|F6|F7|F8|F9|F10|DC)
         # ignore; F2 is used at bottom
         ;;
 
