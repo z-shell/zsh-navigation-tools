@@ -52,7 +52,7 @@ _nlist_rotate_buffer() {
 
     local -a words
     words=( ${(s: :)buffer} )
-    words=( $words[-1] $words[1,-2] )
+    words=( ${words[-1]} ${words[1,-2]} )
 
     local space=""
     [ "${buffer[-1]}" = " " ] && space=" "
