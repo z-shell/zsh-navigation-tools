@@ -116,7 +116,8 @@ above.
 
 ## Manual Installation
 
-After extracting `ZNT` to `{some-directory}` add following two lines to `~/.zshrc`:
+After extracting `ZNT` to `{some-directory}` add following two lines
+to `~/.zshrc`:
 
 ```zsh
 fpath+=( {some-directory} )
@@ -124,8 +125,15 @@ source "{some-directory}/zsh-navigation-tools.plugin.zsh"
 ```
 
 As you can see, no plugin manager is needed to use the `*.plugin.zsh`
-file. The above two lines of code are all that almost all plugin
-managers do.
+file. The above two lines of code are all that almost **all** plugin
+managers do. In fact, what's actually needed is only:
+
+```zsh
+source "{some-directory}/zsh-navigation-tools.plugin.zsh"
+```
+
+because `ZNT` detects if it is used by **any** plugin manager and can
+handle `$fpath` update by itself.
 
 ## Truly Manual Installation
 Copy (or link) all `n-*` and `znt-*` files to **/usr/share/zsh/site-functions/**
