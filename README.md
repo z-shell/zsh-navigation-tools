@@ -31,6 +31,19 @@ From that mode of operation, user call tools that do not require mouse or
 typing, only navigating.
 
 ## News
+* 14-05-2016
+  - Configuration can be set from `zshrc`. Documentation is [below](#configuration). Example:
+
+    ```zsh
+    znt_list_instant_select=1
+    znt_list_border=0
+    znt_list_bold=0
+    znt_list_colorpair="green/black"
+    znt_functions_keywords=( "zplg" "zgen" "match" )
+    znt_cd_active_text="underline"
+    znt_env_nlist_coloring_color=$'\x1b[00;33m'
+    ```
+
 * 10-05-2016
   - Search query rotation – use `Ctrl-A` to rotate entered words right.
     Words `1 2 3` become `3 1 2`.
@@ -218,6 +231,65 @@ All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and r
 - `Ctrl-O`, `o` - enter uniq mode (no duplicate lines)
 - `F1` - (in n-history) - switch view
 - `F2`, `Ctrl-X`, `Ctrl-/` - search predefined keywords (defined in config files)
+
+## Configuration
+
+`ZNT` has configuration files located in `~/.config/znt`. The files are:
+
+```
+n-aliases.conf
+n-cd.conf
+n-env.conf
+n-functions.conf
+n-history.conf
+n-kill.conf
+n-list.conf
+n-options.conf
+n-panelize.conf
+```
+
+`n-list.conf` contains main configuration variables:
+
+```zsh
+# Should the list (text, borders) be drawn in bold
+local bold=0
+
+# Main color pair (foreground/background)
+local colorpair="white/black"
+
+# Should draw the border?
+local border=1
+
+# Combinations of colors to try out with Ctrl-T and Ctrl-G
+# The last number is the bold option, 0 or 1
+local -a themes
+themes=( "white/black/1" "green/black/0" "green/black/1" "white/blue/0" "white/blue/1"
+         "magenta/black/0" "magenta/black/1" )
+```
+
+Read remaining configuration files to see what's in them. Nevertheless, configuration
+can be also set from `zshrc`. There are `5` standard `zshrc` configuration variables:
+
+```
+znt_history_active_text - underline or reverse - how should be active element highlighted
+znt_history_nlist_coloring_pattern - pattern that can be used to colorize elements
+znt_history_nlist_coloring_color - color with which to colorize
+znt_history_nlist_coloring_match_multiple - should multiple matches be colorized (0 or 1)
+znt_history_keywords (array) - search keywords activated with `Ctrl-X`
+```
+
+Above variables will work for `n-history` tool. For other tools, change `_history_` to
+e.g. `_cd_`, for the `n-cd` tool. The same works for all `8` tools.
+
+Common configuration of the tools uses variables with `_list_` in them:
+
+```
+znt_list_bold - should draw text in bold (0 or 1)
+znt_list_colorpair - main pair of colors to be used, e.g "green/black"
+znt_list_border - should draw borders around windows (0 or 1)
+znt_list_themes (array) - list of themes to try out with Ctrl-T, e.g. ( "white/black/1" "green/black/0" )
+znt_list_instant_select - should pressing enter in search mode leave tool (0 or 1)
+```
 
 ## Programming
 
