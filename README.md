@@ -291,6 +291,9 @@ znt_list_themes (array) - list of themes to try out with Ctrl-T, e.g. ( "white/b
 znt_list_instant_select - should pressing enter in search mode leave tool (0 or 1)
 ```
 
+If you used `ZNT` before `v2.1.12`, remove old configuration files `~/.config/znt/*.conf` so that `ZNT`
+can update them to the latest version, which supports integration with `Zshrc`.
+
 ## Programming
 
 The function `n-list` is used as follows:
