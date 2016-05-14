@@ -32,7 +32,7 @@ typing, only navigating.
 
 ## News
 * 14-05-2016
-  - Configuration can be set from `zshrc`. Documentation is [below](#configuration). Example:
+  - Configuration can be set from `zshrc` (starting from `v2.1.12`). Documentation is [below](#configuration). Example:
 
     ```zsh
     znt_list_instant_select=1
