@@ -25,11 +25,6 @@ with it. Feature highlights include incremental multi-word searching, ANSI
 coloring, unique mode, horizontal scroll, non-selectable elements, grepping and
 various integrations with `Zsh`.
 
-This is an alternative approach to idea of visual shell, when compared to
-Midnight Commander. Here the command line is the main way the shell is used.
-From that mode of operation, user call tools that do not require mouse or
-typing, only navigating.
-
 ## News
 * 14-05-2016
   - Configuration can be set from `zshrc` (starting from `v2.1.12`). Documentation is [below](#configuration). Example:
