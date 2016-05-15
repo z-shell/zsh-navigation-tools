@@ -178,8 +178,8 @@ three_NLIST_REMEMBER_STATE=2
 # Only Private history has EDIT
 local -a NLIST_ENABLED_EVENTS
 NLIST_ENABLED_EVENTS=( "F1" "HELP" )
-two_NLIST_ENABLED_EVENTS=( "F1" "HELP" )
-three_NLIST_ENABLED_EVENTS=( "F1" "EDIT" "HELP" )
+two_NLIST_ENABLED_EVENTS=( "F1" "EDIT" "HELP" )
+three_NLIST_ENABLED_EVENTS=( "F1" "HELP" )
 
 # All view should attempt to replace new lines with \n
 local NLIST_REPLACE_NEWLINES="1"
