@@ -21,9 +21,9 @@ Set of tools like `n-history` – multi-word history searcher, `n-cd` – direc
 bookmark manager, `n-kill` – `htop` like kill utility, and more. Based on
 `n-list`, a tool generating selectable curses-based list of elements that has
 access to current `Zsh` session, i.e. has broad capabilities to work together
-with it. Feature highlights include incremental multi-word searching, ANSI
-coloring, unique mode, horizontal scroll, non-selectable elements, grepping and
-various integrations with `Zsh`.
+with it. Feature highlights include incremental multi-word searching, approximate
+matching, ANSI coloring, themes, unique mode, horizontal scroll, grepping, advanced
+history management and various integrations with `Zsh`.
 
 ## News
 * 14-05-2016
