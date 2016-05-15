@@ -219,7 +219,8 @@ All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and r
 - `Ctrl-N` - next element (also done with vim's j)
 - `[`, `]` - jump directory bookmarks in n-cd and typical signals in n-kill
 - `g`, `G` - beginning and end of the list
-- `/` - start incremental search
+- `/` - show incremental search
+- `F3` - show/hide incremental search
 - `Esc` - exit incremental search, clearing filter
 - `Ctrl-W` (in incremental search) - delete whole word
 - `Ctrl-K` (in incremental search) - delete whole line

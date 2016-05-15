@@ -141,8 +141,8 @@ case "$key" in
             reply=( -1 "$key" )
         fi
         ;;
-    (F3|F4|F5|F6|F7|F8|F9|F10|DC)
-        # ignore; F2 is used at bottom
+    (F4|F5|F6|F7|F8|F9|F10|DC)
+        # ignore; F2, F3 are used below
         ;;
     (q)
         reply=( -1 QUIT )
@@ -188,6 +188,15 @@ case "$key" in
         ;;
     ($'\E')
         buffer=""
+        ;;
+    (F3)
+        if [ "$search" = "1" ]; then
+            search=0
+            _nlist_cursor_visibility 0
+        else
+            search=1
+            _nlist_cursor_visibility 1
+        fi
         ;;
     (o|$'\C-O')
         uniq_mode=1-uniq_mode
@@ -291,8 +300,8 @@ case "$key" in
             reply=( -1 "$key" )
         fi
         ;;
-    (F3|F4|F5|F6|F7|F8|F9|F10|DC)
-        # ignore; F2 is used at bottom
+    (F4|F5|F6|F7|F8|F9|F10|DC)
+        # ignore; F2, F3 are used below
         ;;
 
     #
@@ -312,6 +321,15 @@ case "$key" in
         buffer=""
         search=0
         _nlist_cursor_visibility 0
+        ;;
+    (F3)
+        if [ "$search" = "1" ]; then
+            search=0
+            _nlist_cursor_visibility 0
+        else
+            search=1
+            _nlist_cursor_visibility 1
+        fi
         ;;
     ($'\C-O')
         uniq_mode=1-uniq_mode

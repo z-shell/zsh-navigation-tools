@@ -23,7 +23,8 @@ ${h2}Ctrl-P${rst} - previous element (also done with vim's k)
 ${h2}Ctrl-N${rst} - next element (also done with vim's j)
 ${h2}[${rst}, ${h2}]${rst} - jump directory bookmarks in n-cd and typical signals in n-kill
 ${h2}g, ${h2}G${rst} - beginning and end of the list
-${h2}/${rst} - start incremental search
+${h2}/${rst} - show incremental search
+${h2}F3${rst} - show/hide incremental search
 ${h2}Esc${rst} - exit incremental search, clearing filter
 ${h2}Ctrl-W${rst} (in incremental search) - delete whole word
 ${h2}Ctrl-K${rst} (in incremental search) - delete whole line
