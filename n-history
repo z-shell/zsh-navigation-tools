@@ -318,7 +318,7 @@ while (( 1 )); do
             break
         elif [[ "$REPLY" = -(#c0,1)[0-9]## && "$REPLY" -gt 0 ]]; then
             local word="${reply[REPLY]#(#s) #[0-9]##$'\t'}"
-            one_NLIST_SEARCH_BUFFER="$one_NLIST_SEARCH_BUFFER $word"
+            one_NLIST_SEARCH_BUFFER="$word"
             one_NLIST_SEARCH_BUFFER="${one_NLIST_SEARCH_BUFFER## ##}"
 
             # Target view: 0
