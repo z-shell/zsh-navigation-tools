@@ -366,7 +366,7 @@ if [ "$REPLY" -gt 0 ]; then
     if [ "${(t)CURSOR}" = "integer-local-special" ]; then
         zle redisplay
         zle kill-buffer
-        zle -U "$selected"
+        LBUFFER+="$selected"
 
         # Append to private history
         local newline=$'\n'
