@@ -29,6 +29,7 @@ ${h2}Esc${rst} - exit incremental search, clearing filter
 ${h2}Ctrl-W${rst} (in incremental search) - delete whole word
 ${h2}Ctrl-K${rst} (in incremental search) - delete whole line
 ${h2}Ctrl-O, ${h2}o${rst} - enter uniq mode (no duplicate lines)
+${h2}Ctrl-E, ${h2}e${rst} - edit private history (when in private history view)
 ${h2}F1${rst} - (in n-history) - switch view
 ${h2}F2${rst}, ${h2}Ctrl-X${rst}, ${h2}Ctrl-/${rst} - search predefined keywords (defined in config files)
 

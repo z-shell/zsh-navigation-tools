@@ -225,6 +225,7 @@ All tools support horizontal scroll with `<`,`>`, `{`,`}`, `h`,`l` or left and r
 - `Ctrl-W` (in incremental search) - delete whole word
 - `Ctrl-K` (in incremental search) - delete whole line
 - `Ctrl-O`, `o` - enter uniq mode (no duplicate lines)
+- `Ctrl-E`, `e` - edit private history (when in private history view)
 - `F1` - (in n-history) - switch view
 - `F2`, `Ctrl-X`, `Ctrl-/` - search predefined keywords (defined in config files)
 
