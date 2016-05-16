@@ -151,7 +151,7 @@ handle `$fpath` update by itself.
 Copy (or link) all `n-*` and `znt-*` files to **/usr/share/zsh/site-functions/**
 (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
-    autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history
+    autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-help
 
 to `~/.zshrc`.
 
@@ -159,7 +159,7 @@ Create aliases to avoid typing of the minus sign "-":
 
 ```zsh
 alias naliases=n-aliases ncd=n-cd nenv=n-env nfunctions=n-functions nhistory=n-history
-alias nkill=n-kill noptions=n-options npanelize=n-panelize
+alias nkill=n-kill noptions=n-options npanelize=n-panelize nhelp=n-help
 ```
 
 Don't forget to copy [configuration files](https://github.com/psprint/zsh-navigation-tools/tree/master/.config/znt). They should go to `~/.config/znt`. Moreover, `n-cd` works together with option `AUTO_PUSHD` and you should have:
@@ -293,7 +293,8 @@ znt_list_instant_select - should pressing enter in search mode leave tool (0 or 
 ```
 
 If you used `ZNT` before `v2.1.12`, remove old configuration files `~/.config/znt/*.conf` so that `ZNT`
-can update them to the latest version, which supports integration with `Zshrc`.
+can update them to the latest versions that support integration with `Zshrc`. If you used installer
+then run it again (after the remove of configuration files).
 
 ## Programming
 
