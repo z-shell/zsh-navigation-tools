@@ -26,6 +26,10 @@ matching, ANSI coloring, themes, unique mode, horizontal scroll, grepping, advan
 history management and various integrations with `Zsh`.
 
 ## News
+* 15-05-2016
+  - Fixed problem where zsh-syntax-highlighting could render `n-history` slow (for
+    long history entries).
+
 * 14-05-2016
   - Configuration can be set from `zshrc` (starting from `v2.1.12`). Documentation is [below](#configuration). Example:
 
