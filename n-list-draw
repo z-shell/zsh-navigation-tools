@@ -99,8 +99,8 @@ integer max_text_len=page_width-x_offset
 
 [[ "$bold" = "0" || "$bold" = "-bold" ]] && bold="-bold" || bold="+bold"
 [[ "$active_text" = "underline" || "$active_text" = "reverse" ]] || local active_text="reverse"
-# With Linux and Screen terminal underline won't work properly
-[[ "$TERM" = "linux" || "$TERM" = "screen" ]] && active_text="reverse"
+# Linux has ncv 18, screen* has ncv 3 - underline won't work properly
+(( ${terminfo[ncv]:-0} & 2 )) && active_text="reverse"
 
 integer max_idx=page_height
 integer end_idx=max_idx
