@@ -26,6 +26,10 @@ matching, ANSI coloring, themes, unique mode, horizontal scroll, grepping, advan
 history management and various integrations with `Zsh`.
 
 ## News
+* 16-05-2016
+  - `n-kill` has completion. It proposes **words** from what's in `ps -A`. Giving `n-kill`
+    arguments means grepping – it will start only with matching `ps` entries.
+
 * 15-05-2016
   - Fixed problem where zsh-syntax-highlighting could render `n-history` slow (for
     long history entries).
