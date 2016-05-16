@@ -126,7 +126,7 @@ case "$key" in
             ${NLIST_NONSELECTABLE_ELEMENTS[(r)$current_idx]} != $current_idx ]]
         then
             # Save current element in the result variable
-            reply=( $current_idx SELECT )
+            reply=( $current_idx "SELECT" )
         fi
         ;;
     (H|'?')
@@ -145,17 +145,17 @@ case "$key" in
         # ignore; F2, F3 are used below
         ;;
     (q)
-        reply=( -1 QUIT )
+        reply=( -1 "QUIT" )
         ;;
     (/)
         search=1
         _nlist_cursor_visibility 1
         ;;
     ($'\t')
-        reply=( $current_idx LEAVE )
+        reply=( $current_idx "LEAVE" )
         ;;
     ($'\C-L')
-        reply=( -1 REDRAW )
+        reply=( -1 "REDRAW" )
         ;;
     (\])
         [[ "${(t)NLIST_HOP_INDEXES}" = "array" || "${(t)NLIST_HOP_INDEXES}" = "array-local" ]] &&
@@ -218,7 +218,7 @@ case "$key" in
     ($'\C-E'|e)
         # This event needs to be enabled
         if [[ "${NLIST_ENABLED_EVENTS[(r)EDIT]}" = "EDIT" ]]; then
-            reply=( -1 EDIT )
+            reply=( -1 "EDIT" )
         fi
         ;;
     ($'\C-A')
@@ -236,7 +236,7 @@ case "$key" in
             if [[ "$NLIST_SEARCH_BUFFER" != "" || "$NLIST_IS_UNIQ_MODE" -eq 1 ||
                 ${NLIST_NONSELECTABLE_ELEMENTS[(r)$current_idx]} != $current_idx ]]
             then
-                reply=( $current_idx SELECT )
+                reply=( $current_idx "SELECT" )
             fi
         else
             search=0
@@ -244,7 +244,7 @@ case "$key" in
         fi
         ;;
     ($'\C-L')
-        reply=( -1 REDRAW )
+        reply=( -1 "REDRAW" )
         ;;
 
     #
@@ -349,7 +349,7 @@ case "$key" in
     ($'\C-E')
         # This event needs to be enabled
         if [[ "${NLIST_ENABLED_EVENTS[(r)EDIT]}" = "EDIT" ]]; then
-            reply=( -1 EDIT )
+            reply=( -1 "EDIT" )
         fi
         ;;
     ($'\C-A')
