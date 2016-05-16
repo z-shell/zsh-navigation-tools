@@ -63,4 +63,5 @@ alias nkill=n-kill noptions=n-options npanelize=n-panelize nhelp=n-help
 zle -N znt-history-widget
 bindkey '^R' znt-history-widget
 setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
+zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 

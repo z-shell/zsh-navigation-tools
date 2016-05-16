@@ -56,6 +56,7 @@ if ! grep zsh-navigation-tools ~/.zshrc >/dev/null 2>&1; then
     echo "zle -N znt-history-widget" >> ~/.zshrc
     echo "bindkey '^R' znt-history-widget" >> ~/.zshrc
     echo "setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS" >> ~/.zshrc
+    echo "zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'" >> ~/.zshrc
     echo "### END ###" >> ~/.zshrc
     echo ">>> Done"
 else
