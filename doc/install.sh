@@ -49,10 +49,10 @@ if ! grep zsh-navigation-tools ~/.zshrc >/dev/null 2>&1; then
     echo >> ~/.zshrc
     echo "### ZNT's installer added snippet ###" >> ~/.zshrc
     echo "fpath=( \"\$fpath[@]\" \"\$HOME/.config/znt/zsh-navigation-tools\" )" >> ~/.zshrc
-    echo "autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize" >> ~/.zshrc
+    echo "autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize n-help" >> ~/.zshrc
     echo "autoload znt-usetty-wrapper znt-history-widget znt-cd-widget znt-kill-widget" >> ~/.zshrc
     echo "alias naliases=n-aliases ncd=n-cd nenv=n-env nfunctions=n-functions nhistory=n-history" >> ~/.zshrc
-    echo "alias nkill=n-kill noptions=n-options npanelize=n-panelize" >> ~/.zshrc
+    echo "alias nkill=n-kill noptions=n-options npanelize=n-panelize nhelp=n-help" >> ~/.zshrc
     echo "zle -N znt-history-widget" >> ~/.zshrc
     echo "bindkey '^R' znt-history-widget" >> ~/.zshrc
     echo "setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS" >> ~/.zshrc
