@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if ! type git 2>/dev/null 1>&2; then
+    echo "Please install GIT first"
+    echo "Exiting"
+    exit 1
+fi
+
 #
 # Clone or pull
 #
