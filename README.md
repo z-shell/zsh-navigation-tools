@@ -369,4 +369,27 @@ The same with doing any non-typical Zsh Navigation Tools installation.
 
 ## More
 
-- be aware of [this](https://github.com/psprint/zsh-navigation-tools/blob/master/zsh-navigation-tools.plugin.zsh#L26-L40)
+- be aware of [this](https://github.com/psprint/zsh-navigation-tools/blob/f49f910d239ae5bc6e1a5bb34930307b4f4e3ffe/zsh-navigation-tools.plugin.zsh#L35-L49)
+
+# Fixing tmux, screen and linux vt
+
+If `TERM=screen-256color` (often a case for `tmux` and `screen` sessions) then
+`ncv` terminfo capability will have `2`nd bit set.  This in general means that
+underline won't work. To fix this by creating your own `ncv=0`-equipped
+terminfo file, run:
+
+```zsh
+{ infocmp -x screen-256color; printf '\t%s\n' 'ncv@,'; } > /tmp/t && tic -x /tmp/t
+```
+
+A file will be created in directory `~/.terminfo` and will be automatically
+used, `tmux` and `screen` will work. Similar is for Linux virtual terminal:
+
+```zsh
+{ infocmp -x linux; printf '\t%s\n' 'ncv@,'; } > /tmp/t && tic -x /tmp/t
+```
+
+It will not display underline properly, but will instead highlight by a color,
+which is quite nice. The same will not work for FreeBSD's vt, `ZNT` will detect
+if that vt is used and will revert to highlighting elements via `reverse` mode.
+
