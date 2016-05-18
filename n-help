@@ -1,11 +1,11 @@
 autoload colors
 colors
 
-local h1="$fg_bold[cyan]"
+local h1="$fg_bold[magenta]"
 local h2="$fg_bold[green]"
 local h3="$fg_bold[blue]"
 local h4="$fg_bold[yellow]"
-local h5="$fg_bold[magenta]"
+local h5="$fg_bold[cyan]"
 local rst="$reset_color"
 
 LESS="-iRc" less <<<"
