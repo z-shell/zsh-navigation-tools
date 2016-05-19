@@ -7,8 +7,17 @@ DOC_DIR?=$(DESTDIR)$(PREFIX)/share/doc/$(NAME)
 
 all:
 
-install:
+install: install-main install-rest
+
+install-brew: install-main-brew install-rest
+
+install-main:
 	$(INSTALL) -d $(SHARE_DIR)
+
+install-main-brew:
+	$(INSTALL) -d -m 750 $(SHARE_DIR)
+
+install-rest:
 	$(INSTALL) -d $(SHARE_DIR)/.config
 	$(INSTALL) -d $(SHARE_DIR)/.config/znt
 	$(INSTALL) -d $(DOC_DIR)
