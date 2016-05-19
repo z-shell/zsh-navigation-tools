@@ -9,12 +9,14 @@ all:
 
 install: install-main install-rest
 
-install-brew: install-main-brew install-rest
+# Target when installing from user account
+# Uses 750 chmod for main ZNT directory
+install-user: install-main-user install-rest
 
 install-main:
 	$(INSTALL) -d $(SHARE_DIR)
 
-install-main-brew:
+install-main-user:
 	$(INSTALL) -d -m 750 $(SHARE_DIR)
 
 install-rest:
