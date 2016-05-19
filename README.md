@@ -40,7 +40,7 @@ history management and various integrations with `Zsh`.
     ```zsh
     znt_list_instant_select=1
     znt_list_border=0
-    znt_list_bold=0
+    znt_list_bold=1
     znt_list_colorpair="green/black"
     znt_functions_keywords=( "zplg" "zgen" "match" )
     znt_cd_active_text="underline"
