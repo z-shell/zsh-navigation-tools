@@ -280,7 +280,7 @@ znt_history_active_text - underline or reverse - how should be active element hi
 znt_history_nlist_coloring_pattern - pattern that can be used to colorize elements
 znt_history_nlist_coloring_color - color with which to colorize
 znt_history_nlist_coloring_match_multiple - should multiple matches be colorized (0 or 1)
-znt_history_keywords (array) - search keywords activated with `Ctrl-X`
+znt_history_keywords (array) - search keywords activated with `Ctrl-X`, `F2` or `Ctrl-/`, e.g. ( "git" "vim" )
 ```
 
 Above variables will work for `n-history` tool. For other tools, change `_history_` to
