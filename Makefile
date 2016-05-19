@@ -7,19 +7,8 @@ DOC_DIR?=$(DESTDIR)$(PREFIX)/share/doc/$(NAME)
 
 all:
 
-install: install-main install-rest
-
-# Target when installing from user account
-# Uses 750 chmod for main ZNT directory
-install-user: install-main-user install-rest
-
-install-main:
+install:
 	$(INSTALL) -d $(SHARE_DIR)
-
-install-main-user:
-	$(INSTALL) -d -m 750 $(SHARE_DIR)
-
-install-rest:
 	$(INSTALL) -d $(SHARE_DIR)/.config
 	$(INSTALL) -d $(SHARE_DIR)/.config/znt
 	$(INSTALL) -d $(DOC_DIR)
