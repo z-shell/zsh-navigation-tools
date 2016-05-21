@@ -45,6 +45,9 @@ history management and various integrations with `Zsh`.
     znt_functions_keywords=( "zplg" "zgen" "match" )
     znt_cd_active_text="underline"
     znt_env_nlist_coloring_color=$'\x1b[00;33m'
+    znt_cd_hotlist=( "~/.config/znt" "/usr/share/zsh/site-functions" "/usr/share/zsh"
+                     "/usr/local/share/zsh/site-functions" "/usr/local/share/zsh"
+                     "/usr/local/bin" )
     ```
 
 * 10-05-2016
