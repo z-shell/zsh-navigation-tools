@@ -337,8 +337,8 @@ if [ "$REPLY" -gt 0 ]; then
     selected="$reply[REPLY]"
     # ZLE?
     if [ "${(t)CURSOR}" = "integer-local-special" ]; then
-        zle redisplay
-        zle kill-buffer
+        zle .redisplay
+        zle .kill-buffer
         LBUFFER+="$selected"
 
         # Append to private history
