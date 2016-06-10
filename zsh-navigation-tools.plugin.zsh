@@ -7,11 +7,7 @@
 # to ~/.zshrc.
 #
 
-# This gives immunity to functionargzero being unset
-# _ will be set to last argument to source builtin
-PLUGIN_UNDERSCORE="$_"
-[ "$0" != "$PLUGIN_UNDERSCORE" ] && 0="$PLUGIN_UNDERSCORE"
-
+0="${(%):-%N}" # this gives immunity to functionargzero being unset
 REPO_DIR="${0%/*}"
 CONFIG_DIR="$HOME/.config/znt"
 
