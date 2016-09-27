@@ -25,11 +25,11 @@ fi
 # Copy configs
 #
 
-if ! test -d "$HOME/.config"; then
+if [[ ! -d "$HOME/.config" ]]; then
     mkdir "$HOME/.config"
 fi
 
-if ! test -d "$CONFIG_DIR"; then
+if [[ ! -d "$CONFIG_DIR" ]]; then
     mkdir "$CONFIG_DIR"
 fi
 
@@ -41,13 +41,13 @@ set +A __ZNT_CONFIG_FILES n-aliases.conf n-env.conf n-history.conf n-list.conf n
 # Check for random 2 files if they exist
 # This will shift 0 - 7 elements
 shift $(( RANDOM % 8 )) __ZNT_CONFIG_FILES
-if ! test -f "$CONFIG_DIR/${__ZNT_CONFIG_FILES[1]}" || ! test -f "$CONFIG_DIR/${__ZNT_CONFIG_FILES[2]}"; then
+if [[ ! -f "$CONFIG_DIR/${__ZNT_CONFIG_FILES[1]}" || ! -f "$CONFIG_DIR/${__ZNT_CONFIG_FILES[2]}" ]]; then
     # Something changed - examine every file
     set +A __ZNT_CONFIG_FILES n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf
     unset __ZNT_CONFIG_FILE
     typeset -g __ZNT_CONFIG_FILE
     for __ZNT_CONFIG_FILE in "${__ZNT_CONFIG_FILES[@]}"; do
-        if ! test -f "$CONFIG_DIR/$__ZNT_CONFIG_FILE"; then
+        if [[ ! -f "$CONFIG_DIR/$__ZNT_CONFIG_FILE" ]]; then
             command cp "$REPO_DIR/.config/znt/$__ZNT_CONFIG_FILE" "$CONFIG_DIR"
         fi
     done
