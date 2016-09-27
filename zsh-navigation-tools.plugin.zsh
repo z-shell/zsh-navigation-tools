@@ -48,7 +48,7 @@ if ! test -f "$CONFIG_DIR/${__ZNT_CONFIG_FILES[1]}" || ! test -f "$CONFIG_DIR/${
     typeset -g __ZNT_CONFIG_FILE
     for __ZNT_CONFIG_FILE in "${__ZNT_CONFIG_FILES[@]}"; do
         if ! test -f "$CONFIG_DIR/$__ZNT_CONFIG_FILE"; then
-            cp "$REPO_DIR/.config/znt/$__ZNT_CONFIG_FILE" "$CONFIG_DIR"
+            command cp "$REPO_DIR/.config/znt/$__ZNT_CONFIG_FILE" "$CONFIG_DIR"
         fi
     done
     unset __ZNT_CONFIG_FILE
