@@ -26,11 +26,11 @@ fi
 #
 
 if [[ ! -d "$HOME/.config" ]]; then
-    mkdir "$HOME/.config"
+    command mkdir "$HOME/.config"
 fi
 
 if [[ ! -d "$CONFIG_DIR" ]]; then
-    mkdir "$CONFIG_DIR"
+    command mkdir "$CONFIG_DIR"
 fi
 
 # 9 files
