@@ -7,7 +7,7 @@
 # Zsh Navigation Tools
 
 Also check out [![ZCA](http://imageshack.com/a/img911/8084/qSpO8a.png) Zsh Command Architect](https://github.com/psprint/zsh-cmd-architect)
-and [![ZEW](http://imageshack.com/a/img908/3869/Vsd2c6.png) Zsh Editing Workbench](https://github.com/psprint/zsh-editing-workbench)
+and [Zconvey](https://github.com/psprint/zconvey)
 
 
 
