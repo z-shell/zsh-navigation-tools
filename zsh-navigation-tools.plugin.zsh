@@ -8,8 +8,8 @@
 #
 
 0="${(%):-%N}" # this gives immunity to functionargzero being unset
-REPO_DIR="${0%/*}"
-CONFIG_DIR="$HOME/.config/znt"
+ZNT_REPO_DIR="${0%/*}"
+ZNT_CONFIG_DIR="$HOME/.config/znt"
 
 #
 # Update FPATH if:
@@ -17,8 +17,8 @@ CONFIG_DIR="$HOME/.config/znt"
 # 2. Not having fpath already updated (that would equal: using other plugin manager)
 #
 
-if [[ -z "$ZPLG_CUR_PLUGIN" && "${fpath[(r)$REPO_DIR]}" != $REPO_DIR ]]; then
-    fpath+=( "$REPO_DIR" )
+if [[ -z "$ZPLG_CUR_PLUGIN" && "${fpath[(r)$ZNT_REPO_DIR]}" != $ZNT_REPO_DIR ]]; then
+    fpath+=( "$ZNT_REPO_DIR" )
 fi
 
 #
@@ -29,8 +29,8 @@ if [[ ! -d "$HOME/.config" ]]; then
     command mkdir "$HOME/.config"
 fi
 
-if [[ ! -d "$CONFIG_DIR" ]]; then
-    command mkdir "$CONFIG_DIR"
+if [[ ! -d "$ZNT_CONFIG_DIR" ]]; then
+    command mkdir "$ZNT_CONFIG_DIR"
 fi
 
 # 9 files
@@ -41,14 +41,14 @@ set +A __ZNT_CONFIG_FILES n-aliases.conf n-env.conf n-history.conf n-list.conf n
 # Check for random 2 files if they exist
 # This will shift 0 - 7 elements
 shift $(( RANDOM % 8 )) __ZNT_CONFIG_FILES
-if [[ ! -f "$CONFIG_DIR/${__ZNT_CONFIG_FILES[1]}" || ! -f "$CONFIG_DIR/${__ZNT_CONFIG_FILES[2]}" ]]; then
+if [[ ! -f "$ZNT_CONFIG_DIR/${__ZNT_CONFIG_FILES[1]}" || ! -f "$ZNT_CONFIG_DIR/${__ZNT_CONFIG_FILES[2]}" ]]; then
     # Something changed - examine every file
     set +A __ZNT_CONFIG_FILES n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf
     unset __ZNT_CONFIG_FILE
     typeset -g __ZNT_CONFIG_FILE
     for __ZNT_CONFIG_FILE in "${__ZNT_CONFIG_FILES[@]}"; do
-        if [[ ! -f "$CONFIG_DIR/$__ZNT_CONFIG_FILE" ]]; then
-            command cp "$REPO_DIR/.config/znt/$__ZNT_CONFIG_FILE" "$CONFIG_DIR"
+        if [[ ! -f "$ZNT_CONFIG_DIR/$__ZNT_CONFIG_FILE" ]]; then
+            command cp "$ZNT_REPO_DIR/.config/znt/$__ZNT_CONFIG_FILE" "$ZNT_CONFIG_DIR"
         fi
     done
     unset __ZNT_CONFIG_FILE
