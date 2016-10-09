@@ -335,8 +335,13 @@ done
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[REPLY]"
+    # TMUX?
+    if [[ "$ZNT_TMUX_MODE" = "1" ]]; then
+        tmux send -t "$ZNT_TMUX_ORIGIN_SESSION:$ZNT_TMUX_ORIGIN_WINDOW.$ZNT_TMUX_ORIGIN_PANE" "$selected"
+        tmux kill-window
+        return 0
     # ZLE?
-    if [ "${(t)CURSOR}" = "integer-local-special" ]; then
+    elif [ "${(t)CURSOR}" = "integer-local-special" ]; then
         zle .redisplay
         zle .kill-buffer
         LBUFFER+="$selected"
@@ -351,5 +356,7 @@ if [ "$REPLY" -gt 0 ]; then
 else
     [ "${(t)CURSOR}" = "integer-local-special" ] && zle redisplay
 fi
+
+return 0
 
 # vim: set filetype=zsh:

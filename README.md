@@ -30,6 +30,19 @@ matching, ANSI coloring, themes, unique mode, horizontal scroll, grepping, advan
 history management and various integrations with `Zsh`.
 
 ## News
+* 06-10-2016
+  - **Tmux-integration** – `Ctrl-B H` in Tmux to open `n-history` in new window.
+    Then select history entry, it will be copied to the original Tmux window.
+    Use this to execute local commands on remote hosts:
+
+    ![tmux integration](http://imageshack.com/a/img922/4760/oyX7eN.gif)
+
+    All that is needed is this line added to `~/.tmux.conf`:
+
+    ```
+    bind h run-shell -b "$ZNT_REPO_DIR/doc/znt-tmux.zsh"
+    ```
+
 * 16-05-2016
   - `n-kill` has completion. It proposes **words** from what's in `ps -A`. Giving `n-kill`
     arguments means grepping – it will start only with matching `ps` entries.

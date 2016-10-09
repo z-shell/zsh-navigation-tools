@@ -8,8 +8,8 @@
 #
 
 0="${(%):-%N}" # this gives immunity to functionargzero being unset
-ZNT_REPO_DIR="${0%/*}"
-ZNT_CONFIG_DIR="$HOME/.config/znt"
+export ZNT_REPO_DIR="${0%/*}"
+export ZNT_CONFIG_DIR="$HOME/.config/znt"
 
 #
 # Update FPATH if:
