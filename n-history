@@ -354,7 +354,13 @@ if [ "$REPLY" -gt 0 ]; then
         print -zr -- "$selected"
     fi
 else
-    [ "${(t)CURSOR}" = "integer-local-special" ] && zle redisplay
+    # TMUX?
+    if [[ "$ZNT_TMUX_MODE" = "1" ]]; then
+        tmux kill-window
+    # ZLE?
+    elif [[ "${(t)CURSOR}" = "integer-local-special" ]]; then
+        zle redisplay
+    fi
 fi
 
 return 0
