@@ -43,6 +43,12 @@ history management and various integrations with `Zsh`.
     bind h run-shell -b "$ZNT_REPO_DIR/doc/znt-tmux.zsh"
     ```
 
+    or – if Homebrew or other package manager is used:
+
+    ```
+    bind h run-shell -b "$ZNT_REPO_DIR/znt-tmux.zsh"
+    ```
+
 * 16-05-2016
   - `n-kill` has completion. It proposes **words** from what's in `ps -A`. Giving `n-kill`
     arguments means grepping – it will start only with matching `ps` entries.
