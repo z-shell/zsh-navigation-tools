@@ -335,6 +335,14 @@ done
 
 if [ "$REPLY" -gt 0 ]; then
     selected="$reply[REPLY]"
+
+    # Append to private history
+    if [[ "$active_view" = "0" ]]; then
+        local newline=$'\n'
+        local selected_ph="${selected//$newline/\\$newline}"
+        print -r -- "$selected_ph" >> "$private_history_db"
+    fi
+
     # TMUX?
     if [[ "$ZNT_TMUX_MODE" = "1" ]]; then
         tmux send -t "$ZNT_TMUX_ORIGIN_SESSION:$ZNT_TMUX_ORIGIN_WINDOW.$ZNT_TMUX_ORIGIN_PANE" "$selected"
@@ -345,11 +353,6 @@ if [ "$REPLY" -gt 0 ]; then
         zle .redisplay
         zle .kill-buffer
         LBUFFER+="$selected"
-
-        # Append to private history
-        local newline=$'\n'
-        selected="${selected//$newline/\\$newline}"
-        [ "$active_view" = "0" ] && print -r -- "$selected" >> "$private_history_db"
     else
         print -zr -- "$selected"
     fi
