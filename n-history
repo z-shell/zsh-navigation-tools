@@ -307,7 +307,7 @@ while (( 1 )); do
     elif [ "$active_view" = "1" ]; then
         if [ -s "$private_history_db" ]; then
             local title=$'\x1b[00;32m'"Private history:"$'\x1b[00;00m\0'
-            () { fc -ap -R "$private_history_db"; list=( "$title" ${history[@]} ) }
+            () { fc -Rap "$private_history_db" 20000 0; list=( "$title" ${history[@]} ) }
         else
             list=( "Private history - history entries selected via this tool will be put here" )
         fi
