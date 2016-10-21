@@ -13,7 +13,7 @@ install:
 	$(INSTALL) -d $(SHARE_DIR)/.config/znt
 	$(INSTALL) -d $(DOC_DIR)
 	cp zsh-navigation-tools.plugin.zsh _n-kill doc/znt-tmux.zsh $(SHARE_DIR)
-	cp README.md LICENSE doc/img/n-history2.png $(DOC_DIR)
+	cp README.md NEWS LICENSE doc/img/n-history2.png $(DOC_DIR)
 	if [ x"true" = x"`git rev-parse --is-inside-work-tree 2>/dev/null`" ]; then \
 		git rev-parse HEAD; \
 	else \

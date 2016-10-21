@@ -2,7 +2,7 @@
 CHANGES FROM PREVIOUS VERSIONS OF ZNT
 -------------------------------------
 
-Changes from 2.2.1 to 2.2.5
+Changes from 2.2.1 to 2.2.7
 ---------------------------
 
 Tmux integration has been added – bind file znt-tmux.zsh in Tmux as
