@@ -7,18 +7,22 @@
 # to ~/.zshrc.
 #
 
-0="${(%):-%N}" # this gives immunity to functionargzero being unset
-export ZNT_REPO_DIR="${0%/*}"
+# According to the standard:
+# http://zdharma.org/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html
+0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
+0="${${(M)0:#/*}:-$PWD/$0}"
+export ZNT_REPO_DIR="${0:h}"
 export ZNT_CONFIG_DIR="$HOME/.config/znt"
 
 #
 # Update FPATH if:
-# 1. Not loading with Zplugin
-# 2. Not having fpath already updated (that would equal: using other plugin manager)
+# 1. Not loading with a plugin manager
+# 2. Not having fpath already updated
 #
 
-if [[ -z "$ZPLG_CUR_PLUGIN" && "${fpath[(r)$ZNT_REPO_DIR]}" != $ZNT_REPO_DIR ]]; then
-    fpath+=( "$ZNT_REPO_DIR" )
+if [[ ${zsh_loaded_plugins[-1]} != */zsh-navigation-tools && -z ${fpath[(r)${0:h}]} ]]
+then
+    fpath+=( "${0:h}" )
 fi
 
 #
