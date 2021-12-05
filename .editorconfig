@@ -1,0 +1,15 @@
+# Note: VIM users should use alternate marks [[[ and ]]] as the original ones can confuse nested substitutions, e.g.: ${${${VAR}}}
+# # Space or Tabs? https://stackoverflow.com/questions/35649847/objective-reasons-for-using-spaces-instead-of-tabs-for-indentation
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[**.{md,rst}]
+trim_trailing_whitespace = false

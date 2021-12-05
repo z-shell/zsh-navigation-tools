@@ -12,7 +12,7 @@
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
 export ZNT_REPO_DIR="${0:h}"
-export ZNT_CONFIG_DIR="$HOME/.config/znt"
+export ZNT_CONFIG_DIR="${HOME}/.config/znt"
 
 #
 # Update FPATH if:
@@ -29,8 +29,8 @@ fi
 # Copy configs
 #
 
-if [[ ! -d "$HOME/.config" ]]; then
-    command mkdir "$HOME/.config"
+if [[ ! -d "${HOME}/.config" ]]; then
+    command mkdir "${HOME}/.config"
 fi
 
 if [[ ! -d "$ZNT_CONFIG_DIR" ]]; then
@@ -45,14 +45,14 @@ set +A __ZNT_CONFIG_FILES n-aliases.conf n-env.conf n-history.conf n-list.conf n
 # Check for random 2 files if they exist
 # This will shift 0 - 7 elements
 shift $(( RANDOM % 8 )) __ZNT_CONFIG_FILES
-if [[ ! -f "$ZNT_CONFIG_DIR/${__ZNT_CONFIG_FILES[1]}" || ! -f "$ZNT_CONFIG_DIR/${__ZNT_CONFIG_FILES[2]}" ]]; then
+if [[ ! -f "${ZNT_CONFIG_DIR}/${__ZNT_CONFIG_FILES[1]}" || ! -f "${ZNT_CONFIG_DIR}/${__ZNT_CONFIG_FILES[2]}" ]]; then
     # Something changed - examine every file
     set +A __ZNT_CONFIG_FILES n-aliases.conf n-env.conf n-history.conf n-list.conf n-panelize.conf n-cd.conf n-functions.conf n-kill.conf n-options.conf
     unset __ZNT_CONFIG_FILE
     typeset -g __ZNT_CONFIG_FILE
     for __ZNT_CONFIG_FILE in "${__ZNT_CONFIG_FILES[@]}"; do
-        if [[ ! -f "$ZNT_CONFIG_DIR/$__ZNT_CONFIG_FILE" ]]; then
-            command cp "$ZNT_REPO_DIR/.config/znt/$__ZNT_CONFIG_FILE" "$ZNT_CONFIG_DIR"
+        if [[ ! -f "${ZNT_CONFIG_DIR}/${__ZNT_CONFIG_FILE}" ]]; then
+            command cp "${ZNT_REPO_DIR}/.config/znt/${__ZNT_CONFIG_FILE}" "$ZNT_CONFIG_DIR"
         fi
     done
     unset __ZNT_CONFIG_FILE

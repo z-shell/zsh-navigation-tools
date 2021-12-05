@@ -47,8 +47,8 @@ _nlist_cursor_visibility() {
         [ "$1" = "1" ] && tput cvvis
         [ "$1" = "0" ] && tput civis
     elif [ "$has_termcap" = "1" ]; then
-        [ "$1" = "1" ] && [ -n $terminfo[cvvis] ] && echo -n $terminfo[cvvis]
-        [ "$1" = "0" ] && [ -n $terminfo[civis] ] && echo -n $terminfo[civis]
+        [ "$1" = "1" ] && [ -n $terminfo[cvvis] ] && echo -n "$terminfo"[cvvis]
+        [ "$1" = "0" ] && [ -n $terminfo[civis] ] && echo -n "$terminfo"[civis]
     fi 
 }
 
@@ -220,5 +220,3 @@ while (( 1 )); do
         zcurses clear status redraw
     fi
 done
-
-# vim: set filetype=zsh:
