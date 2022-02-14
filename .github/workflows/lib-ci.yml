@@ -1,4 +1,4 @@
-name: Library test CI
+name: Library Test
 
 on:
   push:
@@ -16,4 +16,4 @@ jobs:
     - name: Test Install.sh
       run: sh -c doc/install.sh
     - name: Test Makefile
-      run: make
+      run: make install
