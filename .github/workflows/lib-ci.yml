@@ -15,5 +15,5 @@ jobs:
       run: sudo apt-get update && sudo apt-get install zsh -yq
     - name: Test Install.sh
       run: sh -c doc/install.sh
-    - name: Test Makefile
-      run: make install
+#    - name: Test Makefile
+#      run: make install
