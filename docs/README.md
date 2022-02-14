@@ -1,11 +1,16 @@
-<h1> Zsh Navigation Tools </h1>
-
+<h2 align="center">
+  <a href="https://github.com/z-shell/zi">
+    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80" />
+  </a>
+❮ ZI ❯ Plugin - Zsh Navigation Tools
+</h2>
 <div align="center">
 
 [![License (GPL version 3)](https://img.shields.io/badge/license-GNU%20GPL%20version%203-blue.svg?style=flat-square)](./LICENSE)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](../LICENSE)
 ![ZSH 5.0.0](https://img.shields.io/badge/zsh-v5.0.0-orange.svg?style=flat-square)
-
+[![Library test CI](https://github.com/z-shell/zsh-navigation-tools/actions/workflows/lib-ci.yml/badge.svg)](https://github.com/z-shell/zsh-navigation-tools/actions/workflows/lib-ci.yml)
+  
 </div>
 
 - [Introduction](#introduction)
