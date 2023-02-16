@@ -1,4 +1,4 @@
-## News
+# News
 
 - Changes from 2.2.1 to 2.2.7
 
@@ -23,13 +23,13 @@
 
     All that is needed is this line added to `~/.tmux.conf`:
 
-    ```
+    ```sh
     bind h run-shell -b "$ZNT_REPO_DIR/doc/znt-tmux.zsh"
     ```
 
     or – if Homebrew or other package manager is used:
 
-    ```
+    ```sh
     bind h run-shell -b "$ZNT_REPO_DIR/znt-tmux.zsh"
     ```
 
@@ -45,7 +45,7 @@
 
 - 14-05-2016
 
-  - Configuration can be set from `zshrc` (starting from `v2.1.12`). Documentation is [below](#configuration). Example:
+  - Configuration can be set from `zshrc` (starting from `v2.1.12`). Example:
 
     ```zsh
     znt_list_instant_select=1

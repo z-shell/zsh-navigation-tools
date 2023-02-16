@@ -1,34 +1,17 @@
-<h2 align="center">
+<h1 align="center">
   <a href="https://github.com/z-shell/zi">
-    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80" />
+    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.png" alt="Zi Logo" width="80" height="80" />
   </a>
-❮ ZI ❯ Plugin - Zsh Navigation Tools
-</h2>
+❮ Zsh Navigation Tools ❯
+</h1>
 <div align="center">
 
 [![License (GPL version 3)](https://img.shields.io/badge/license-GNU%20GPL%20version%203-blue.svg?style=flat-square)](./LICENSE)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](../LICENSE)
 ![ZSH 5.0.0](https://img.shields.io/badge/zsh-v5.0.0-orange.svg?style=flat-square)
 [![Library test CI](https://github.com/z-shell/zsh-navigation-tools/actions/workflows/lib-ci.yml/badge.svg)](https://github.com/z-shell/zsh-navigation-tools/actions/workflows/lib-ci.yml)
-  
-</div>
 
-- [Introduction](#introduction)
-- [Installation](#installation)
-  - [Installation With ZI](#installation-with-zi)
-  - [Installation With Zgen](#installation-with-zgen)
-  - [Installation With Antigen](#installation-with-antigen)
-  - [Single File Manual Installation](#single-file-manual-installation)
-  - [Manual Installation](#manual-installation)
-  - [Truly Manual Installation](#truly-manual-installation)
-- [History Widget](#history-widget)
-- [Configuration](#configuration)
-- [Programming](#programming)
-- [Performance](#performance)
-  - [A tip](#a-tip)
-  - [More](#more)
-- [Fixing tmux, screen and linux vt](#fixing-tmux-screen-and-linux-vt)
-- [See also](#see-also)
+</div>
 
 # Introduction
 
@@ -78,7 +61,7 @@ history management and various integrations with `Zsh`.
 
 # Installation
 
-```
+```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zsh-navigation-tools/main/doc/install.sh)"
 ```
 
@@ -89,27 +72,27 @@ will be updated with only `8` lines of code, which will be added at the bottom.
 
 After installing and reloading shell give `ZNT` a quick try with `Ctrl-R` – this keyboard shortcut will open `n-history`.
 
-## Installation With [ZI](https://github.com/z-shell/zi)
+## [Zi](https://github.com/z-shell/zi)
 
 Add `zi load z-shell/zsh-navigation-tools` to `.zshrc`. The config files will be in `~/.config/znt`.
 
-## Installation With Zgen
+## Zgen
 
 Add `zgen load z-shell/zsh-navigation-tools` to `.zshrc` and issue a `zgen reset` (this assumes that there is a proper `zgen save` construct in `.zshrc`).
 The config files will be available in `~/.config/znt`.
 
-## Installation With Antigen
+## Antigen
 
-Add `antigen bundle z-shell/zsh-navigation-tools` to `.zshrc`. There also
+Add `antigen bundle z-shell/zsh-navigation-tools@main` to `.zshrc`. There also
 should be `antigen apply`. The config files will be in `~/.config/znt`.
 
-## Single File Manual Installation
+## Standalone
 
 Running script `doc/generate_single_file` will create single-file version of `ZNT`.
 It can be sourced from `.zshrc`. Don't forget about configuration files as described
 above.
 
-## Manual Installation
+### Manual
 
 After extracting `ZNT` to `{some-directory}` add following two lines
 to `~/.zshrc`:
@@ -130,12 +113,14 @@ source "{some-directory}/zsh-navigation-tools.plugin.zsh"
 because `ZNT` detects if it is used by **any** plugin manager and can
 handle `$fpath` update by itself.
 
-## Truly Manual Installation
+## Manual exteneded
 
 Copy (or link) all `n-*` and `znt-*` files to **/usr/share/zsh/site-functions/**
 (or **/usr/local/share/zsh/site-functions/**, check with `echo $fpath[1]`) and then add:
 
-    autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-help
+```sh
+autoload n-list n-cd n-env n-kill n-panelize n-options n-aliases n-functions n-history n-help
+```
 
 to `~/.zshrc`.
 
@@ -183,7 +168,7 @@ bindkey "^Y" znt-kill-widget
 
 `ZNT` has configuration files located in `~/.config/znt`. The files are:
 
-```
+```sh
 n-aliases.conf
 n-cd.conf
 n-env.conf
@@ -217,7 +202,7 @@ themes=( "white/black/1" "green/black/0" "green/black/1" "white/blue/0" "white/b
 Read remaining configuration files to see what's in them. Nevertheless, configuration
 can be also set from `zshrc`. There are `5` standard `zshrc` configuration variables:
 
-```
+```sh
 znt_history_active_text - underline or reverse - how should be active element highlighted
 znt_history_nlist_coloring_pattern - pattern that can be used to colorize elements
 znt_history_nlist_coloring_color - color with which to colorize
@@ -230,7 +215,7 @@ e.g. `_cd_`, for the `n-cd` tool. The same works for all `8` tools.
 
 Common configuration of the tools uses variables with `_list_` in them:
 
-```
+```sh
 znt_list_bold - should draw text in bold (0 or 1)
 znt_list_colorpair - main pair of colors to be used, e.g "green/black"
 znt_list_border - should draw borders around windows (0 or 1)
