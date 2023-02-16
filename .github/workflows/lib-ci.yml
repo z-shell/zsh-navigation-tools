@@ -2,18 +2,18 @@ name: Library Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Dependencies
-      run: sudo apt-get update && sudo apt-get install zsh -yq
-    - name: Test Install.sh
-      run: sh -c doc/install.sh
+      - uses: actions/checkout@v2
+      - name: Dependencies
+        run: sudo apt-get update && sudo apt-get install zsh -yq
+      - name: Test Install.sh
+        run: sh -c doc/install.sh
 #    - name: Test Makefile
 #      run: make install
